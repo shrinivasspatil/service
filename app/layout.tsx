@@ -100,7 +100,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${poppins.variable} font-sans antialiased`}>
         <Header />
-        <main className="min-h-screen pb-16 lg:pb-0">{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <Toaster position="top-right" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
