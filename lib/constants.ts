@@ -1,4 +1,4 @@
-import { Droplets, Wind, Flame, Snowflake, WashingMachine, Refrigerator, Sparkles, LucideIcon } from "lucide-react"
+import { Droplets, Wind, Flame, Snowflake, WashingMachine, Refrigerator, Sparkles, Tv, LucideIcon } from "lucide-react"
 
 export const COMPANY_NAME = "ServiceHub Bangalore"
 export const COMPANY_PHONE = "+91 98765 43210"
@@ -87,6 +87,16 @@ export const BRAND_SERVICES = {
     { brand: "Faber", services: ["Faber Dishwasher Service", "Faber Dishwasher Repair", "Faber Countertop Dishwasher"] },
     { brand: "Voltas Beko", services: ["Voltas Beko Dishwasher Service", "Voltas Beko Repair", "Voltas Beko Installation"] },
     { brand: "Elica", services: ["Elica Dishwasher Service", "Elica Dishwasher Repair", "Elica Built-in Service"] },
+  ],
+  "tv": [
+    { brand: "Samsung", services: ["Samsung TV Repair", "Samsung LED TV Service", "Samsung QLED Screen Repair", "Samsung TV Installation"] },
+    { brand: "LG", services: ["LG TV Repair", "LG LED TV Service", "LG OLED Screen Repair", "LG TV Installation"] },
+    { brand: "Sony", services: ["Sony TV Repair", "Sony LED TV Service", "Sony Bravia Repair", "Sony TV Installation"] },
+    { brand: "Panasonic", services: ["Panasonic TV Repair", "Panasonic LED TV Service", "Panasonic Viera Repair", "Panasonic TV Installation"] },
+    { brand: "Philips", services: ["Philips TV Repair", "Philips LED TV Service", "Philips Screen Replacement", "Philips TV Installation"] },
+    { brand: "Oneplus", services: ["OnePlus TV Repair", "OnePlus LED Service", "OnePlus Screen Replacement", "OnePlus Installation"] },
+    { brand: "TCL", services: ["TCL TV Repair", "TCL LED TV Service", "TCL Screen Repair", "TCL TV Installation"] },
+    { brand: "MI", services: ["Mi TV Repair", "Mi LED TV Service", "Mi Screen Replacement", "Mi TV Installation"] },
   ]
 }
 
@@ -276,6 +286,30 @@ export const SERVICES: Service[] = [
     brands: ["Bosch", "IFB", "LG", "Samsung", "Siemens", "Faber", "Voltas Beko", "Elica"],
     priceRange: "₹599 - ₹2,499",
     startingPrice: "₹599"
+  },
+  {
+    id: "tv",
+    name: "TV",
+    slug: "tv",
+    shortDesc: "Samsung, LG, Sony TV repair and sales in Bangalore",
+    shortDescription: "Samsung, LG, Sony TV repair and sales in Bangalore",
+    description: "Expert TV repair and sales services for Samsung, LG, Sony, Panasonic, Philips & all brands. LED, QLED, OLED screen repair, installation & home delivery in Bangalore.",
+    icon: Tv,
+    iconColor: "text-indigo-600",
+    iconBg: "bg-indigo-100",
+    image: "/images/tv.jpg",
+    imageAlt: "Samsung and LG TV repair, sales and installation service in Bangalore - LED QLED OLED screen replacement",
+    features: [
+      "Samsung LED & QLED Repair",
+      "LG OLED Screen Replacement",
+      "Sony TV Service & Repair",
+      "TV Installation & Mounting",
+      "Home Delivery Available",
+      "Expert Technician Service"
+    ],
+    brands: ["Samsung", "LG", "Sony", "Panasonic", "Philips", "OnePlus", "TCL", "Mi"],
+    priceRange: "₹499 - ₹5,999",
+    startingPrice: "₹499"
   }
 ]
 
