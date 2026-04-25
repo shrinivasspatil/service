@@ -236,7 +236,7 @@ export function HomepageHero() {
                   Kitchen Chimney
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Faber, Elica, Hindware, Kaff, Glen, Bosch, Prestige, Sunflame, Kutchina
+                  Faber, Gilma, Elica, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige
                 </p>
               </div>
 
@@ -247,7 +247,7 @@ export function HomepageHero() {
                   Gas Hob / Cooktop
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Prestige, Pigeon, Sunflame, Gilma, Elica, Faber, Bosch, Kaff, Glen, Hindware
+                  Faber, Gilma, Elica, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige
                 </p>
               </div>
 
@@ -259,6 +259,17 @@ export function HomepageHero() {
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
                   Bosch, IFB, LG, Samsung, Siemens, Faber, Voltas Beko, Elica, Kaff
+                </p>
+              </div>
+
+              {/* TV Brands */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <h3 className="text-indigo-400 font-semibold text-sm mb-2 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+                  TV
+                </h3>
+                <p className="text-slate-400 text-xs leading-relaxed">
+                  Samsung, LG, Sony, Panasonic, Philips, OnePlus, TCL, Mi, Kelvinator
                 </p>
               </div>
 

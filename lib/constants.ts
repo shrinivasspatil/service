@@ -1,4 +1,4 @@
-import { Droplets, Wind, Flame, Snowflake, WashingMachine, Refrigerator, Sparkles, LucideIcon } from "lucide-react"
+import { Droplets, Wind, Flame, Snowflake, WashingMachine, Refrigerator, Sparkles, Tv, LucideIcon } from "lucide-react"
 
 export const COMPANY_NAME = "ServiceHub Bangalore"
 export const COMPANY_PHONE = "+91 98765 43210"
@@ -33,6 +33,10 @@ export const BRAND_SERVICES = {
     { brand: "Bosch", services: ["Bosch Chimney Service", "Bosch Chimney Repair", "Bosch Chimney Cleaning"] },
     { brand: "IFB", services: ["IFB Chimney Service", "IFB Chimney Repair", "IFB Chimney Cleaning"] },
     { brand: "Kutchina", services: ["Kutchina Chimney Service", "Kutchina Chimney Repair", "Kutchina Chimney Cleaning"] },
+    { brand: "Sunflame", services: ["Sunflame Chimney Service", "Sunflame Chimney Repair", "Sunflame Chimney Cleaning", "Sunflame Filter Replacement"] },
+    { brand: "Gilma", services: ["Gilma Chimney Service", "Gilma Chimney Repair", "Gilma Chimney Cleaning", "Gilma Motor Repair"] },
+    { brand: "Blowhot", services: ["Blowhot Chimney Service", "Blowhot Chimney Repair", "Blowhot Chimney Cleaning", "Blowhot Installation"] },
+    { brand: "Prestige", services: ["Prestige Chimney Service", "Prestige Chimney Repair", "Prestige Chimney Cleaning", "Prestige Filter Service"] },
   ],
   "hob": [
     { brand: "Prestige", services: ["Prestige Hob Service", "Prestige Gas Stove Repair", "Prestige Burner Repair", "Prestige Ignition Repair"] },
@@ -43,6 +47,10 @@ export const BRAND_SERVICES = {
     { brand: "Bosch", services: ["Bosch Hob Service", "Bosch Cooktop Repair", "Bosch Gas Hob Repair", "Bosch Induction Repair"] },
     { brand: "Gilma", services: ["Gilma Hob Service", "Gilma Gas Stove Repair", "Gilma Cooktop Cleaning", "Gilma Burner Replacement"] },
     { brand: "Hindware", services: ["Hindware Hob Service", "Hindware Cooktop Repair", "Hindware Gas Hob Installation"] },
+    { brand: "Kaff", services: ["Kaff Hob Service", "Kaff Cooktop Repair", "Kaff Gas Hob Repair", "Kaff Burner Replacement"] },
+    { brand: "Glen", services: ["Glen Hob Service", "Glen Gas Stove Repair", "Glen Cooktop Service", "Glen Burner Repair"] },
+    { brand: "Kutchina", services: ["Kutchina Hob Service", "Kutchina Cooktop Repair", "Kutchina Gas Hob Installation"] },
+    { brand: "Blowhot", services: ["Blowhot Hob Service", "Blowhot Gas Stove Repair", "Blowhot Cooktop Service", "Blowhot Burner Repair"] },
   ],
   "ac": [
     { brand: "Daikin", services: ["Daikin AC Service", "Daikin AC Repair", "Daikin AC Gas Refill", "Daikin AC Installation", "Daikin AC AMC"] },
@@ -87,6 +95,16 @@ export const BRAND_SERVICES = {
     { brand: "Faber", services: ["Faber Dishwasher Service", "Faber Dishwasher Repair", "Faber Countertop Dishwasher"] },
     { brand: "Voltas Beko", services: ["Voltas Beko Dishwasher Service", "Voltas Beko Repair", "Voltas Beko Installation"] },
     { brand: "Elica", services: ["Elica Dishwasher Service", "Elica Dishwasher Repair", "Elica Built-in Service"] },
+  ],
+  "tv": [
+    { brand: "Samsung", services: ["Samsung TV Repair", "Samsung LED TV Service", "Samsung QLED Screen Repair", "Samsung TV Installation"] },
+    { brand: "LG", services: ["LG TV Repair", "LG LED TV Service", "LG OLED Screen Repair", "LG TV Installation"] },
+    { brand: "Sony", services: ["Sony TV Repair", "Sony LED TV Service", "Sony Bravia Repair", "Sony TV Installation"] },
+    { brand: "Panasonic", services: ["Panasonic TV Repair", "Panasonic LED TV Service", "Panasonic Viera Repair", "Panasonic TV Installation"] },
+    { brand: "Philips", services: ["Philips TV Repair", "Philips LED TV Service", "Philips Screen Replacement", "Philips TV Installation"] },
+    { brand: "Oneplus", services: ["OnePlus TV Repair", "OnePlus LED Service", "OnePlus Screen Replacement", "OnePlus Installation"] },
+    { brand: "TCL", services: ["TCL TV Repair", "TCL LED TV Service", "TCL Screen Repair", "TCL TV Installation"] },
+    { brand: "MI", services: ["Mi TV Repair", "Mi LED TV Service", "Mi Screen Replacement", "Mi TV Installation"] },
   ]
 }
 
@@ -137,23 +155,27 @@ export const SERVICES: Service[] = [
     id: "chimney",
     name: "Kitchen Chimney",
     slug: "chimney",
-    shortDesc: "Faber, Elica, Hindware chimney service & cleaning in Bangalore",
-    shortDescription: "Faber, Elica, Hindware chimney service & cleaning in Bangalore",
-    description: "Professional chimney services for Faber, Elica, Hindware, Kaff, Glen, Bosch & all brands. Deep cleaning, motor repair, filter replacement & installation in Bangalore.",
+    shortDesc: "Faber, Elica, Gilma, Kaff, Glen, Sunflame chimney service in Bangalore",
+    shortDescription: "Faber, Elica, Gilma, Kaff, Glen, Sunflame chimney service in Bangalore",
+    description: "Professional chimney services for Faber, Elica, Gilma, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige & all brands. Deep cleaning, motor repair, filter replacement & installation in Bangalore.",
     icon: Wind,
     iconColor: "text-orange-600",
     iconBg: "bg-orange-100",
     image: "/images/chimney.jpg",
-    imageAlt: "Faber chimney cleaning service and Elica chimney repair in Bangalore kitchen - professional deep cleaning and motor repair",
+    imageAlt: "Faber chimney cleaning, Elica chimney repair, Gilma chimney service, Kaff chimney, Glen chimney, Sunflame chimney service in Bangalore - professional deep cleaning and motor repair",
     features: [
       "Faber Chimney Cleaning",
       "Elica Motor Repair",
-      "Hindware Installation",
+      "Gilma Chimney Service",
       "Kaff Filter Replacement",
       "Glen Chimney Service",
-      "Bosch Chimney Repair"
+      "Sunflame Chimney Repair",
+      "Hindware Installation",
+      "Kutchina Chimney Cleaning",
+      "Blowhot Chimney Service",
+      "Prestige Chimney Repair"
     ],
-    brands: ["Faber", "Elica", "Hindware", "Kaff", "Glen", "Bosch", "IFB", "Kutchina"],
+    brands: ["Faber", "Gilma", "Elica", "Kaff", "Glen", "Sunflame", "Hindware", "Kutchina", "Blowhot", "Prestige", "Bosch", "IFB"],
     priceRange: "₹399 - ₹1,999",
     startingPrice: "₹399"
   },
@@ -161,23 +183,27 @@ export const SERVICES: Service[] = [
     id: "hob",
     name: "Gas Hob & Cooktop",
     slug: "hob",
-    shortDesc: "Prestige, Pigeon, Sunflame, Gilma hob repair in Bangalore",
-    shortDescription: "Prestige, Pigeon, Sunflame, Gilma hob repair in Bangalore",
-    description: "Expert gas hob services for Prestige, Pigeon, Sunflame, Gilma, Elica, Faber, Bosch & all brands. Burner repair, ignition fix, glass top replacement in Bangalore.",
+    shortDesc: "Faber, Gilma, Elica, Kaff, Glen, Sunflame, Prestige hob repair in Bangalore",
+    shortDescription: "Faber, Gilma, Elica, Kaff, Glen, Sunflame, Prestige hob repair in Bangalore",
+    description: "Expert gas hob services for Faber, Gilma, Elica, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige, Pigeon & all brands. Burner repair, ignition fix, glass top replacement in Bangalore.",
     icon: Flame,
     iconColor: "text-red-600",
     iconBg: "bg-red-100",
     image: "/images/hob.jpg",
-    imageAlt: "Prestige gas hob repair and Pigeon cooktop service in Bangalore - burner repair and glass top replacement",
+    imageAlt: "Faber hob repair, Gilma cooktop service, Elica hob, Kaff gas stove, Glen hob, Sunflame cooktop, Prestige gas hob service in Bangalore - burner repair and glass top replacement",
     features: [
-      "Prestige Hob Repair",
-      "Pigeon Gas Stove Service",
-      "Sunflame Burner Repair",
+      "Faber Hob Repair",
       "Gilma Cooktop Cleaning",
       "Elica Hob Installation",
-      "Faber Glass Top Replacement"
+      "Kaff Gas Stove Service",
+      "Glen Hob Repair",
+      "Sunflame Burner Repair",
+      "Hindware Cooktop Service",
+      "Kutchina Hob Installation",
+      "Blowhot Gas Stove Repair",
+      "Prestige Hob Repair"
     ],
-    brands: ["Prestige", "Pigeon", "Sunflame", "Gilma", "Elica", "Faber", "Bosch", "Hindware"],
+    brands: ["Faber", "Gilma", "Elica", "Kaff", "Glen", "Sunflame", "Hindware", "Kutchina", "Blowhot", "Prestige", "Pigeon", "Bosch"],
     priceRange: "₹299 - ₹1,499",
     startingPrice: "₹299"
   },
@@ -276,6 +302,30 @@ export const SERVICES: Service[] = [
     brands: ["Bosch", "IFB", "LG", "Samsung", "Siemens", "Faber", "Voltas Beko", "Elica"],
     priceRange: "₹599 - ₹2,499",
     startingPrice: "₹599"
+  },
+  {
+    id: "tv",
+    name: "TV",
+    slug: "tv",
+    shortDesc: "Samsung, LG, Sony TV repair and sales in Bangalore",
+    shortDescription: "Samsung, LG, Sony TV repair and sales in Bangalore",
+    description: "Expert TV repair and sales services for Samsung, LG, Sony, Panasonic, Philips & all brands. LED, QLED, OLED screen repair, installation & home delivery in Bangalore.",
+    icon: Tv,
+    iconColor: "text-indigo-600",
+    iconBg: "bg-indigo-100",
+    image: "/images/tv.jpg",
+    imageAlt: "Samsung and LG TV repair, sales and installation service in Bangalore - LED QLED OLED screen replacement",
+    features: [
+      "Samsung LED & QLED Repair",
+      "LG OLED Screen Replacement",
+      "Sony TV Service & Repair",
+      "TV Installation & Mounting",
+      "Home Delivery Available",
+      "Expert Technician Service"
+    ],
+    brands: ["Samsung", "LG", "Sony", "Panasonic", "Philips", "OnePlus", "TCL", "Mi"],
+    priceRange: "₹499 - ₹5,999",
+    startingPrice: "₹499"
   }
 ]
 
@@ -397,14 +447,14 @@ export const TESTIMONIALS = [
     color: "bg-sky-500"
   },
   {
-    id: 9,
-    name: "Kavitha Iyer",
-    location: "Jayanagar",
+    id: 10,
+    name: "Rajesh Kumar",
+    location: "Indiranagar",
     rating: 5,
-    service: "Bosch Dishwasher Installation",
-    text: "Got my new Bosch dishwasher installed through ServiceHub. Clean installation, proper plumbing. Explained everything clearly.",
-    initials: "KI",
-    color: "bg-emerald-500"
+    service: "Samsung TV Repair",
+    text: "My Samsung TV screen went blank. ServiceHub technician diagnosed the issue and replaced the backlight. Picture quality is perfect now!",
+    initials: "RK",
+    color: "bg-indigo-500"
   }
 ]
 
@@ -442,8 +492,12 @@ export const FAQS = [
     answer: "Kent RO service charges start from ₹499 for basic servicing. Filter replacement and repairs are charged separately based on the parts required. We provide a detailed quote before starting any work."
   },
   {
-    question: "Do you provide AMC for Daikin and Voltas AC?",
-    answer: "Yes, we provide Annual Maintenance Contracts (AMC) for all AC brands including Daikin, Voltas, LG, and Blue Star. AMC includes regular servicing, priority support, and discounted repair charges."
+    question: "Do you provide TV repair and sales services?",
+    answer: "Yes, we provide TV repair, installation, and home delivery services for Samsung, LG, Sony, Panasonic, Philips, OnePlus, TCL, and Mi TVs. Services include LED/QLED/OLED screen repair, backlight replacement, and wall mounting."
+  },
+  {
+    question: "What are your service charges for TV repair?",
+    answer: "TV repair charges start from ₹499 for basic diagnostics and inspection. Screen replacement, backlight repair, and other component replacements are charged based on parts and complexity. We provide a detailed quote before starting any work."
   }
 ]
 
