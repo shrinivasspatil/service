@@ -431,14 +431,14 @@ export const TESTIMONIALS = [
     color: "bg-sky-500"
   },
   {
-    id: 9,
-    name: "Kavitha Iyer",
-    location: "Jayanagar",
+    id: 10,
+    name: "Rajesh Kumar",
+    location: "Indiranagar",
     rating: 5,
-    service: "Bosch Dishwasher Installation",
-    text: "Got my new Bosch dishwasher installed through ServiceHub. Clean installation, proper plumbing. Explained everything clearly.",
-    initials: "KI",
-    color: "bg-emerald-500"
+    service: "Samsung TV Repair",
+    text: "My Samsung TV screen went blank. ServiceHub technician diagnosed the issue and replaced the backlight. Picture quality is perfect now!",
+    initials: "RK",
+    color: "bg-indigo-500"
   }
 ]
 
@@ -476,8 +476,12 @@ export const FAQS = [
     answer: "Kent RO service charges start from ₹499 for basic servicing. Filter replacement and repairs are charged separately based on the parts required. We provide a detailed quote before starting any work."
   },
   {
-    question: "Do you provide AMC for Daikin and Voltas AC?",
-    answer: "Yes, we provide Annual Maintenance Contracts (AMC) for all AC brands including Daikin, Voltas, LG, and Blue Star. AMC includes regular servicing, priority support, and discounted repair charges."
+    question: "Do you provide TV repair and sales services?",
+    answer: "Yes, we provide TV repair, installation, and home delivery services for Samsung, LG, Sony, Panasonic, Philips, OnePlus, TCL, and Mi TVs. Services include LED/QLED/OLED screen repair, backlight replacement, and wall mounting."
+  },
+  {
+    question: "What are your service charges for TV repair?",
+    answer: "TV repair charges start from ₹499 for basic diagnostics and inspection. Screen replacement, backlight repair, and other component replacements are charged based on parts and complexity. We provide a detailed quote before starting any work."
   }
 ]
 

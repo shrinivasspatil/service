@@ -262,6 +262,17 @@ export function HomepageHero() {
                 </p>
               </div>
 
+              {/* TV Brands */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <h3 className="text-indigo-400 font-semibold text-sm mb-2 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+                  TV
+                </h3>
+                <p className="text-slate-400 text-xs leading-relaxed">
+                  Samsung, LG, Sony, Panasonic, Philips, OnePlus, TCL, Mi, Kelvinator
+                </p>
+              </div>
+
               {/* All Brands Summary */}
               <div className="bg-gradient-to-br from-primary/20 to-blue-500/20 backdrop-blur-sm rounded-xl p-4 border border-primary/30">
                 <h3 className="text-white font-semibold text-sm mb-2 flex items-center gap-2">
