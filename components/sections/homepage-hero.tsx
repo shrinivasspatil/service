@@ -236,7 +236,7 @@ export function HomepageHero() {
                   Kitchen Chimney
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Faber, Elica, Hindware, Kaff, Glen, Bosch, Prestige, Sunflame, Kutchina
+                  Faber, Gilma, Elica, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige
                 </p>
               </div>
 
@@ -247,7 +247,7 @@ export function HomepageHero() {
                   Gas Hob / Cooktop
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Prestige, Pigeon, Sunflame, Gilma, Elica, Faber, Bosch, Kaff, Glen, Hindware
+                  Faber, Gilma, Elica, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige
                 </p>
               </div>
 
