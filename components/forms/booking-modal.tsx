@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { SERVICES, COMPANY_PHONE } from "@/lib/constants"
-import { Loader2 } from "lucide-react"
+import { Loader2, CheckCircle2, Phone, Clock3, BadgeCheck } from "lucide-react"
 
 const bookingSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
