@@ -95,19 +95,25 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
         body: JSON.stringify({
           name: data.name,
           phone: data.phone,
-          service_type: "booking",
-          service_category: data.service,
+          serviceType: "booking",
+          serviceCategory: data.service,
           area: defaultArea || "",
-          source_page: typeof window !== "undefined" ? window.location.pathname : "/",
+          sourcePage: typeof window !== "undefined" ? window.location.pathname : "/",
         }),
       })
 
+      console.log("[v0] API response status:", response.status)
+      
       if (response.ok) {
+        console.log("[v0] Booking successful, showing success message")
         setIsSuccess(true)
         reset()
+      } else {
+        const errorData = await response.json()
+        console.log("[v0] Booking failed:", errorData)
       }
     } catch (error) {
-      console.error("Booking error:", error)
+      console.error("[v0] Booking error:", error)
     } finally {
       setIsSubmitting(false)
     }
