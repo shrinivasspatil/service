@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { SERVICES, COMPANY_PHONE } from "@/lib/constants"
-import { CheckCircle2, Phone, Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 
 const bookingSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -45,6 +45,7 @@ interface BookingModalProps {
 export function BookingModal({ open, onOpenChange, defaultService, defaultArea }: BookingModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const successTimeoutRef = useRef<NodeJS.Timeout>()
 
   const {
     register,
@@ -70,6 +71,20 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
   }, [defaultService, setValue])
 
   const selectedService = watch("service")
+
+  // Auto-close success message after 5 seconds
+  useEffect(() => {
+    if (isSuccess) {
+      successTimeoutRef.current = setTimeout(() => {
+        handleClose()
+      }, 5000)
+    }
+    return () => {
+      if (successTimeoutRef.current) {
+        clearTimeout(successTimeoutRef.current)
+      }
+    }
+  }, [isSuccess])
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true)
@@ -115,27 +130,67 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
               <DialogTitle>Booking Confirmed</DialogTitle>
               <DialogDescription>Your booking has been received successfully</DialogDescription>
             </DialogHeader>
-            <div className="p-8 text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
-                <CheckCircle2 className="w-8 h-8 text-green-600" />
+            
+            <div className="overflow-hidden">
+              {/* Top banner */}
+              <div className="bg-green-600 px-6 py-4 text-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <CheckCircle2 className="h-5 w-5 text-white" />
+                  <span className="text-white font-bold text-lg">Booking Confirmed!</span>
+                </div>
+                <p className="text-green-100 text-sm">Your service request is locked in</p>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Booking Received!
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                Our team will call you within 30 minutes to confirm.
-              </p>
-              <div className="flex flex-col gap-3">
-                <Button onClick={handleClose} className="w-full">
-                  Done
-                </Button>
-                <a 
-                  href={`tel:${COMPANY_PHONE}`}
-                  className="flex items-center justify-center gap-2 text-sm text-primary font-medium hover:underline"
-                >
-                  <Phone className="w-4 h-4" />
-                  Call us: {COMPANY_PHONE}
-                </a>
+
+              {/* Body */}
+              <div className="bg-green-50 px-6 py-5">
+                <p className="text-center text-green-900 font-semibold text-base mb-4">
+                  Sit back & relax — we&apos;ll call you shortly!
+                </p>
+
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 border border-green-100">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100">
+                      <Phone className="h-4 w-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 leading-none mb-0.5">We&apos;ll call in</p>
+                      <p className="text-sm font-semibold text-slate-800">Under 30 Minutes</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 border border-green-100">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-100">
+                      <Clock3 className="h-4 w-4 text-orange-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 leading-none mb-0.5">Service within</p>
+                      <p className="text-sm font-semibold text-slate-800">Same Day</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 border border-green-100">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-100">
+                      <BadgeCheck className="h-4 w-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 leading-none mb-0.5">Service guarantee</p>
+                      <p className="text-sm font-semibold text-slate-800">90 Days Warranty</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-center text-xs text-slate-500">
+                  Need urgent help? Call us directly at{" "}
+                  <a href={`tel:${COMPANY_PHONE}`} className="font-semibold text-green-700 underline">
+                    {COMPANY_PHONE}
+                  </a>
+                </p>
+
+                <div className="mt-4 pt-3 border-t border-green-200 text-center">
+                  <p className="text-xs text-green-700 font-medium">
+                    ✓ Booking confirmation sent to your number
+                  </p>
+                </div>
               </div>
             </div>
           </>
