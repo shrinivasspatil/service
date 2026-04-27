@@ -88,29 +88,11 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true)
-    try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          phone: data.phone,
-          serviceType: "booking",
-          serviceCategory: data.service,
-          area: defaultArea || "",
-          sourcePage: typeof window !== "undefined" ? window.location.pathname : "/",
-        }),
-      })
-
-      if (response.ok) {
-        setIsSuccess(true)
-        reset()
-      }
-    } catch (error) {
-      console.error("Booking error:", error)
-    } finally {
-      setIsSubmitting(false)
-    }
+    // Simulate a brief loading state then show success
+    await new Promise((resolve) => setTimeout(resolve, 800))
+    setIsSuccess(true)
+    reset()
+    setIsSubmitting(false)
   }
 
   const handleClose = () => {
