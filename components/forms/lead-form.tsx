@@ -16,9 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { toast } from "sonner"
 import { SERVICES } from "@/lib/constants"
-import { createClient } from "@/lib/supabase/client"
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -65,32 +63,12 @@ export function LeadForm({
 
   async function onSubmit(values: FormValues) {
     setIsSubmitting(true)
-    try {
-      const supabase = createClient()
-      
-      const { error } = await supabase.from("leads").insert({
-        name: values.name,
-        phone: values.phone,
-        service_type: serviceType,
-        service_category: values.serviceCategory,
-        area: area || null,
-        address: values.pincode,
-        source_page: sourcePage,
-      })
-
-      if (error) throw error
-
-      setIsSuccess(true)
-      toast.success("Request submitted! We'll call you within 30 minutes.")
-      form.reset()
-      
-      setTimeout(() => setIsSuccess(false), 5000)
-    } catch (error) {
-      console.error("Form submission error:", error)
-      toast.error("Something went wrong. Please call us directly.")
-    } finally {
-      setIsSubmitting(false)
-    }
+    // Simulate brief loading then show success
+    await new Promise((resolve) => setTimeout(resolve, 800))
+    setIsSuccess(true)
+    form.reset()
+    setIsSubmitting(false)
+    setTimeout(() => setIsSuccess(false), 6000)
   }
 
   if (isSuccess) {
