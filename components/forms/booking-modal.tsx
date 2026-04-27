@@ -102,18 +102,12 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
         }),
       })
 
-      console.log("[v0] API response status:", response.status)
-      
       if (response.ok) {
-        console.log("[v0] Booking successful, showing success message")
         setIsSuccess(true)
         reset()
-      } else {
-        const errorData = await response.json()
-        console.log("[v0] Booking failed:", errorData)
       }
     } catch (error) {
-      console.error("[v0] Booking error:", error)
+      console.error("Booking error:", error)
     } finally {
       setIsSubmitting(false)
     }
