@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Phone } from "lucide-react"
+import { Phone, Calendar } from "lucide-react"
 import { COMPANY_PHONE } from "@/lib/constants"
+import { BookingModal } from "@/components/forms/booking-modal"
 
 export function MobileStickyBar() {
   const [isHidden, setIsHidden] = useState(false)
+  const [bookingOpen, setBookingOpen] = useState(false)
 
   useEffect(() => {
     // Hide bar when any input/textarea/select is focused (keyboard open)
@@ -42,28 +44,32 @@ export function MobileStickyBar() {
   if (isHidden) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
-      <div className="flex border-t border-slate-200 bg-white shadow-2xl">
-        <a
-          href={`tel:${COMPANY_PHONE}`}
-          className="flex flex-1 flex-col items-center justify-center gap-0.5 py-3 bg-green-500 active:bg-green-700 transition-colors"
-        >
-          <span className="relative flex h-2.5 w-2.5 mb-0.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-          </span>
-          <Phone className="h-5 w-5 text-white" />
-          <span className="text-[11px] font-bold text-white tracking-wide">CALL NOW</span>
-        </a>
+    <>
+      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
+        <div className="flex border-t border-slate-200 bg-white shadow-2xl">
+          <a
+            href={`tel:${COMPANY_PHONE}`}
+            className="flex flex-1 flex-col items-center justify-center gap-0.5 py-3 bg-green-500 active:bg-green-700 transition-colors"
+          >
+            <span className="relative flex h-2.5 w-2.5 mb-0.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+            </span>
+            <Phone className="h-5 w-5 text-white" />
+            <span className="text-[11px] font-bold text-white tracking-wide">CALL NOW</span>
+          </a>
 
-        <a
-          href="#booking"
-          className="flex flex-1 flex-col items-center justify-center gap-0.5 py-3 bg-primary active:bg-primary/80 transition-colors"
-        >
-          <span className="text-lg leading-none mb-0.5">📅</span>
-          <span className="text-[11px] font-bold text-white tracking-wide">BOOK SERVICE</span>
-        </a>
+          <button
+            onClick={() => setBookingOpen(true)}
+            className="flex flex-1 flex-col items-center justify-center gap-0.5 py-3 bg-primary active:bg-primary/80 transition-colors"
+          >
+            <Calendar className="h-5 w-5 text-white" />
+            <span className="text-[11px] font-bold text-white tracking-wide">BOOK SERVICE</span>
+          </button>
+        </div>
       </div>
-    </div>
+
+      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
+    </>
   )
 }
