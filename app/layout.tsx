@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import "./globals.css"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
+import { MobileStickyBar } from "@/components/layout/mobile-sticky-bar"
 import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -100,8 +101,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${poppins.variable} font-sans antialiased`}>
         <Header />
-        <main className="min-h-screen pb-16 lg:pb-0">{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
+        <MobileStickyBar />
         <Toaster position="top-right" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
