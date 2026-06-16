@@ -20,6 +20,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { SERVICES, BANGALORE_AREAS, COMPANY_PHONE } from "@/lib/constants"
 import { BookingModal } from "@/components/forms/booking-modal"
+import { Logo } from "@/components/logo"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,15 +33,7 @@ export function Header() {
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-                <span className="text-lg font-bold text-white">S</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-foreground leading-none">ServiceHub</span>
-                <span className="text-[10px] text-muted-foreground leading-none">Bangalore</span>
-              </div>
-            </Link>
+            <Logo size="md" />
 
             {/* Desktop Navigation */}
             <NavigationMenu className="hidden lg:flex">
@@ -160,12 +153,7 @@ export function Header() {
                 <SheetContent side="right" className="w-[280px] p-0">
                   <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                   <div className="p-4 border-b">
-                    <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                        <span className="text-base font-bold text-white">S</span>
-                      </div>
-                      <span className="font-bold text-foreground">ServiceHub</span>
-                    </Link>
+                    <Logo size="sm" onClick={() => setIsOpen(false)} />
                   </div>
                   
                   <nav className="p-4 space-y-1">

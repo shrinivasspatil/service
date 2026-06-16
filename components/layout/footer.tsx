@@ -10,6 +10,7 @@ import {
   Youtube
 } from "lucide-react"
 import { SERVICES, BANGALORE_AREAS, COMPANY_NAME, COMPANY_PHONE, COMPANY_EMAIL, COMPANY_ADDRESS } from "@/lib/constants"
+import { Logo } from "@/components/logo"
 
 export function Footer() {
   const popularAreas = BANGALORE_AREAS.filter(a => a.popular).slice(0, 8)
@@ -23,17 +24,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/30">
-                <svg viewBox="0 0 24 24" className="h-6 w-6 text-white" fill="currentColor">
-                  <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 6h2v6h-2V8zm0 8h2v2h-2v-2z"/>
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold text-white leading-tight tracking-tight">ServiceHub</span>
-                <span className="text-xs text-primary font-medium leading-tight">Bangalore</span>
-              </div>
-            </Link>
+            <Logo size="lg" variant="light" className="mb-5 gap-3" />
             <p className="text-slate-400 text-sm mb-5 leading-relaxed">
               Bangalore&apos;s trusted home appliance service provider. Expert installation, repair & maintenance for Water Purifiers, AC, Chimneys & Hobs.
             </p>
