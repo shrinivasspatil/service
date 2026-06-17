@@ -295,7 +295,7 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
               </Button>
 
               <p className="text-xs text-center text-muted-foreground">
-                Free consultation. No spam calls.
+                Expert technician at your doorstep. Same-day service, genuine parts &amp; upfront pricing.
               </p>
             </form>
           </>
