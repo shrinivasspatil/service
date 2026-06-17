@@ -5,6 +5,7 @@ import "./globals.css"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { MobileStickyBar } from "@/components/layout/mobile-sticky-bar"
+import { WhatsAppFloat } from "@/components/layout/whatsapp-float"
 import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -104,6 +105,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <MobileStickyBar />
+        <WhatsAppFloat />
         <Toaster position="top-right" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
