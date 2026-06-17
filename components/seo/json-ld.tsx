@@ -22,22 +22,22 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
   const schema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "ProfessionalService"],
-    "@id": "https://servicehub-bangalore.com/#business",
+    "@id": "https://servicebooking.in/#business",
     name: serviceName 
       ? `${COMPANY_NAME} - ${serviceName} Services in ${areaName}`
       : `${COMPANY_NAME}`,
     image: [
-      "https://servicehub-bangalore.com/images/hero-technician.jpg",
-      "https://servicehub-bangalore.com/images/water-purifier.jpg",
-      "https://servicehub-bangalore.com/images/ac.jpg"
+      "https://servicebooking.in/images/hero-technician.jpg",
+      "https://servicebooking.in/images/water-purifier.jpg",
+      "https://servicebooking.in/images/ac.jpg"
     ],
     description: serviceName
       ? `Professional ${serviceName} sales, installation, repair & maintenance services in ${areaName}, Bangalore. Certified technicians, same-day service, 90-day warranty.`
       : "Bangalore's trusted home appliance service provider for Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob. Expert installation, repair & maintenance.",
     telephone: COMPANY_PHONE,
     email: COMPANY_EMAIL,
-    url: "https://servicehub-bangalore.com",
-    logo: "https://servicehub-bangalore.com/logo.png",
+    url: "https://servicebooking.in",
+    logo: "https://servicebooking.in/logo.png",
     address: {
       "@type": "PostalAddress",
       streetAddress: "123, 100 Feet Road",
@@ -163,7 +163,7 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
       "@type": "ReserveAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://servicehub-bangalore.com/#book-service",
+        urlTemplate: "https://servicebooking.in/#book-service",
         actionPlatform: [
           "http://schema.org/DesktopWebPlatform",
           "http://schema.org/MobileWebPlatform"
@@ -198,19 +198,19 @@ export function WebsiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://servicehub-bangalore.com/#website",
+    "@id": "https://servicebooking.in/#website",
     name: COMPANY_NAME,
-    url: "https://servicehub-bangalore.com",
+    url: "https://servicebooking.in",
     description: "Unauthorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige appliances in Bangalore",
     publisher: {
       "@type": "Organization",
-      "@id": "https://servicehub-bangalore.com/#organization"
+      "@id": "https://servicebooking.in/#organization"
     },
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://servicehub-bangalore.com/search?q={search_term_string}"
+        urlTemplate: "https://servicebooking.in/search?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     },
@@ -239,13 +239,13 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://servicehub-bangalore.com/#organization",
+    "@id": "https://servicebooking.in/#organization",
     name: COMPANY_NAME,
     legalName: "ServiceHub Bangalore Home Services Pvt Ltd",
-    url: "https://servicehub-bangalore.com",
+    url: "https://servicebooking.in",
     logo: {
       "@type": "ImageObject",
-      url: "https://servicehub-bangalore.com/logo.png",
+      url: "https://servicebooking.in/logo.png",
       width: "200",
       height: "60"
     },
@@ -341,13 +341,13 @@ export function ServiceSchema({ service, area }: ServiceSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `https://servicehub-bangalore.com/services/${service.slug}`,
+    "@id": `https://servicebooking.in/services/${service.slug}`,
     name: `${service.name} Services in ${areaName}`,
     description: service.description,
     serviceType: service.name,
     provider: {
       "@type": "LocalBusiness",
-      "@id": "https://servicehub-bangalore.com/#business",
+      "@id": "https://servicebooking.in/#business",
       name: COMPANY_NAME,
       telephone: COMPANY_PHONE
     },
@@ -365,7 +365,7 @@ export function ServiceSchema({ service, area }: ServiceSchemaProps) {
     },
     availableChannel: {
       "@type": "ServiceChannel",
-      serviceUrl: `https://servicehub-bangalore.com/services/${service.slug}`,
+      serviceUrl: `https://servicebooking.in/services/${service.slug}`,
       servicePhone: COMPANY_PHONE,
       availableLanguage: ["English", "Hindi", "Kannada"]
     },
@@ -400,7 +400,7 @@ export function ServiceSchema({ service, area }: ServiceSchemaProps) {
       ratingCount: "3500",
       reviewCount: "2100"
     },
-    termsOfService: "https://servicehub-bangalore.com/terms",
+    termsOfService: "https://servicebooking.in/terms",
     serviceOutput: {
       "@type": "Thing",
       name: `Repaired/Installed ${service.name}`
@@ -426,7 +426,7 @@ export function FAQSchema({ faqs }: FAQSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": "https://servicehub-bangalore.com/#faq",
+    "@id": "https://servicebooking.in/#faq",
     mainEntity: faqs.map(faq => ({
       "@type": "Question",
       name: faq.question,
@@ -460,7 +460,7 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://servicehub-bangalore.com${item.url}`
+      item: `https://servicebooking.in${item.url}`
     }))
   }
 
@@ -574,28 +574,28 @@ export function HowToSchema({ serviceName }: { serviceName: string }) {
         position: 1,
         name: "Fill the Booking Form",
         text: "Enter your name, phone number, pincode and select the service you need",
-        url: "https://servicehub-bangalore.com/#book-service"
+        url: "https://servicebooking.in/#book-service"
       },
       {
         "@type": "HowToStep",
         position: 2,
         name: "Receive Confirmation Call",
         text: "Our team will call you within 30 minutes to confirm appointment time",
-        url: "https://servicehub-bangalore.com/#book-service"
+        url: "https://servicebooking.in/#book-service"
       },
       {
         "@type": "HowToStep",
         position: 3,
         name: "Technician Visit",
         text: "Certified technician arrives at your home with all necessary tools and spare parts",
-        url: "https://servicehub-bangalore.com/#book-service"
+        url: "https://servicebooking.in/#book-service"
       },
       {
         "@type": "HowToStep",
         position: 4,
         name: "Service Completion",
         text: "Service is completed with quality check and you pay only after satisfaction",
-        url: "https://servicehub-bangalore.com/#book-service"
+        url: "https://servicebooking.in/#book-service"
       }
     ]
   }
@@ -625,7 +625,7 @@ export function ServiceListSchema() {
         "@type": "Service",
         name: service.name,
         description: service.description,
-        url: `https://servicehub-bangalore.com/services/${service.slug}`,
+        url: `https://servicebooking.in/services/${service.slug}`,
         provider: {
           "@type": "LocalBusiness",
           name: COMPANY_NAME
@@ -649,14 +649,14 @@ export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: 
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": `https://servicehub-bangalore.com/areas/${areaSlug}/#business`,
+    "@id": `https://servicebooking.in/areas/${areaSlug}/#business`,
     name: `ServiceHub ${area}`,
     description: `Unauthorized Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob service center in ${area}, Bangalore. Same-day repair & installation.`,
-    url: `https://servicehub-bangalore.com/areas/${areaSlug}`,
+    url: `https://servicebooking.in/areas/${areaSlug}`,
     telephone: COMPANY_PHONE,
     email: COMPANY_EMAIL,
     priceRange: "₹₹",
-    image: "https://servicehub-bangalore.com/images/hero-technician.jpg",
+    image: "https://servicebooking.in/images/hero-technician.jpg",
     address: {
       "@type": "PostalAddress",
       addressLocality: area,
@@ -688,7 +688,7 @@ export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: 
         itemOffered: {
           "@type": "Service",
           name: `${service.name} Service in ${area}`,
-          url: `https://servicehub-bangalore.com/areas/${areaSlug}/${service.slug}`
+          url: `https://servicebooking.in/areas/${areaSlug}/${service.slug}`
         }
       }))
     },
@@ -731,11 +731,11 @@ export function ProductSchema({
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "@id": `https://servicehub-bangalore.com/areas/${areaSlug}/${serviceSlug}/#product`,
+    "@id": `https://servicebooking.in/areas/${areaSlug}/${serviceSlug}/#product`,
     name: `${serviceName} Service in ${area}, Bangalore`,
     description: `Professional ${serviceName.toLowerCase()} installation, repair, maintenance and AMC service in ${area}, Bangalore. Serving brands: ${brands.slice(0, 5).join(", ")}`,
-    url: `https://servicehub-bangalore.com/areas/${areaSlug}/${serviceSlug}`,
-    image: `https://servicehub-bangalore.com/images/${serviceSlug}.jpg`,
+    url: `https://servicebooking.in/areas/${areaSlug}/${serviceSlug}`,
+    image: `https://servicebooking.in/images/${serviceSlug}.jpg`,
     brand: brands.slice(0, 5).map(brand => ({
       "@type": "Brand",
       name: brand
@@ -849,7 +849,7 @@ export function ServiceJsonLd({ serviceName, description }: { serviceName: strin
     description: description,
     provider: {
       "@type": "LocalBusiness",
-      "@id": "https://servicehub-bangalore.com/#business",
+      "@id": "https://servicebooking.in/#business",
       name: COMPANY_NAME,
       telephone: COMPANY_PHONE
     },

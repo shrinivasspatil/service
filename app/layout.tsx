@@ -36,14 +36,14 @@ export const metadata: Metadata = {
     email: true,
     address: true,
   },
-  metadataBase: new URL("https://servicehub-bangalore.com"),
+  metadataBase: new URL("https://servicebooking.in"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://servicehub-bangalore.com",
+    url: "https://servicebooking.in",
     siteName: "ServiceHub Bangalore",
     title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Unauthorized Service",
     description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. 50,000+ customers served.",

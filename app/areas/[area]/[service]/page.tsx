@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: ServiceAreaPageProps): Promis
       type: "website",
     },
     alternates: {
-      canonical: `https://servicehub-bangalore.com/areas/${area.slug}/${service.slug}`,
+      canonical: `https://servicebooking.in/areas/${area.slug}/${service.slug}`,
     },
   }
 }

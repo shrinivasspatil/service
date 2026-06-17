@@ -76,10 +76,10 @@ export async function generateMetadata({
       title: `${brandName} ${serviceName} Service in Bangalore`,
       description: `Expert ${brandName} ${serviceName.toLowerCase()} repair, installation & AMC in Bangalore. Same-day service available.`,
       type: "website",
-      url: `https://servicehub-bangalore.com/services/${serviceSlug}/${brandSlug}`,
+      url: `https://servicebooking.in/services/${serviceSlug}/${brandSlug}`,
     },
     alternates: {
-      canonical: `https://servicehub-bangalore.com/services/${serviceSlug}/${brandSlug}`,
+      canonical: `https://servicebooking.in/services/${serviceSlug}/${brandSlug}`,
     },
   }
 }

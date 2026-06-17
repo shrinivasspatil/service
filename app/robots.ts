@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/scripts/'],
     },
-    sitemap: 'https://servicehub-bangalore.com/sitemap.xml',
+    sitemap: 'https://servicebooking.in/sitemap.xml',
   }
 }

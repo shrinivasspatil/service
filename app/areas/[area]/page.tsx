@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
       type: "website",
     },
     alternates: {
-      canonical: `https://servicehub-bangalore.com/areas/${area.slug}`,
+      canonical: `https://servicebooking.in/areas/${area.slug}`,
     },
   }
 }

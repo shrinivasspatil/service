@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://servicehub-bangalore.com/services/tv",
+    canonical: "https://servicebooking.in/services/tv",
   },
 }
 

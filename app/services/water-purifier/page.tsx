@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://servicehub-bangalore.com/services/water-purifier",
+    canonical: "https://servicebooking.in/services/water-purifier",
   },
 }
 
