@@ -30,10 +30,10 @@ import {
 
 export const metadata: Metadata = {
   title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Service Center",
-  description: "Authorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. Expert repair, installation & AMC. Same-day service across Koramangala, HSR, Whitefield & all areas.",
+  description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. Expert repair, installation & AMC. Same-day service across Koramangala, HSR, Whitefield & all areas.",
   keywords: "Kent RO service Bangalore, Aquaguard service center Bangalore, Daikin AC repair Bangalore, Faber chimney cleaning Bangalore, Elica chimney service, Prestige hob repair, LG AC service Bangalore, Voltas AC repair, Blue Star AC service",
   openGraph: {
-    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Authorized Service",
+    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Unauthorized Service",
     description: "Expert Kent RO service, Aquaguard repair, Daikin AC service, Faber chimney cleaning, Prestige hob repair in Bangalore. 50,000+ customers served.",
     type: "website",
     locale: "en_IN",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 const homeFaqs = [
   {
     question: "Do you provide Kent and Aquaguard water purifier service?",
-    answer: "Yes! We are authorized service partners for Kent RO service, Aquaguard service, Pureit service, Livpure, Blue Star, and AO Smith water purifiers in Bangalore. Our services include filter replacement, AMC, and emergency repairs."
+    answer: "Yes! We are an independent multi-brand service provider for Kent RO service, Aquaguard service, Pureit service, Livpure, Blue Star, and AO Smith water purifiers in Bangalore. Our services include filter replacement, AMC, and emergency repairs."
   },
   {
     question: "Which AC brands do you service - Daikin, LG, Voltas?",
@@ -87,7 +87,7 @@ export default function HomePage() {
       <HowToSchema serviceName="Home Appliance" />
       <ServiceJsonLd 
         serviceName="Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob Service Bangalore"
-        description="Authorized service center for Kent, Aquaguard, Pureit, Daikin, LG, Samsung, Voltas, Faber, Elica, Prestige, Pigeon appliances in Bangalore. Expert repair, installation and AMC."
+        description="Unauthorized service center for Kent, Aquaguard, Pureit, Daikin, LG, Samsung, Voltas, Faber, Elica, Prestige, Pigeon appliances in Bangalore. Expert repair, installation and AMC."
       />
       <FaqJsonLd faqs={homeFaqs} />
       
@@ -210,7 +210,7 @@ export default function HomePage() {
               Brands We Service
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Authorized service for all major appliance brands in Bangalore
+              Unauthorized service for all major appliance brands in Bangalore
             </p>
           </div>
 

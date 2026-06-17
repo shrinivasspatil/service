@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { BANGALORE_AREAS, SERVICES, BRAND_SERVICES } from '@/lib/constants'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://servicehub-bangalore.com'
+  const baseUrl = 'https://servicebooking.in'
   
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

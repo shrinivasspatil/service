@@ -30,6 +30,8 @@ const bookingSchema = z.object({
     .min(10, "Enter a valid 10-digit mobile number")
     .max(10, "Enter a valid 10-digit mobile number")
     .regex(/^[6-9]\d{9}$/, "Enter a valid Indian mobile number"),
+  pincode: z.string()
+    .regex(/^\d{6}$/, "Enter a valid 6-digit pincode"),
   service: z.string().min(1, "Please select a service"),
 })
 
@@ -59,6 +61,7 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
     defaultValues: {
       name: "",
       phone: "",
+      pincode: "",
       service: defaultService || "",
     }
   })
@@ -225,6 +228,25 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
                 )}
               </div>
 
+              {/* Pincode Field */}
+              <div className="space-y-1.5">
+                <Label htmlFor="pincode" className="text-sm font-medium">
+                  Area Pincode <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="pincode"
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="6-digit pincode"
+                  maxLength={6}
+                  {...register("pincode")}
+                  className={errors.pincode ? "border-red-500" : ""}
+                />
+                {errors.pincode && (
+                  <p className="text-xs text-red-500">{errors.pincode.message}</p>
+                )}
+              </div>
+
               {/* Service Select */}
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium">
@@ -273,7 +295,7 @@ export function BookingModal({ open, onOpenChange, defaultService, defaultArea }
               </Button>
 
               <p className="text-xs text-center text-muted-foreground">
-                Free consultation. No spam calls.
+                Expert technician at your doorstep. Same-day service, genuine parts &amp; upfront pricing.
               </p>
             </form>
           </>

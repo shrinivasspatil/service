@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   keywords: "Kent RO service Bangalore, Aquaguard service, Daikin AC repair, LG AC service, Faber chimney cleaning, Elica chimney service, Prestige hob repair, Pigeon gas stove service Bangalore",
   openGraph: {
     title: "Kent, Aquaguard, Daikin, Faber, Prestige Service Bangalore",
-    description: "Authorized Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob service in Bangalore. Same-day repair & installation.",
+    description: "Unauthorized Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob service in Bangalore. Same-day repair & installation.",
     type: "website",
   },
   alternates: {
-    canonical: "https://servicehub-bangalore.com/services",
+    canonical: "https://servicebooking.in/services",
   },
 }
 
@@ -42,7 +42,7 @@ export default function ServicesPage() {
               Kent, Daikin, Faber, Prestige Service in Bangalore
             </h1>
             <p className="text-lg text-muted-foreground text-pretty">
-              Authorized Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney, Prestige hob service. 
+              Unauthorized Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney, Prestige hob service. 
               Trusted by 50,000+ customers across Bangalore.
             </p>
           </div>

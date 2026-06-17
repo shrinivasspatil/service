@@ -5,6 +5,7 @@ import "./globals.css"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { MobileStickyBar } from "@/components/layout/mobile-sticky-bar"
+import { WhatsAppFloat } from "@/components/layout/whatsapp-float"
 import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     default: "ServiceHub Bangalore - Kent RO, Daikin AC, Faber Chimney, Prestige Hob Service",
     template: "%s | ServiceHub Bangalore"
   },
-  description: "Authorized Kent RO service, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Elica service, Prestige hob repair in Bangalore. Same-day service in Koramangala, Whitefield, HSR Layout, Electronic City & all areas.",
+  description: "Unauthorized Kent RO service, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Elica service, Prestige hob repair in Bangalore. Same-day service in Koramangala, Whitefield, HSR Layout, Electronic City & all areas.",
   keywords: [
     "Kent RO service Bangalore", "Aquaguard service center Bangalore", "Pureit service Bangalore",
     "Daikin AC service Bangalore", "LG AC repair Bangalore", "Voltas AC service", "Samsung AC repair",
@@ -35,17 +36,17 @@ export const metadata: Metadata = {
     email: true,
     address: true,
   },
-  metadataBase: new URL("https://servicehub-bangalore.com"),
+  metadataBase: new URL("https://servicebooking.in"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://servicehub-bangalore.com",
+    url: "https://servicebooking.in",
     siteName: "ServiceHub Bangalore",
-    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Authorized Service",
-    description: "Authorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. 50,000+ customers served.",
+    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Unauthorized Service",
+    description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. 50,000+ customers served.",
     images: [
       {
         url: "/og-image.jpg",
@@ -58,7 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Service",
-    description: "Authorized service for Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob in Bangalore.",
+    description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob in Bangalore.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -92,7 +93,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background" data-scroll-behavior="smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/apple-touch-icon.png" type="image/png" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="geo.region" content="IN-KA" />
         <meta name="geo.placename" content="Bangalore" />
@@ -104,6 +105,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <MobileStickyBar />
+        <WhatsAppFloat />
         <Toaster position="top-right" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

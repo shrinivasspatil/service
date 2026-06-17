@@ -59,7 +59,7 @@ export async function generateMetadata({
   const serviceName = service.name
 
   const title = `${brandName} ${serviceName} Service Bangalore | Repair, Installation & AMC`
-  const description = `Authorized ${brandName} ${serviceName.toLowerCase()} service center in Bangalore. Expert ${brandName} repair, installation, maintenance & AMC. Same-day service in Koramangala, HSR Layout, Whitefield & all areas. Call ${COMPANY_INFO.phone}`
+  const description = `Unauthorized ${brandName} ${serviceName.toLowerCase()} service center in Bangalore. Expert ${brandName} repair, installation, maintenance & AMC. Same-day service in Koramangala, HSR Layout, Whitefield & all areas. Call ${COMPANY_INFO.phone}`
 
   return {
     title,
@@ -76,10 +76,10 @@ export async function generateMetadata({
       title: `${brandName} ${serviceName} Service in Bangalore`,
       description: `Expert ${brandName} ${serviceName.toLowerCase()} repair, installation & AMC in Bangalore. Same-day service available.`,
       type: "website",
-      url: `https://servicehub-bangalore.com/services/${serviceSlug}/${brandSlug}`,
+      url: `https://servicebooking.in/services/${serviceSlug}/${brandSlug}`,
     },
     alternates: {
-      canonical: `https://servicehub-bangalore.com/services/${serviceSlug}/${brandSlug}`,
+      canonical: `https://servicebooking.in/services/${serviceSlug}/${brandSlug}`,
     },
   }
 }
@@ -122,8 +122,8 @@ export default async function BrandServicePage({
       answer: `Yes, we provide doorstep ${brandName} ${service.name.toLowerCase()} repair service across all Bangalore areas including Koramangala, HSR Layout, Whitefield, Electronic City, and more.`
     },
     {
-      question: `Is your ${brandName} service center authorized?`,
-      answer: `We are an authorized service partner for ${brandName} products in Bangalore. Our technicians are trained and certified for ${brandName} ${service.name.toLowerCase()} repair and maintenance.`
+      question: `Are you an independent ${brandName} service center?`,
+      answer: `Yes, we are an independent multi-brand service provider for ${brandName} products in Bangalore. Our technicians are experienced and skilled in ${brandName} ${service.name.toLowerCase()} repair and maintenance.`
     },
     {
       question: `Do you provide AMC for ${brandName} ${service.name.toLowerCase()}?`,
@@ -180,7 +180,7 @@ export default async function BrandServicePage({
                     <Icon className={`w-8 h-8 ${service.iconColor}`} />
                   </div>
                   <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-                    Authorized Service Partner
+                    Unauthorized Service Partner
                   </span>
                 </div>
 

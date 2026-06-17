@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://servicehub-bangalore.com/areas",
+    canonical: "https://servicebooking.in/areas",
   },
 }
 

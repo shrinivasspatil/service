@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
     keywords: `Kent RO service ${area.name}, Aquaguard service ${area.name}, Daikin AC repair ${area.name}, LG AC service ${area.name}, Faber chimney cleaning ${area.name}, Elica chimney service ${area.name}, Prestige hob repair ${area.name}, water purifier service ${area.name} Bangalore`,
     openGraph: {
       title: `Kent, Aquaguard, Daikin, Faber Service in ${area.name} Bangalore`,
-      description: `Authorized Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob service in ${area.name}. Same-day repair & installation.`,
+      description: `Unauthorized Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob service in ${area.name}. Same-day repair & installation.`,
       type: "website",
     },
     alternates: {
-      canonical: `https://servicehub-bangalore.com/areas/${area.slug}`,
+      canonical: `https://servicebooking.in/areas/${area.slug}`,
     },
   }
 }

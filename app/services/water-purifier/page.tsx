@@ -23,15 +23,15 @@ import {
 
 export const metadata: Metadata = {
   title: "Kent RO Service Bangalore | Aquaguard, Pureit, Livpure Repair & AMC",
-  description: "Authorized Kent RO service center Bangalore. Expert Aquaguard repair, Pureit service, Livpure AMC, Blue Star & AO Smith water purifier installation. Same-day service in Koramangala, Whitefield, HSR Layout.",
+  description: "Unauthorized Kent RO service center Bangalore. Expert Aquaguard repair, Pureit service, Livpure AMC, Blue Star & AO Smith water purifier installation. Same-day service in Koramangala, Whitefield, HSR Layout.",
   keywords: "Kent RO service Bangalore, Aquaguard service center Bangalore, Pureit repair Bangalore, Livpure service, Blue Star water purifier repair, AO Smith service, Eureka Forbes service center, water purifier AMC Bangalore",
   openGraph: {
     title: "Kent RO Service Bangalore | Aquaguard, Pureit, Livpure Repair",
-    description: "Authorized service for Kent, Aquaguard, Pureit, Livpure, Blue Star & AO Smith water purifiers in Bangalore. Filter replacement, AMC & emergency repairs.",
+    description: "Unauthorized service for Kent, Aquaguard, Pureit, Livpure, Blue Star & AO Smith water purifiers in Bangalore. Filter replacement, AMC & emergency repairs.",
     type: "website",
   },
   alternates: {
-    canonical: "https://servicehub-bangalore.com/services/water-purifier",
+    canonical: "https://servicebooking.in/services/water-purifier",
   },
 }
 
@@ -86,7 +86,7 @@ const faqs = [
   },
   {
     question: "Do you use genuine spare parts?",
-    answer: "Yes, we only use 100% genuine spare parts from authorized suppliers. All parts come with warranty."
+    answer: "Yes, we only use 100% genuine spare parts sourced from reliable suppliers. All parts come with warranty."
   },
   {
     question: "What is included in the AMC plan?",
@@ -140,7 +140,7 @@ export default function WaterPurifierPage() {
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
-                Authorized Kent RO service, Aquaguard repair, Pureit service, Livpure AMC & Blue Star 
+                Unauthorized Kent RO service, Aquaguard repair, Pureit service, Livpure AMC & Blue Star 
                 water purifier installation across Bangalore. Same-day service with genuine parts.
               </p>
 
