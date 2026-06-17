@@ -23,29 +23,22 @@ export function MobileStickyBar() {
       setTimeout(() => setIsHidden(false), 300)
     }
 
-    // Also hide when a Dialog is open (data-state="open" on body overlay)
-    const observer = new MutationObserver(() => {
-      const dialogOpen = document.querySelector("[data-radix-dialog-overlay]")
-      setIsHidden(!!dialogOpen)
-    })
-
-    observer.observe(document.body, { childList: true, subtree: true })
-
     document.addEventListener("focusin", handleFocusIn)
     document.addEventListener("focusout", handleFocusOut)
 
     return () => {
       document.removeEventListener("focusin", handleFocusIn)
       document.removeEventListener("focusout", handleFocusOut)
-      observer.disconnect()
     }
   }, [])
 
-  if (isHidden) return null
-
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-40 lg:hidden ${
+          isHidden || bookingOpen ? "hidden" : ""
+        }`}
+      >
         <div className="flex border-t border-slate-200 bg-white shadow-2xl">
           <a
             href={`tel:${COMPANY_PHONE}`}
