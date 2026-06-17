@@ -29,11 +29,11 @@ import {
 
 export const metadata: Metadata = {
   title: "Daikin AC Service Bangalore | LG, Voltas, Samsung, Blue Star Repair & AMC",
-  description: "Authorized Daikin AC service Bangalore. Expert LG AC repair, Samsung AC service, Voltas AC gas refill, Blue Star AC installation, Hitachi, Carrier & O General AC AMC. Same-day service in Koramangala, Whitefield, HSR Layout.",
+  description: "Unauthorized Daikin AC service Bangalore. Expert LG AC repair, Samsung AC service, Voltas AC gas refill, Blue Star AC installation, Hitachi, Carrier & O General AC AMC. Same-day service in Koramangala, Whitefield, HSR Layout.",
   keywords: "Daikin AC service Bangalore, LG AC repair Bangalore, Samsung AC service, Voltas AC gas refill, Blue Star AC installation, Hitachi AC service, Carrier AC repair, O General AC service, Godrej AC repair Bangalore",
   openGraph: {
     title: "Daikin AC Service Bangalore | LG, Voltas, Samsung, Blue Star Repair",
-    description: "Authorized service for Daikin, LG, Samsung, Voltas, Blue Star, Hitachi & Carrier ACs in Bangalore. Gas refill, compressor repair & AMC.",
+    description: "Unauthorized service for Daikin, LG, Samsung, Voltas, Blue Star, Hitachi & Carrier ACs in Bangalore. Gas refill, compressor repair & AMC.",
     type: "website",
   },
   alternates: {
@@ -158,7 +158,7 @@ export default function ACPage() {
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
-                Authorized Daikin AC service, LG AC repair, Samsung AC service, Voltas gas refill & 
+                Unauthorized Daikin AC service, LG AC repair, Samsung AC service, Voltas gas refill & 
                 Blue Star AC installation across Bangalore. Same-day service with 90-day warranty.
               </p>
 

@@ -19,9 +19,9 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "About ServiceHub Bangalore | Kent, Daikin, Faber Authorized Service Partner",
-  description: "ServiceHub is Bangalore's trusted Kent RO service partner, Daikin AC service center, Faber chimney service provider. 50,000+ customers served. Authorized service for Aquaguard, LG, Voltas, Elica, Prestige.",
-  keywords: "about ServiceHub Bangalore, Kent RO service partner Bangalore, Daikin AC authorized service, Faber chimney service center, Aquaguard service Bangalore, home appliance company Bangalore",
+  title: "About ServiceHub Bangalore | Kent, Daikin, Faber Unauthorized Service Partner",
+  description: "ServiceHub is Bangalore's trusted Kent RO service partner, Daikin AC service center, Faber chimney service provider. 50,000+ customers served. Unauthorized service for Aquaguard, LG, Voltas, Elica, Prestige.",
+  keywords: "about ServiceHub Bangalore, Kent RO service partner Bangalore, Daikin AC unauthorized service, Faber chimney service center, Aquaguard service Bangalore, home appliance company Bangalore",
   openGraph: {
     title: "About Us - ServiceHub Bangalore",
     description: "Learn about ServiceHub Bangalore - your trusted partner for home appliance services.",

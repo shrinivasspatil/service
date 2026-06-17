@@ -23,11 +23,11 @@ import {
 
 export const metadata: Metadata = {
   title: "Faber Chimney Service Bangalore | Elica, Hindware, Kaff Cleaning & Repair",
-  description: "Authorized Faber chimney cleaning Bangalore. Expert Elica chimney service, Hindware chimney repair, Kaff motor replacement, Glen, Bosch, IFB & Kutchina chimney deep cleaning. Same-day service in Koramangala, HSR, Whitefield.",
+  description: "Unauthorized Faber chimney cleaning Bangalore. Expert Elica chimney service, Hindware chimney repair, Kaff motor replacement, Glen, Bosch, IFB & Kutchina chimney deep cleaning. Same-day service in Koramangala, HSR, Whitefield.",
   keywords: "Faber chimney service Bangalore, Elica chimney cleaning, Hindware chimney repair, Kaff chimney service, Glen chimney cleaning, Bosch chimney repair, IFB chimney service, Kutchina chimney cleaning Bangalore",
   openGraph: {
     title: "Faber Chimney Service Bangalore | Elica, Hindware, Kaff Repair",
-    description: "Authorized service for Faber, Elica, Hindware, Kaff, Glen & Bosch chimneys in Bangalore. Deep cleaning, motor repair & filter replacement.",
+    description: "Unauthorized service for Faber, Elica, Hindware, Kaff, Glen & Bosch chimneys in Bangalore. Deep cleaning, motor repair & filter replacement.",
     type: "website",
   },
   alternates: {
@@ -136,7 +136,7 @@ export default function ChimneyPage() {
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
-                Authorized Faber chimney cleaning, Elica chimney service, Hindware repair & Kaff motor 
+                Unauthorized Faber chimney cleaning, Elica chimney service, Hindware repair & Kaff motor 
                 replacement across Bangalore. Deep cleaning with same-day service available.
               </p>
 

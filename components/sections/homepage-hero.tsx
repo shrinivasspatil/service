@@ -60,7 +60,7 @@ export function HomepageHero() {
               </h1>
               
               <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-xl mx-auto lg:mx-0">
-                Authorized service for <span className="text-white font-medium">Kent RO</span>, <span className="text-white font-medium">Daikin AC</span>, <span className="text-white font-medium">LG</span>, <span className="text-white font-medium">Samsung</span>, <span className="text-white font-medium">Bosch</span> & 50+ brands. Same-day service across Bangalore.
+                Unauthorized service for <span className="text-white font-medium">Kent RO</span>, <span className="text-white font-medium">Daikin AC</span>, <span className="text-white font-medium">LG</span>, <span className="text-white font-medium">Samsung</span>, <span className="text-white font-medium">Bosch</span> & 50+ brands. Same-day service across Bangalore.
               </p>
 
               {/* CTA Buttons */}
@@ -182,7 +182,7 @@ export function HomepageHero() {
 
           {/* Bottom - All Brands by Service Category for SEO */}
           <div className="mt-16 pt-8 border-t border-white/10">
-            <p className="text-center text-slate-400 text-sm mb-8">Authorized Service Partner for All Major Brands</p>
+            <p className="text-center text-slate-400 text-sm mb-8">Unauthorized Service Partner for All Major Brands</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {/* Water Purifier Brands */}

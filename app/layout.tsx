@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "ServiceHub Bangalore - Kent RO, Daikin AC, Faber Chimney, Prestige Hob Service",
     template: "%s | ServiceHub Bangalore"
   },
-  description: "Authorized Kent RO service, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Elica service, Prestige hob repair in Bangalore. Same-day service in Koramangala, Whitefield, HSR Layout, Electronic City & all areas.",
+  description: "Unauthorized Kent RO service, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Elica service, Prestige hob repair in Bangalore. Same-day service in Koramangala, Whitefield, HSR Layout, Electronic City & all areas.",
   keywords: [
     "Kent RO service Bangalore", "Aquaguard service center Bangalore", "Pureit service Bangalore",
     "Daikin AC service Bangalore", "LG AC repair Bangalore", "Voltas AC service", "Samsung AC repair",
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://servicehub-bangalore.com",
     siteName: "ServiceHub Bangalore",
-    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Authorized Service",
-    description: "Authorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. 50,000+ customers served.",
+    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Unauthorized Service",
+    description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. 50,000+ customers served.",
     images: [
       {
         url: "/og-image.jpg",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Service",
-    description: "Authorized service for Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob in Bangalore.",
+    description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob in Bangalore.",
     images: ["/og-image.jpg"],
   },
   robots: {

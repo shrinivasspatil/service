@@ -201,7 +201,7 @@ export function WebsiteSchema() {
     "@id": "https://servicehub-bangalore.com/#website",
     name: COMPANY_NAME,
     url: "https://servicehub-bangalore.com",
-    description: "Authorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige appliances in Bangalore",
+    description: "Unauthorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige appliances in Bangalore",
     publisher: {
       "@type": "Organization",
       "@id": "https://servicehub-bangalore.com/#organization"
@@ -249,7 +249,7 @@ export function OrganizationSchema() {
       width: "200",
       height: "60"
     },
-    description: "Authorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige and other major appliance brands in Bangalore",
+    description: "Unauthorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige and other major appliance brands in Bangalore",
     foundingDate: "2018",
     foundingLocation: {
       "@type": "Place",
@@ -651,7 +651,7 @@ export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: 
     "@type": "LocalBusiness",
     "@id": `https://servicehub-bangalore.com/areas/${areaSlug}/#business`,
     name: `ServiceHub ${area}`,
-    description: `Authorized Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob service center in ${area}, Bangalore. Same-day repair & installation.`,
+    description: `Unauthorized Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob service center in ${area}, Bangalore. Same-day repair & installation.`,
     url: `https://servicehub-bangalore.com/areas/${areaSlug}`,
     telephone: COMPANY_PHONE,
     email: COMPANY_EMAIL,
