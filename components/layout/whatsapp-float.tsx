@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
 
-const WHATSAPP_NUMBER = "919876543210"
+import { COMPANY_WHATSAPP } from "@/lib/constants"
 const WHATSAPP_MESSAGE = "Hi, I need home appliance service. Please share the details."
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -18,7 +18,7 @@ export function WhatsAppFloat() {
   const [showBubble, setShowBubble] = useState(false)
   const [bubbleDismissed, setBubbleDismissed] = useState(false)
 
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+  const href = `https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 
   useEffect(() => {
     // Show the greeting bubble a few seconds after load, once per session
@@ -37,7 +37,7 @@ export function WhatsAppFloat() {
   }
 
   return (
-    <div className="fixed right-4 bottom-20 z-50 flex flex-col items-end gap-3 lg:bottom-6">
+    <div className="fixed right-4 bottom-24 z-[80] flex flex-col items-end gap-3 lg:bottom-6">
       {/* Greeting chat bubble */}
       {showBubble && !bubbleDismissed && (
         <div className="relative max-w-[15rem] animate-in fade-in slide-in-from-bottom-2 duration-300">

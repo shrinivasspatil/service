@@ -1,25 +1,23 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { SERVICES } from "@/lib/constants"
+import { SERVICES, COMPANY_INFO } from "@/lib/constants"
+import { pageMetadata } from "@/lib/seo"
+import { getServicesIndexAnswerSummary } from "@/lib/answer-summaries"
+import { AnswerSummary } from "@/components/seo/answer-summary"
+import { LastUpdated } from "@/components/seo/last-updated"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { LeadForm } from "@/components/forms/lead-form"
 import { ServiceCard } from "@/components/cards/service-card"
-import { LocalBusinessJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
 import { Phone, Clock, CheckCircle } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Kent RO, Daikin AC, Faber Chimney, Prestige Hob Service Bangalore",
-  description: "Kent RO service, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Elica service, Prestige hob repair in Bangalore. Same-day service. 50,000+ customers served.",
-  keywords: "Kent RO service Bangalore, Aquaguard service, Daikin AC repair, LG AC service, Faber chimney cleaning, Elica chimney service, Prestige hob repair, Pigeon gas stove service Bangalore",
-  openGraph: {
-    title: "Kent, Aquaguard, Daikin, Faber, Prestige Service Bangalore",
-    description: "Unauthorized Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob service in Bangalore. Same-day repair & installation.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/services",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Appliance services Bangalore",
+  description:
+    "Kent RO, Daikin AC, Faber chimney, Prestige hob, LG washing machine and TV repair in Bangalore. Same-day doorstep service from ₹399.",
+  path: "/services",
+})
+
+const servicesAnswer = getServicesIndexAnswerSummary()
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -29,9 +27,6 @@ const breadcrumbItems = [
 export default function ServicesPage() {
   return (
     <>
-      <LocalBusinessJsonLd />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -39,15 +34,18 @@ export default function ServicesPage() {
           
           <div className="max-w-3xl mt-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-              Kent, Daikin, Faber, Prestige Service in Bangalore
+              Appliance services in Bangalore
             </h1>
-            <p className="text-lg text-muted-foreground text-pretty">
-              Unauthorized Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney, Prestige hob service. 
-              Trusted by 50,000+ customers across Bangalore.
+            <p className="text-lg text-muted-foreground text-pretty mb-4">
+              Unauthorized Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney, Prestige hob repair near you across Bangalore.
+              Same-day installation, repair &amp; AMC from certified technicians.
             </p>
+            <LastUpdated />
           </div>
         </div>
       </section>
+
+      <AnswerSummary question={servicesAnswer.question} answer={servicesAnswer.answer} />
 
       {/* Services Grid */}
       <section className="py-16 md:py-24">
@@ -158,7 +156,7 @@ export default function ServicesPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <span className="text-lg font-medium">+91 98765 43210</span>
+                  <span className="text-lg font-medium">{COMPANY_INFO.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5" />

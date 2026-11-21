@@ -1,74 +1,76 @@
-import { createClient } from '@/lib/supabase/server'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from "next/server"
+import { sendLeadEmail } from "@/lib/email/send-lead-email"
+import { formatSmtpError } from "@/lib/email/smtp"
+import { leadPayloadSchema } from "@/lib/lead-schema"
 
-export async function POST(request: NextRequest) {
+export const runtime = "nodejs"
+
+const RATE_LIMIT_WINDOW_MS = 60_000
+const RATE_LIMIT_MAX = 5
+const submissionLog = new Map<string, number[]>()
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for")
+  if (forwarded) {
+    return forwarded.split(",")[0]?.trim() || "unknown"
+  }
+  return request.headers.get("x-real-ip")?.trim() || "unknown"
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const recent = (submissionLog.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS)
+  if (recent.length >= RATE_LIMIT_MAX) {
+    submissionLog.set(ip, recent)
+    return true
+  }
+  recent.push(now)
+  submissionLog.set(ip, recent)
+  return false
+}
+
+export async function POST(request: Request) {
   try {
     const body = await request.json()
-    
-    const {
-      name,
-      phone,
-      email,
-      serviceType,
-      serviceCategory,
-      area,
-      address,
-      message,
-      sourcePage
-    } = body
 
-    // Validate required fields
-    if (!name || !phone || !serviceType || !serviceCategory) {
+    // Honeypot: bots that fill hidden website field get a silent success
+    if (typeof body?.website === "string" && body.website.trim() !== "") {
+      return NextResponse.json({ ok: true })
+    }
+
+    const ip = getClientIp(request)
+    if (isRateLimited(ip)) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: "Too many submissions. Please wait a minute and try again." },
+        { status: 429 }
+      )
+    }
+
+    const parsed = leadPayloadSchema.safeParse(body)
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.errors[0]?.message || "Invalid form data" },
         { status: 400 }
       )
     }
 
-    // Validate phone format (Indian phone number)
-    const phoneRegex = /^[6-9]\d{9}$/
-    if (!phoneRegex.test(phone.replace(/\D/g, ''))) {
-      return NextResponse.json(
-        { error: 'Invalid phone number format' },
-        { status: 400 }
-      )
-    }
+    await sendLeadEmail(parsed.data)
 
-    const supabase = await createClient()
-
-    const { data, error } = await supabase
-      .from('leads')
-      .insert({
-        name,
-        phone: phone.replace(/\D/g, ''),
-        email: email || null,
-        service_type: serviceType,
-        service_category: serviceCategory,
-        area: area || null,
-        address: address || null,
-        message: message || null,
-        source_page: sourcePage || null,
-        status: 'new'
-      })
-      .select()
-      .single()
-
-    if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json(
-        { error: 'Failed to submit lead' },
-        { status: 500 }
-      )
-    }
-
-    return NextResponse.json(
-      { success: true, message: 'Lead submitted successfully', id: data.id },
-      { status: 201 }
-    )
+    return NextResponse.json({ ok: true })
   } catch (error) {
-    console.error('API error:', error)
+    const detail = formatSmtpError(error)
+    console.error("Lead submission failed:", detail)
+
+    const isConfigError =
+      error instanceof Error && error.message.includes("SMTP is not configured")
+
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: isConfigError
+          ? "Email service is not configured yet."
+          : "Failed to send your request. Please call us directly.",
+      },
       { status: 500 }
     )
   }

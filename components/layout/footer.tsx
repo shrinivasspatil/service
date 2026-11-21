@@ -9,11 +9,12 @@ import {
   Twitter,
   Youtube
 } from "lucide-react"
-import { SERVICES, BANGALORE_AREAS, COMPANY_NAME, COMPANY_PHONE, COMPANY_EMAIL, COMPANY_ADDRESS } from "@/lib/constants"
+import { SERVICES, COMPANY_NAME, COMPANY_PHONE, COMPANY_EMAIL, COMPANY_ADDRESS, COMPANY_HOURS_DISPLAY } from "@/lib/constants"
+import { FOOTER_AREA_LINKS, FOOTER_BRAND_LINKS } from "@/lib/coverage"
+import { SOCIAL_LINKS } from "@/lib/social"
 import { Logo } from "@/components/logo"
 
 export function Footer() {
-  const popularAreas = BANGALORE_AREAS.filter(a => a.popular).slice(0, 8)
   const currentYear = new Date().getFullYear()
 
   return (
@@ -29,16 +30,16 @@ export function Footer() {
               Bangalore&apos;s trusted home appliance service provider. Expert installation, repair & maintenance for Water Purifiers, AC, Chimneys & Hobs.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="Facebook">
+              <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="Facebook">
                 <Facebook className="h-4 w-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="Instagram">
+              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="Instagram">
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="Twitter">
+              <a href={SOCIAL_LINKS.twitter} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="Twitter">
                 <Twitter className="h-4 w-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="YouTube">
+              <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all" aria-label="YouTube">
                 <Youtube className="h-4 w-4" />
               </a>
             </div>
@@ -75,10 +76,10 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-5 text-white">Service Areas</h3>
             <ul className="space-y-3">
-              {popularAreas.map((area) => (
-                <li key={area.slug}>
+              {FOOTER_AREA_LINKS.map((area) => (
+                <li key={area.href}>
                   <Link 
-                    href={`/areas/${area.slug}`}
+                    href={area.href}
                     className="text-slate-400 hover:text-primary transition-colors text-sm flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
@@ -91,7 +92,7 @@ export function Footer() {
                   href="/areas"
                   className="text-primary hover:text-primary/80 transition-colors text-sm font-medium inline-flex items-center gap-1 mt-2"
                 >
-                  View All {BANGALORE_AREAS.length} Areas
+                  View all Bangalore service areas
                   <span className="text-lg">→</span>
                 </Link>
               </li>
@@ -145,7 +146,7 @@ export function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-slate-500">Working hours</div>
-                  <div className="text-sm text-white">Mon - Sun: 8 AM - 9 PM</div>
+                  <div className="text-sm text-white">{COMPANY_HOURS_DISPLAY}</div>
                 </div>
               </li>
             </ul>
@@ -156,9 +157,26 @@ export function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-slate-800">
         <div className="container mx-auto px-4 py-5">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-slate-500 mb-4">
+            {FOOTER_BRAND_LINKS.map((brand) => (
+              <Link
+                key={brand.href}
+                href={brand.href}
+                className="hover:text-primary transition-colors"
+              >
+                {brand.name}
+              </Link>
+            ))}
+          </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
             <p>© {currentYear} {COMPANY_NAME}. All rights reserved.</p>
             <div className="flex gap-6">
+              <Link href="/faq" className="hover:text-primary transition-colors">
+                FAQs
+              </Link>
+              <Link href="/blogs" className="hover:text-primary transition-colors">
+                Blog
+              </Link>
               <Link href="/privacy-policy" className="hover:text-primary transition-colors">
                 Privacy Policy
               </Link>
@@ -173,7 +191,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
-
     </>
   )
 }

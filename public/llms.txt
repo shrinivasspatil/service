@@ -1,0 +1,272 @@
+# Service Booking - Bangalore Home Appliance Service
+
+Website: https://servicebooking.in
+
+Service Booking is a Bangalore-based home appliance repair and maintenance company providing same-day doorstep service across Bengaluru, Karnataka. The company specializes in repair, installation, maintenance, AMC, deep cleaning, gas refill, and spare-part replacement services for residential appliances.
+
+## Business Information
+
+Business Name: Service Booking
+
+Phone: +91 99010 21555
+
+Email: [support@servicebooking.in](mailto:support@servicebooking.in)
+
+Address:
+1/91, 27th Main Rd, 2nd Sector, Sector 2, HSR Layout,
+Bengaluru, Karnataka 560102,
+India
+
+Business Hours:
+Monday to Saturday: 8:00 AM – 9:00 PM
+Sunday: 9:00 AM – 6:00 PM
+
+Website:
+https://servicebooking.in
+
+## Key Pages
+
+Primary pages:
+- Home: https://servicebooking.in/
+- All services: https://servicebooking.in/services
+- Service areas: https://servicebooking.in/areas
+- Contact: https://servicebooking.in/contact
+- About: https://servicebooking.in/about
+
+Service hub pages:
+- Water purifier: https://servicebooking.in/services/water-purifier
+- Air conditioner: https://servicebooking.in/services/ac
+- Kitchen chimney: https://servicebooking.in/services/chimney
+- Gas hob: https://servicebooking.in/services/hob
+- Washing machine: https://servicebooking.in/services/washing-machine
+- Refrigerator: https://servicebooking.in/services/refrigerator
+- Dishwasher: https://servicebooking.in/services/dishwasher
+- Television: https://servicebooking.in/services/tv
+
+Popular area pages:
+- HSR Layout: https://servicebooking.in/areas/hsr-layout
+- Koramangala: https://servicebooking.in/areas/koramangala
+- Indiranagar: https://servicebooking.in/areas/indiranagar
+- Whitefield: https://servicebooking.in/areas/whitefield
+- Electronic City: https://servicebooking.in/areas/electronic-city
+- Marathahalli: https://servicebooking.in/areas/marathahalli
+- Jayanagar: https://servicebooking.in/areas/jayanagar
+- JP Nagar: https://servicebooking.in/areas/jp-nagar
+- BTM Layout: https://servicebooking.in/areas/btm-layout
+- Bellandur: https://servicebooking.in/areas/bellandur
+
+Example area + service pages (248 combinations available):
+- Water purifier in HSR Layout: https://servicebooking.in/areas/hsr-layout/water-purifier
+- AC repair in Whitefield: https://servicebooking.in/areas/whitefield/ac
+- Chimney service in Koramangala: https://servicebooking.in/areas/koramangala/chimney
+
+Brand service pages (90+ combinations):
+- Kent RO service: https://servicebooking.in/services/water-purifier/kent
+- Faber water purifier service: https://servicebooking.in/services/water-purifier/faber
+- Aquasure service: https://servicebooking.in/services/water-purifier/aquasure
+- Purosis water purifier: https://servicebooking.in/services/water-purifier/purosis
+- Aqua Pearl water purifier: https://servicebooking.in/services/water-purifier/aqua-pearl
+- LG water purifier service: https://servicebooking.in/services/water-purifier/lg
+- Daikin AC service: https://servicebooking.in/services/ac/daikin
+- Faber chimney service: https://servicebooking.in/services/chimney/faber
+- Gilma chimney service: https://servicebooking.in/services/chimney/gilma
+- Sunflame chimney service: https://servicebooking.in/services/chimney/sunflame
+- Beyond chimney service: https://servicebooking.in/services/chimney/beyond
+- Haier chimney service: https://servicebooking.in/services/chimney/haier
+- Hafele chimney service: https://servicebooking.in/services/chimney/hafele
+- Gilma hob service: https://servicebooking.in/services/hob/gilma
+- Hafele hob service: https://servicebooking.in/services/hob/hafele
+- Bosch dishwasher service: https://servicebooking.in/services/dishwasher/bosch
+- Hafele dishwasher service: https://servicebooking.in/services/dishwasher/hafele
+- Kelvinator dishwasher service: https://servicebooking.in/services/dishwasher/kelvinator
+
+## Service Coverage
+
+Service Booking provides doorstep appliance repair across Bengaluru. Dedicated area pages are available for:
+
+Koramangala, HSR Layout, Indiranagar, Whitefield, Electronic City, Marathahalli, Jayanagar, JP Nagar, BTM Layout, Bellandur, Sarjapur Road, Bannerghatta Road, Rajajinagar, Malleshwaram, Basavanagudi, Hebbal, Yelahanka, RT Nagar, Hennur, KR Puram, Mahadevapura, Bommanahalli, Banashankari, Vijayanagar, Yeshwanthpur, Thanisandra, Varthur, MG Road, Shivajinagar, Ulsoor, Richmond Town, and surrounding Bengaluru localities.
+
+## Services
+
+### Water Purifier Service
+
+Water purifier installation, repair, maintenance, filter replacement, membrane replacement, annual maintenance contracts (AMC), leakage repair, low water flow troubleshooting, purification issues, and preventive maintenance.
+
+Supported brands include:
+Kent, Faber, Aquaguard, Aquasure, Aqua, Purosis, Aqua Pearl, Pureit, Livpure, LG, AO Smith, Blue Star, Havells and other major brands.
+
+Starting Price: ₹499
+
+### Air Conditioner Service
+
+AC repair, AC installation, AC uninstallation, AC relocation, gas charging, gas refill, PCB repair, compressor troubleshooting, cooling issues, water leakage repair, annual maintenance, and preventive servicing.
+
+Supported brands include:
+Daikin, LG, Samsung, Voltas, Blue Star, Hitachi, Panasonic, Carrier, Whirlpool, Lloyd and others.
+
+Starting Price: ₹499
+
+### Kitchen Chimney Service
+
+Chimney cleaning, deep cleaning, motor repair, suction issues, filter replacement, installation, dismantling, maintenance and spare-part replacement.
+
+Supported brands include:
+Faber, Elica, Gilma, Sunflame, Beyond, Haier, Hafele, Glen, Hindware, Kaff, Prestige, Bosch, IFB and others.
+
+Starting Price: ₹399
+
+### Gas Hob Service
+
+Gas stove repair, hob maintenance, burner replacement, ignition repair, gas leakage troubleshooting, cleaning, installation and servicing.
+
+Supported brands include:
+Prestige, Faber, Gilma, Glen, Sunflame, Hindware, Kaff, Hafele, Beyond, Elica, Bosch and others.
+
+Starting Price: ₹450
+
+### Washing Machine Service
+
+Front-load and top-load washing machine repair including drum issues, drainage problems, spin issues, motor faults, vibration problems, installation and maintenance.
+
+Supported brands include:
+LG, Samsung, IFB, Bosch, Whirlpool, Godrej, Haier, Panasonic and others.
+
+Starting Price: ₹399
+
+### Refrigerator Service
+
+Refrigerator repair including cooling issues, compressor repair, gas charging, thermostat replacement, leakage repair, door seal replacement and preventive maintenance.
+
+Supported brands include:
+LG, Samsung, Whirlpool, Godrej, Bosch, Haier, Panasonic and others.
+
+Starting Price: ₹499
+
+### Dishwasher Service
+
+Dishwasher installation, repair, maintenance, drainage troubleshooting, spray arm repair, motor repair and servicing.
+
+Supported brands include:
+Bosch, IFB, LG, Samsung, Siemens, Faber, Hafele, Kelvinator, Voltas Beko and others.
+
+Starting Price: ₹599
+
+### Television Repair
+
+LED TV repair, LCD TV repair, Smart TV repair, display issues, motherboard repair, sound issues, power issues and installation services.
+
+Supported brands include:
+Samsung, LG, Sony, Mi, OnePlus, TCL, Vu, Panasonic and others.
+
+Starting Price: ₹499
+
+## Common Appliance Problems Solved
+
+### Water Purifier
+
+* Water leakage
+* Low water flow
+* Bad taste in water
+* Filter replacement
+* Membrane replacement
+* No purification
+
+### Air Conditioner
+
+* AC not cooling
+* Gas leakage
+* Water leakage
+* Compressor issues
+* PCB faults
+* AC installation
+
+### Chimney
+
+* Low suction
+* Excessive noise
+* Motor failure
+* Filter blockage
+* Oil accumulation
+
+### Hob
+
+* Ignition failure
+* Burner issues
+* Gas leakage
+* Uneven flame
+
+### Washing Machine
+
+* Drum not spinning
+* Water drainage issues
+* Excessive vibration
+* Error codes
+* Motor faults
+
+### Refrigerator
+
+* Not cooling
+* Ice buildup
+* Compressor failure
+* Water leakage
+* Thermostat faults
+
+### Dishwasher
+
+* Poor cleaning
+* Water drainage issues
+* Motor problems
+* Error codes
+
+### Television
+
+* No display
+* Screen damage
+* Sound issues
+* Motherboard failure
+* Power supply issues
+
+## Why Customers Choose Service Booking
+
+* Same-day doorstep service
+* Certified technicians
+* Genuine spare parts
+* Transparent pricing
+* Service warranty
+* Quick response time
+* Multi-brand expertise
+* Customer support assistance
+* Preventive maintenance services
+* Annual maintenance contracts available
+
+## Warranty
+
+Service Booking provides a 90-day service warranty on eligible repairs and workmanship. Warranty terms may vary depending on service type and spare parts used.
+
+## Customer Trust
+
+* 50,000+ customers served
+* 4.8-star customer satisfaction rating
+* Thousands of successful appliance repairs across Bengaluru
+* Experienced field technicians
+
+## Service Process
+
+1. Customer books service online or by phone.
+2. Service request is assigned to a technician.
+3. Technician visits the customer location.
+4. Appliance inspection and diagnosis are performed.
+5. Cost estimate is shared.
+6. Repair is completed upon approval.
+7. Testing and quality checks are performed.
+8. Warranty is issued where applicable.
+
+## Contact
+
+Phone: +91 99010 21555
+
+Email: [support@servicebooking.in](mailto:support@servicebooking.in)
+
+Website: https://servicebooking.in
+
+For appliance repair, maintenance, installation, deep cleaning, AMC, and troubleshooting services in Bengaluru, contact Service Booking.

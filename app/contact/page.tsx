@@ -1,8 +1,12 @@
 import { Metadata } from "next"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { LeadForm } from "@/components/forms/lead-form"
-import { LocalBusinessJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
-import { COMPANY_INFO, BANGALORE_AREAS } from "@/lib/constants"
+import { LocalBusinessJsonLd } from "@/components/seo/json-ld"
+import { AnswerSummary } from "@/components/seo/answer-summary"
+import { LastUpdated } from "@/components/seo/last-updated"
+import { getContactAnswerSummary } from "@/lib/answer-summaries"
+import { pageMetadata } from "@/lib/seo"
+import { COMPANY_INFO, COMPANY_NAME, COMPANY_PHONE, COMPANY_WHATSAPP, BANGALORE_AREAS } from "@/lib/constants"
 import { 
   Phone, 
   Mail, 
@@ -14,19 +18,13 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 
-export const metadata: Metadata = {
-  title: "Contact ServiceHub Bangalore | Kent RO, Daikin AC, Faber Chimney Service Helpline",
-  description: "Contact ServiceHub for Kent RO service, Aquaguard repair, Daikin AC service, Faber chimney cleaning, Prestige hob repair in Bangalore. Call +91 98765 43210. 7 days, 8 AM - 9 PM.",
-  keywords: "contact ServiceHub Bangalore, Kent RO service helpline, Daikin AC service contact, Faber chimney cleaning contact, Aquaguard service number Bangalore, book appliance service",
-  openGraph: {
-    title: "Contact Us - ServiceHub Bangalore",
-    description: "Get in touch with ServiceHub Bangalore for all your home appliance needs.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/contact",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: `Contact ${COMPANY_NAME}`,
+  description: `Call ${COMPANY_PHONE} for Kent RO, Daikin AC and Faber chimney repair in Bangalore. HSR Layout office, 8 AM–9 PM daily. ${COMPANY_INFO.address}.`,
+  path: "/contact",
+})
+
+const contactAnswer = getContactAnswerSummary()
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -47,7 +45,7 @@ const contactMethods = [
     title: "WhatsApp",
     description: "Send us a message on WhatsApp",
     value: COMPANY_INFO.phone,
-    action: `https://wa.me/919876543210?text=Hi, I need home appliance service`,
+    action: `https://wa.me/${COMPANY_WHATSAPP}?text=Hi, I need home appliance service`,
     actionLabel: "Chat Now"
   },
   {
@@ -61,16 +59,13 @@ const contactMethods = [
 ]
 
 const officeHours = [
-  { day: "Monday - Friday", hours: "8:00 AM - 9:00 PM" },
-  { day: "Saturday", hours: "8:00 AM - 9:00 PM" },
-  { day: "Sunday", hours: "9:00 AM - 6:00 PM" },
+  { day: "Monday - Sunday", hours: "8:00 AM - 9:00 PM" },
 ]
 
 export default function ContactPage() {
   return (
     <>
       <LocalBusinessJsonLd />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
@@ -88,6 +83,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <AnswerSummary question={contactAnswer.question} answer={contactAnswer.answer} />
 
       {/* Contact Methods */}
       <section className="py-16 md:py-24">
@@ -151,7 +148,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Office Address */}
+              {/* Office Address + map */}
               <div className="bg-background rounded-xl p-6 border border-border">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -159,9 +156,19 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-lg font-semibold text-foreground">Office Address</h3>
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-sm mb-4">
                   {COMPANY_INFO.address}
                 </p>
+                <div className="overflow-hidden rounded-lg border border-border aspect-[4/3]">
+                  <iframe
+                    title={`${COMPANY_NAME} location map`}
+                    src="https://www.google.com/maps?q=1%2F91%2C+27th+Main+Rd%2C+HSR+Layout%2C+Bengaluru%2C+Karnataka+560102&output=embed"
+                    className="h-full w-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </div>
               </div>
 
               {/* Response Time */}
@@ -238,7 +245,7 @@ export default function ContactPage() {
                 },
                 {
                   q: "What are your service charges?",
-                  a: "Service visit charges start from ₹299. We provide transparent, upfront pricing before any work begins."
+                  a: "Service visit charges start from ₹450. We provide transparent, upfront pricing before any work begins."
                 },
                 {
                   q: "Do you work on weekends?",

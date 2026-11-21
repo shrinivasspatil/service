@@ -1,10 +1,18 @@
+import path from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // Pin tracing to this app dir — Hostinger parent lockfiles can confuse the root.
+  outputFileTracingRoot: __dirname,
+  skipTrailingSlashRedirect: true,
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
+  },
+  turbopack: {
+    root: __dirname,
   },
 }
 

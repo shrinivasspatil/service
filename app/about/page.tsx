@@ -2,8 +2,8 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { LeadForm } from "@/components/forms/lead-form"
-import { LocalBusinessJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
 import { COMPANY_INFO } from "@/lib/constants"
+import { pageMetadata } from "@/lib/seo"
 import { 
   Users, 
   Award, 
@@ -18,19 +18,12 @@ import {
   MapPin
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "About ServiceHub Bangalore | Kent, Daikin, Faber Unauthorized Service Partner",
-  description: "ServiceHub is Bangalore's trusted Kent RO service partner, Daikin AC service center, Faber chimney service provider. 50,000+ customers served. Unauthorized service for Aquaguard, LG, Voltas, Elica, Prestige.",
-  keywords: "about ServiceHub Bangalore, Kent RO service partner Bangalore, Daikin AC unauthorized service, Faber chimney service center, Aquaguard service Bangalore, home appliance company Bangalore",
-  openGraph: {
-    title: "About Us - ServiceHub Bangalore",
-    description: "Learn about ServiceHub Bangalore - your trusted partner for home appliance services.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/about",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "About Service Booking",
+  description:
+    "Independent multi-brand appliance repair in Bangalore since 2018. Kent RO, Daikin AC, Faber chimney and 50+ brands — not an OEM authorised service centre.",
+  path: "/about",
+})
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -79,9 +72,6 @@ const milestones = [
 export default function AboutPage() {
   return (
     <>
-      <LocalBusinessJsonLd />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -90,7 +80,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center mt-8">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                About ServiceHub Bangalore
+                About Service Booking
               </h1>
               <p className="text-lg text-muted-foreground mb-6 text-pretty">
                 We&apos;re Bangalore&apos;s trusted home appliance service provider, dedicated to 
@@ -108,7 +98,7 @@ export default function AboutPage() {
               <div className="aspect-[4/3] relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/hero-technician.jpg"
-                  alt="ServiceHub Bangalore certified technician for Kent, Aquaguard, Daikin, LG, Faber appliance service"
+                  alt="Service Booking certified technician for Kent, Aquaguard, Daikin, LG, Faber appliance service"
                   fill
                   className="object-cover"
                   priority
@@ -134,6 +124,23 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Brand resources */}
+      <section className="py-12 border-y border-border bg-muted/30">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-2xl font-bold text-foreground mb-4">Official brand resources</h2>
+          <p className="text-muted-foreground mb-4 text-sm">
+            We service these manufacturers&apos; products using trained technicians and genuine-compatible parts.
+            For product manuals and warranty policies, refer to official brand sites:
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-2 text-sm">
+            <li><a href="https://www.kent.co.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Kent RO (kent.co.in)</a></li>
+            <li><a href="https://www.daikinindia.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Daikin AC (daikinindia.com)</a></li>
+            <li><a href="https://www.eurekaforbes.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Aquaguard / Eureka Forbes</a></li>
+            <li><a href="https://www.faberindia.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Faber Chimney (faberindia.com)</a></li>
+          </ul>
+        </div>
+      </section>
+
       {/* Our Story */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -141,7 +148,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Our Story</h2>
             <div className="text-muted-foreground space-y-4 text-left md:text-center">
               <p>
-                ServiceHub Bangalore was founded in 2018 with a simple observation: getting 
+                Service Booking was founded in 2018 with a simple observation: getting 
                 home appliances serviced was a frustrating experience for most people in 
                 Bangalore. Unreliable technicians, hidden charges, poor quality parts, and 
                 long waiting times were the norm.
@@ -168,7 +175,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Values</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              These values guide everything we do at ServiceHub Bangalore
+              These values guide everything we do at Service Booking
             </p>
           </div>
 
@@ -249,7 +256,7 @@ export default function AboutPage() {
             <div className="relative aspect-square rounded-2xl overflow-hidden">
               <Image
                 src="/images/happy-family.jpg"
-                alt="Happy ServiceHub customer family in Bangalore with Kent RO water purifier and Daikin AC service"
+                alt="Happy Service Booking customer family in Bangalore with Kent RO water purifier and Daikin AC service"
                 fill
                 className="object-cover"
               />
@@ -264,7 +271,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-primary-foreground">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Experience the ServiceHub Difference?
+                Ready to Experience the Service Booking Difference?
               </h2>
               <p className="text-lg opacity-90 mb-8">
                 Join thousands of happy customers across Bangalore. 

@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { 
@@ -15,10 +14,10 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SERVICES, COMPANY_INFO } from "@/lib/constants"
-import { BookingModal } from "@/components/forms/booking-modal"
+import { useBooking } from "@/components/forms/booking-provider"
 
 export function HomepageHero() {
-  const [bookingOpen, setBookingOpen] = useState(false)
+  const { openBooking } = useBooking()
 
   return (
     <>
@@ -49,35 +48,47 @@ export function HomepageHero() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                <span className="text-sm font-medium text-white/90">Serving 50,000+ Bangalore Families</span>
+                <span className="text-sm font-medium text-white/90">HSR Layout · independent multi-brand repair</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] mb-6">
-                Home Appliance
-                <span className="block mt-2 bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  Service Experts
+              {/* Trust positioning */}
+              <p className="text-sm sm:text-base font-medium text-primary mb-4 tracking-wide">
+                Private Independent Registered Appliance Service Providers
+              </p>
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.15] mb-6 text-balance">
+                Appliance repair in Bangalore{" "}
+                <span className="block mt-1 bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  from Service Booking
                 </span>
               </h1>
               
               <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-xl mx-auto lg:mx-0">
-                Unauthorized service for <span className="text-white font-medium">Kent RO</span>, <span className="text-white font-medium">Daikin AC</span>, <span className="text-white font-medium">LG</span>, <span className="text-white font-medium">Samsung</span>, <span className="text-white font-medium">Bosch</span> & 50+ brands. Same-day service across Bangalore.
+                Independent multi-brand service for{" "}
+                <span className="text-white font-medium">Kent RO</span>,{" "}
+                <span className="text-white font-medium">Daikin AC</span>,{" "}
+                <span className="text-white font-medium">LG</span>,{" "}
+                <span className="text-white font-medium">Samsung</span>,{" "}
+                <span className="text-white font-medium">Bosch</span> &amp; 50+ brands.
+                Same-day doorstep repair across Bangalore.
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
                 <Button 
                   size="lg" 
-                  className="h-14 px-8 text-base rounded-full bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5"
-                  onClick={() => setBookingOpen(true)}
+                  type="button"
+                  className="h-14 px-8 text-base rounded-full bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5 touch-manipulation"
+                  onClick={() => openBooking({ source: "hero" })}
                 >
                   Book a Service Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
                   asChild 
-                  variant="outline" 
+                  variant="heroOutline" 
                   size="lg" 
-                  className="h-14 px-8 text-base rounded-full bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-sm"
+                  className="h-14 px-8 text-base rounded-full"
                 >
                   <a href={`tel:${COMPANY_INFO.phone}`}>
                     <Phone className="mr-2 h-5 w-5" />
@@ -287,8 +298,6 @@ export function HomepageHero() {
           </div>
         </div>
       </section>
-
-      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
     </>
   )
 }

@@ -2,12 +2,29 @@ import { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { BANGALORE_AREAS, SERVICES, TESTIMONIALS, COMPANY_INFO } from "@/lib/constants"
+import { BANGALORE_AREAS, SERVICES, COMPANY_INFO } from "@/lib/constants"
+import { getTestimonialsForAreaService } from "@/lib/testimonials"
+import {
+  getAreaServiceHeading,
+  getAreaServiceIntro,
+  getAreaServiceLocalDetails,
+  getAreaServiceMetaDescription,
+  getAreaServiceFaqs,
+  getAreaServiceTitle,
+} from "@/lib/area-content"
+import {
+  brandToSlug,
+  getTopBrandsForService,
+} from "@/lib/area-brand-pages"
+import { pageMetadata } from "@/lib/seo"
+import { getNearbyAreaPages } from "@/lib/coverage"
+import { getAreaServiceAnswerSummary } from "@/lib/answer-summaries"
+import { AnswerSummary } from "@/components/seo/answer-summary"
+import { LastUpdated } from "@/components/seo/last-updated"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { LeadForm } from "@/components/forms/lead-form"
 import { FaqSection } from "@/components/sections/faq-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
-import { ServiceJsonLd, BreadcrumbJsonLd, FaqJsonLd, LocalBusinessJsonLd, ProductSchema, AggregateRatingSchema } from "@/components/seo/json-ld"
 import { MapPin, Phone, Clock, CheckCircle, Star, ArrowRight, Timer, ShieldCheck, Wrench } from "lucide-react"
 
 interface ServiceAreaPageProps {
@@ -38,40 +55,11 @@ export async function generateMetadata({ params }: ServiceAreaPageProps): Promis
     return { title: "Page Not Found" }
   }
 
-  const titleMap: Record<string, string> = {
-    "water-purifier": `Kent RO Service ${area.name} | Aquaguard, Pureit Repair & Installation`,
-    "chimney": `Faber Chimney Cleaning ${area.name} | Elica, Hindware Service & Repair`,
-    "hob": `Prestige Hob Repair ${area.name} | Pigeon, Sunflame, Gilma Service`,
-    "ac": `Daikin AC Service ${area.name} | LG, Voltas, Samsung AC Repair`,
-  }
-
-  const descMap: Record<string, string> = {
-    "water-purifier": `Kent RO service ${area.name}, Aquaguard repair, Pureit service, Livpure AMC, Blue Star & AO Smith water purifier installation in ${area.name} Bangalore. Same-day filter replacement!`,
-    "chimney": `Faber chimney cleaning ${area.name}, Elica chimney service, Hindware chimney repair, Kaff, Glen, Bosch chimney motor repair in ${area.name} Bangalore. Deep cleaning available!`,
-    "hob": `Prestige hob repair ${area.name}, Pigeon gas stove service, Sunflame cooktop repair, Gilma, Elica, Faber hob installation in ${area.name} Bangalore. Burner repair & ignition fix!`,
-    "ac": `Daikin AC service ${area.name}, LG AC repair, Samsung AC service, Voltas AC gas refill, Blue Star, Hitachi, Carrier AC installation in ${area.name} Bangalore. Same-day service!`,
-  }
-
-  const keywordsMap: Record<string, string> = {
-    "water-purifier": `Kent RO service ${area.name}, Aquaguard service ${area.name}, Pureit repair ${area.name}, Livpure service, water purifier AMC ${area.name} Bangalore`,
-    "chimney": `Faber chimney cleaning ${area.name}, Elica chimney service ${area.name}, Hindware chimney repair, chimney deep cleaning ${area.name} Bangalore`,
-    "hob": `Prestige hob repair ${area.name}, Pigeon gas stove service ${area.name}, Sunflame cooktop repair, hob installation ${area.name} Bangalore`,
-    "ac": `Daikin AC service ${area.name}, LG AC repair ${area.name}, Voltas AC gas refill, Samsung AC service ${area.name} Bangalore`,
-  }
-
-  return {
-    title: titleMap[serviceSlug] || `${service.name} Service in ${area.name} | ServiceHub Bangalore`,
-    description: descMap[serviceSlug] || `Expert ${service.name.toLowerCase()} services in ${area.name}, Bangalore. Installation, repair, maintenance. Same-day service available.`,
-    keywords: keywordsMap[serviceSlug] || `${service.name.toLowerCase()} service ${area.name}, ${service.name.toLowerCase()} repair ${area.name}, ${service.name.toLowerCase()} installation ${area.name} Bangalore`,
-    openGraph: {
-      title: `${service.name} Service in ${area.name} | ServiceHub Bangalore`,
-      description: `Professional ${service.name.toLowerCase()} services in ${area.name}. Installation, repair, AMC available.`,
-      type: "website",
-    },
-    alternates: {
-      canonical: `https://servicebooking.in/areas/${area.slug}/${service.slug}`,
-    },
-  }
+  return pageMetadata({
+    title: getAreaServiceTitle(area, serviceSlug, service.name),
+    description: getAreaServiceMetaDescription(area, serviceSlug),
+    path: `/areas/${area.slug}/${service.slug}`,
+  })
 }
 
 export default async function ServiceAreaPage({ params }: ServiceAreaPageProps) {
@@ -90,62 +78,35 @@ export default async function ServiceAreaPage({ params }: ServiceAreaPageProps) 
     { label: service.name, href: `/areas/${area.slug}/${service.slug}` },
   ]
 
-  const faqs = [
-    {
-      question: `What ${service.name.toLowerCase()} services do you offer in ${area.name}?`,
-      answer: `We offer complete ${service.name.toLowerCase()} services in ${area.name} including sales of new units, professional installation, repair & maintenance, and annual maintenance contracts (AMC).`
-    },
-    {
-      question: `How much does ${service.name.toLowerCase()} service cost in ${area.name}?`,
-      answer: `${service.name} service in ${area.name} starts from ₹299 for basic service. Repair costs depend on the issue. We provide transparent, upfront pricing before any work begins.`
-    },
-    {
-      question: `Do you offer same-day ${service.name.toLowerCase()} service in ${area.name}?`,
-      answer: `Yes! We offer same-day ${service.name.toLowerCase()} service in ${area.name}. Book before 2 PM for same-day service. Emergency services also available.`
-    },
-    {
-      question: `Which ${service.name.toLowerCase()} brands do you service in ${area.name}?`,
-      answer: `We service all major ${service.name.toLowerCase()} brands in ${area.name}. Our technicians are trained on all models and use genuine spare parts.`
-    },
-    {
-      question: `Do you provide warranty on ${service.name.toLowerCase()} repairs in ${area.name}?`,
-      answer: `Yes, all our ${service.name.toLowerCase()} repairs in ${area.name} come with a 30-90 day warranty depending on the service type. Parts replaced also come with warranty.`
-    }
-  ]
+  const faqs = getAreaServiceFaqs(
+    area,
+    service.name,
+    service.slug,
+    service.startingPrice,
+    service.brands
+  )
 
-  // Get nearby areas
-  const currentIndex = BANGALORE_AREAS.findIndex(a => a.slug === areaSlug)
-  const nearbyAreas = [
-    ...BANGALORE_AREAS.slice(Math.max(0, currentIndex - 2), currentIndex),
-    ...BANGALORE_AREAS.slice(currentIndex + 1, currentIndex + 3)
-  ].slice(0, 4)
+  const nearbyAreas = getNearbyAreaPages(area, 8)
 
   const ServiceIcon = service.icon
+  const comboAnswer = getAreaServiceAnswerSummary(area, serviceSlug)
+  const intro = getAreaServiceIntro(area, serviceSlug)
+  const localDetails = getAreaServiceLocalDetails(
+    area,
+    service.slug,
+    service.name,
+    service.startingPrice
+  )
+  const topBrands = getTopBrandsForService(serviceSlug)
+  const testimonials = getTestimonialsForAreaService(
+    area.name,
+    area.slug,
+    service.slug,
+    6
+  )
 
   return (
     <>
-      <LocalBusinessJsonLd />
-      <ServiceJsonLd 
-        serviceName={`${service.name} Service in ${area.name}`}
-        description={`Professional ${service.name.toLowerCase()} services in ${area.name}, Bangalore. Installation, repair, maintenance.`}
-      />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-      <FaqJsonLd faqs={faqs} />
-      <ProductSchema 
-        serviceName={service.name}
-        area={area.name}
-        areaSlug={area.slug}
-        serviceSlug={service.slug}
-        brands={service.brands as string[]}
-        priceRange={service.priceRange}
-      />
-      <AggregateRatingSchema 
-        itemName={`${service.name} Service in ${area.name}`}
-        ratingValue={4.8}
-        reviewCount={850}
-        area={area.name}
-      />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -165,13 +126,13 @@ export default async function ServiceAreaPage({ params }: ServiceAreaPageProps) 
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                {service.name} Service in {area.name}, Bangalore
+                {getAreaServiceHeading(area, service.slug, service.name)}
               </h1>
               
-              <p className="text-lg text-muted-foreground mb-8 text-pretty">
-                {service.description} Professional installation, repair, and maintenance services 
-                in {area.name} with same-day service available.
+              <p className="text-lg text-muted-foreground mb-4 text-pretty">
+                {intro}
               </p>
+              <LastUpdated className="text-sm text-muted-foreground mb-8" />
 
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
@@ -231,6 +192,79 @@ export default async function ServiceAreaPage({ params }: ServiceAreaPageProps) 
         </div>
       </section>
 
+      <AnswerSummary question={comboAnswer.question} answer={comboAnswer.answer} />
+
+      {/* Unique local copy — reduces "thin/duplicate" clone signals */}
+      <section className="py-12 md:py-16">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
+            {localDetails.title}
+          </h2>
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            {localDetails.paragraphs.map((p) => (
+              <p key={p.slice(0, 48)}>{p}</p>
+            ))}
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">
+            Common {service.name.toLowerCase()} issues we fix in {area.name}
+          </h3>
+          <ul className="grid sm:grid-cols-2 gap-2">
+            {localDetails.commonIssues.map((issue) => (
+              <li key={issue} className="flex items-start gap-2 text-sm text-muted-foreground">
+                <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <span>{issue}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap gap-3 mt-8 text-sm">
+            <Link
+              href={`/areas/${area.slug}`}
+              className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+            >
+              All services in {area.name}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              href={`/services/${service.slug}`}
+              className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+            >
+              {service.name} across Bangalore
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {(topBrands.length > 0) && (
+        <section className="py-12 border-y border-border bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Popular {service.name} Brands in {area.name}
+            </h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl">
+              Book brand-specific {service.name.toLowerCase()} repair near you in{" "}
+              {area.name} — or open the Bangalore brand page.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {topBrands.map((brandData) => {
+                const slug = brandToSlug(brandData.brand)
+                const href = `/services/${service.slug}/${slug}`
+                const label = `${brandData.brand} ${service.name}`
+                return (
+                  <Link
+                    key={brandData.brand}
+                    href={href}
+                    className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors"
+                  >
+                    {label}
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Services Offered */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -244,28 +278,28 @@ export default async function ServiceAreaPage({ params }: ServiceAreaPageProps) 
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { 
-                title: "Installation", 
-                desc: `Professional ${service.name.toLowerCase()} installation in ${area.name}`,
-                price: "Starting ₹499"
-              },
-              { 
-                title: "Repair", 
-                desc: `Expert ${service.name.toLowerCase()} repair with genuine parts`,
-                price: "Starting ₹299"
-              },
-              { 
-                title: "Maintenance", 
-                desc: "Regular servicing for optimal performance",
-                price: "Starting ₹399"
-              },
-              { 
-                title: "AMC Plans", 
-                desc: "Annual contracts with priority support",
-                price: "Starting ₹1,499/yr"
-              },
-            ].map((item, index) => (
+              {[
+                { 
+                  title: "Installation", 
+                  desc: `Professional ${service.name.toLowerCase()} installation for homes in ${area.name}`,
+                  price: `From ${service.startingPrice}`
+                },
+                { 
+                  title: "Repair", 
+                  desc: `Doorstep ${service.name.toLowerCase()} repair with genuine parts in ${area.name}`,
+                  price: `From ${service.startingPrice}`
+                },
+                { 
+                  title: "Maintenance", 
+                  desc: `Scheduled ${service.name.toLowerCase()} servicing across ${area.name}`,
+                  price: "From ₹399"
+                },
+                { 
+                  title: "AMC Plans", 
+                  desc: `Annual ${service.name.toLowerCase()} cover with priority slots in ${area.name}`,
+                  price: "From ₹1,499/yr"
+                },
+              ].map((item, index) => (
               <div key={index} className="bg-background rounded-xl p-6 border border-border hover:shadow-lg hover:border-primary/30 transition-all">
                 <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{item.desc}</p>
@@ -384,9 +418,9 @@ export default async function ServiceAreaPage({ params }: ServiceAreaPageProps) 
 
       {/* Testimonials */}
       <TestimonialsSection 
-        title="Customer Reviews"
-        subtitle={`See what customers in ${area.name} say about our services`}
-        testimonials={TESTIMONIALS.slice(0, 3)}
+        title={`${service.name} Reviews in ${area.name}`}
+        subtitle={`Customers in ${area.name} share feedback on ${service.brands.slice(0, 4).join(", ")} and more`}
+        testimonials={testimonials}
       />
 
       {/* FAQ Section */}

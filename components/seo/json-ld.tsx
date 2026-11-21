@@ -1,16 +1,34 @@
-"use client"
-
-import { COMPANY_NAME, COMPANY_PHONE, COMPANY_EMAIL, COMPANY_ADDRESS, SERVICES, BANGALORE_AREAS, BRAND_SERVICES } from "@/lib/constants"
+import {
+  COMPANY_NAME,
+  COMPANY_PHONE,
+  COMPANY_EMAIL,
+  COMPANY_POSTAL_ADDRESS,
+  COMPANY_GEO,
+  COMPANY_OPENING_HOURS,
+  COMPANY_LOGO_PATH,
+  SERVICES,
+  BANGALORE_AREAS,
+  BRAND_SERVICES,
+  TESTIMONIALS,
+} from "@/lib/constants"
+import { SOCIAL_SAME_AS } from "@/lib/social"
+import { absoluteUrl } from "@/lib/seo"
+import { getAreaZoneGeo } from "@/lib/area-content"
 
 // ============================================
-// 1. LOCAL BUSINESS SCHEMA (with AggregateRating)
+// 1. LOCAL BUSINESS SCHEMA
 // ============================================
 interface LocalBusinessSchemaProps {
   area?: string
   service?: string
+  includeRating?: boolean
 }
 
-export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps) {
+export function LocalBusinessSchema({
+  area,
+  service,
+  includeRating = false,
+}: LocalBusinessSchemaProps) {
   const areaName = area 
     ? BANGALORE_AREAS.find(a => a.slug === area)?.name 
     : "Bangalore"
@@ -19,9 +37,15 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
     ? SERVICES.find(s => s.slug === service)?.name
     : undefined
 
+  const ratings = TESTIMONIALS.map((item) => item.rating)
+  const ratingValue =
+    ratings.length > 0
+      ? (ratings.reduce((sum, value) => sum + value, 0) / ratings.length).toFixed(1)
+      : undefined
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "ProfessionalService"],
+    "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     "@id": "https://servicebooking.in/#business",
     name: serviceName 
       ? `${COMPANY_NAME} - ${serviceName} Services in ${areaName}`
@@ -37,19 +61,12 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
     telephone: COMPANY_PHONE,
     email: COMPANY_EMAIL,
     url: "https://servicebooking.in",
-    logo: "https://servicebooking.in/logo.png",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "123, 100 Feet Road",
-      addressLocality: area ? areaName : "Koramangala",
-      addressRegion: "Karnataka",
-      postalCode: "560034",
-      addressCountry: "IN"
-    },
+    logo: absoluteUrl(COMPANY_LOGO_PATH),
+    address: { ...COMPANY_POSTAL_ADDRESS },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 12.9716,
-      longitude: 77.5946
+      latitude: COMPANY_GEO.latitude,
+      longitude: COMPANY_GEO.longitude
     },
     areaServed: [
       {
@@ -66,98 +83,32 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
       "@type": "GeoCircle",
       geoMidpoint: {
         "@type": "GeoCoordinates",
-        latitude: 12.9716,
-        longitude: 77.5946
+        latitude: COMPANY_GEO.latitude,
+        longitude: COMPANY_GEO.longitude
       },
       geoRadius: "50000"
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "08:00",
-        closes: "21:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Sunday",
-        opens: "09:00",
-        closes: "18:00"
-      }
-    ],
+    openingHoursSpecification: COMPANY_OPENING_HOURS,
     priceRange: "₹299 - ₹4999",
     currenciesAccepted: "INR",
     paymentAccepted: "Cash, Credit Card, Debit Card, UPI, Google Pay, PhonePe",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "12500",
-      reviewCount: "8750"
-    },
-    review: [
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        author: {
-          "@type": "Person",
-          name: "Priya Sharma"
-        },
-        reviewBody: "Excellent Kent RO service. Technician was on time and very professional. Filter replacement done quickly.",
-        datePublished: "2024-01-15"
-      },
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        author: {
-          "@type": "Person",
-          name: "Rajesh Kumar"
-        },
-        reviewBody: "Best Daikin AC service in Bangalore. Gas refill done properly and AC cooling is perfect now.",
-        datePublished: "2024-02-20"
-      },
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        author: {
-          "@type": "Person",
-          name: "Anitha Reddy"
-        },
-        reviewBody: "Faber chimney deep cleaning was thorough. Kitchen is now smoke-free. Highly recommend!",
-        datePublished: "2024-03-10"
-      }
-    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Home Appliance Services",
-      itemListElement: SERVICES.map((service, index) => ({
+      itemListElement: SERVICES.map((service) => ({
         "@type": "OfferCatalog",
         name: service.name,
-        itemListElement: service.features.slice(0, 4).map((feature, i) => ({
+        itemListElement: service.features.slice(0, 4).map((feature) => ({
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: feature,
-            provider: {
-              "@type": "LocalBusiness",
-              name: COMPANY_NAME
-            }
-          }
-        }))
-      }))
+            // Reference the parent business — do not nest new LocalBusiness nodes
+            // (Google counts each nested LocalBusiness as a separate entity).
+            provider: { "@id": "https://servicebooking.in/#business" },
+          },
+        })),
+      })),
     },
     potentialAction: {
       "@type": "ReserveAction",
@@ -174,13 +125,18 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
         name: "Service Booking"
       }
     },
-    sameAs: [
-      "https://www.facebook.com/servicehub.bangalore",
-      "https://www.instagram.com/servicehub.bangalore",
-      "https://twitter.com/servicehub_blr",
-      "https://www.youtube.com/@servicehub_bangalore",
-      "https://www.linkedin.com/company/servicehub-bangalore"
-    ]
+    sameAs: SOCIAL_SAME_AS,
+    ...(includeRating && ratingValue
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue,
+            reviewCount: String(TESTIMONIALS.length),
+            bestRating: "5",
+            worstRating: "1",
+          },
+        }
+      : {}),
   }
 
   return (
@@ -192,7 +148,7 @@ export function LocalBusinessSchema({ area, service }: LocalBusinessSchemaProps)
 }
 
 // ============================================
-// 2. WEBSITE SCHEMA (for sitelinks search box)
+// 2. WEBSITE SCHEMA
 // ============================================
 export function WebsiteSchema() {
   const schema = {
@@ -201,18 +157,10 @@ export function WebsiteSchema() {
     "@id": "https://servicebooking.in/#website",
     name: COMPANY_NAME,
     url: "https://servicebooking.in",
-    description: "Unauthorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige appliances in Bangalore",
+    description: "Home appliance repair and installation in Bangalore — Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob and more.",
     publisher: {
       "@type": "Organization",
       "@id": "https://servicebooking.in/#organization"
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://servicebooking.in/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
     },
     inLanguage: "en-IN"
   }
@@ -241,35 +189,17 @@ export function OrganizationSchema() {
     "@type": "Organization",
     "@id": "https://servicebooking.in/#organization",
     name: COMPANY_NAME,
-    legalName: "ServiceHub Bangalore Home Services Pvt Ltd",
     url: "https://servicebooking.in",
     logo: {
       "@type": "ImageObject",
-      url: "https://servicebooking.in/logo.png",
-      width: "200",
-      height: "60"
+      url: absoluteUrl(COMPANY_LOGO_PATH),
+      width: "880",
+      height: "210"
     },
-    description: "Unauthorized service center for Kent, Aquaguard, Daikin, LG, Faber, Elica, Prestige and other major appliance brands in Bangalore",
-    foundingDate: "2018",
-    foundingLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Bangalore",
-        addressRegion: "Karnataka",
-        addressCountry: "IN"
-      }
-    },
+    description: "Home appliance repair and installation in Bangalore — Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob and more.",
     telephone: COMPANY_PHONE,
     email: COMPANY_EMAIL,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "123, 100 Feet Road",
-      addressLocality: "Koramangala",
-      addressRegion: "Karnataka",
-      postalCode: "560034",
-      addressCountry: "IN"
-    },
+    address: { ...COMPANY_POSTAL_ADDRESS },
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -277,27 +207,10 @@ export function OrganizationSchema() {
         contactType: "customer service",
         availableLanguage: ["English", "Hindi", "Kannada"],
         areaServed: "IN",
-        hoursAvailable: {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          opens: "08:00",
-          closes: "21:00"
-        }
-      },
-      {
-        "@type": "ContactPoint",
-        telephone: COMPANY_PHONE,
-        contactType: "sales",
-        availableLanguage: ["English", "Hindi", "Kannada"]
+        hoursAvailable: COMPANY_OPENING_HOURS[0]
       }
     ],
-    sameAs: [
-      "https://www.facebook.com/servicehub.bangalore",
-      "https://www.instagram.com/servicehub.bangalore",
-      "https://twitter.com/servicehub_blr",
-      "https://www.youtube.com/@servicehub_bangalore",
-      "https://www.linkedin.com/company/servicehub-bangalore"
-    ],
+    sameAs: SOCIAL_SAME_AS,
     brand: [...new Set(allBrands)].map(brand => ({
       "@type": "Brand",
       name: brand
@@ -309,11 +222,6 @@ export function OrganizationSchema() {
       "Prestige Hob Repair", "Pigeon Gas Stove Service", "Sunflame Cooktop Repair",
       "Water Purifier Installation", "AC Gas Refill", "Chimney Motor Repair", "Hob Burner Repair"
     ],
-    numberOfEmployees: {
-      "@type": "QuantitativeValue",
-      minValue: 50,
-      maxValue: 100
-    },
     slogan: "Home Services, Done Right"
   }
 
@@ -346,10 +254,7 @@ export function ServiceSchema({ service, area }: ServiceSchemaProps) {
     description: service.description,
     serviceType: service.name,
     provider: {
-      "@type": "LocalBusiness",
       "@id": "https://servicebooking.in/#business",
-      name: COMPANY_NAME,
-      telephone: COMPANY_PHONE
     },
     areaServed: {
       "@type": "City",
@@ -393,13 +298,6 @@ export function ServiceSchema({ service, area }: ServiceSchemaProps) {
       "@type": "Brand",
       name: brand
     })),
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      ratingCount: "3500",
-      reviewCount: "2100"
-    },
     termsOfService: "https://servicebooking.in/terms",
     serviceOutput: {
       "@type": "Thing",
@@ -418,21 +316,23 @@ export function ServiceSchema({ service, area }: ServiceSchemaProps) {
 // ============================================
 // 5. FAQ SCHEMA
 // ============================================
-interface FAQSchemaProps {
+export function FAQSchema({
+  faqs,
+  pageUrl,
+}: {
   faqs: { question: string; answer: string }[]
-}
-
-export function FAQSchema({ faqs }: FAQSchemaProps) {
+  pageUrl?: string
+}) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": "https://servicebooking.in/#faq",
+    "@id": pageUrl ? `${pageUrl}#faq` : "https://servicebooking.in/#faq",
     mainEntity: faqs.map(faq => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq.answer
+        text: faq.answer.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"),
       }
     }))
   }
@@ -473,76 +373,50 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
 }
 
 // ============================================
-// 7. PRODUCT/SERVICE SCHEMA FOR BRANDS
+// 7. BRAND SERVICE SCHEMA (Service — not Product)
 // ============================================
-export function BrandServiceSchema({ serviceType, brand, area }: { serviceType: string; brand: string; area?: string }) {
-  const areaName = area 
-    ? BANGALORE_AREAS.find(a => a.slug === area)?.name || area
+/** Use Service, not Product: Product + Offer triggers Merchant listings (GTIN, shipping, returns). */
+export function BrandServiceSchema({
+  serviceType,
+  brand,
+  area,
+  price = "399",
+}: {
+  serviceType: string
+  brand: string
+  area?: string
+  /** Numeric INR starting price without currency symbol */
+  price?: string
+}) {
+  const areaName = area
+    ? BANGALORE_AREAS.find((a) => a.slug === area)?.name || area
     : "Bangalore"
+  const priceValue = price.replace(/[^\d.]/g, "") || "399"
 
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "Service",
     name: `${brand} ${serviceType} Service in ${areaName}`,
     description: `Professional ${brand} ${serviceType.toLowerCase()} repair, installation and AMC service in ${areaName}, Bangalore. Genuine spare parts, certified technicians.`,
+    serviceType: `${brand} ${serviceType}`,
     brand: {
       "@type": "Brand",
-      name: brand
+      name: brand,
     },
-    category: `${serviceType} Service`,
+    provider: {
+      "@id": "https://servicebooking.in/#business",
+    },
+    areaServed: {
+      "@type": "Place",
+      name: `${areaName}, Bangalore, Karnataka`,
+    },
     offers: {
       "@type": "Offer",
       priceCurrency: "INR",
-      price: "299",
-      priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      price: priceValue,
       availability: "https://schema.org/InStock",
-      itemCondition: "https://schema.org/NewCondition",
-      seller: {
-        "@type": "Organization",
-        name: COMPANY_NAME
-      },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        shippingDestination: {
-          "@type": "DefinedRegion",
-          addressCountry: "IN",
-          addressRegion: "Karnataka"
-        },
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          handlingTime: {
-            "@type": "QuantitativeValue",
-            minValue: 0,
-            maxValue: 1,
-            unitCode: "DAY"
-          }
-        }
-      }
+      url: "https://servicebooking.in",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "1500",
-      reviewCount: "890"
-    },
-    review: [
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        author: {
-          "@type": "Person",
-          name: "Verified Customer"
-        },
-        reviewBody: `Excellent ${brand} ${serviceType.toLowerCase()} service. Very professional and timely.`,
-        datePublished: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-      }
-    ]
   }
 
   return (
@@ -561,7 +435,7 @@ export function HowToSchema({ serviceName }: { serviceName: string }) {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: `How to Book ${serviceName} Service in Bangalore`,
-    description: `Simple steps to book professional ${serviceName.toLowerCase()} service in Bangalore with ServiceHub`,
+    description: `Simple steps to book professional ${serviceName.toLowerCase()} service in Bangalore with ${COMPANY_NAME}`,
     totalTime: "PT5M",
     estimatedCost: {
       "@type": "MonetaryAmount",
@@ -616,7 +490,7 @@ export function ServiceListSchema() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Home Appliance Services in Bangalore",
-    description: "Complete list of home appliance services offered by ServiceHub Bangalore",
+    description: `Complete list of home appliance services offered by ${COMPANY_NAME} in Bangalore`,
     numberOfItems: SERVICES.length,
     itemListElement: SERVICES.map((service, index) => ({
       "@type": "ListItem",
@@ -627,9 +501,8 @@ export function ServiceListSchema() {
         description: service.description,
         url: `https://servicebooking.in/services/${service.slug}`,
         provider: {
-          "@type": "LocalBusiness",
-          name: COMPANY_NAME
-        }
+          "@id": "https://servicebooking.in/#business",
+        },
       }
     }))
   }
@@ -646,17 +519,19 @@ export function ServiceListSchema() {
 // 10. AREA SERVICE SCHEMA (for area pages)
 // ============================================
 export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: string }) {
+  const areaMeta = BANGALORE_AREAS.find((a) => a.slug === areaSlug)
+  const geo = getAreaZoneGeo(areaMeta?.zone ?? "Central")
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `https://servicebooking.in/areas/${areaSlug}/#business`,
-    name: `ServiceHub ${area}`,
-    description: `Unauthorized Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob service center in ${area}, Bangalore. Same-day repair & installation.`,
+    name: `${COMPANY_NAME} — ${area}`,
+    description: `Kent RO, Aquaguard, Daikin AC, Faber chimney and Prestige hob service in ${area}, Bangalore. Same-day repair & installation from ${COMPANY_NAME}.`,
     url: `https://servicebooking.in/areas/${areaSlug}`,
     telephone: COMPANY_PHONE,
     email: COMPANY_EMAIL,
     priceRange: "₹₹",
-    image: "https://servicebooking.in/images/hero-technician.jpg",
+    image: absoluteUrl("/images/hero-technician.jpg"),
     address: {
       "@type": "PostalAddress",
       addressLocality: area,
@@ -665,21 +540,14 @@ export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: 
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "12.9716",
-      longitude: "77.5946"
+      latitude: geo.latitude,
+      longitude: geo.longitude
     },
     areaServed: {
       "@type": "Place",
       name: `${area}, Bangalore, Karnataka`
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        opens: "08:00",
-        closes: "21:00"
-      }
-    ],
+    openingHoursSpecification: COMPANY_OPENING_HOURS,
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: `Home Appliance Services in ${area}`,
@@ -691,14 +559,6 @@ export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: 
           url: `https://servicebooking.in/areas/${areaSlug}/${service.slug}`
         }
       }))
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "1200",
-      reviewCount: "890"
     }
   }
 
@@ -711,78 +571,54 @@ export function AreaServiceSchema({ area, areaSlug }: { area: string; areaSlug: 
 }
 
 // ============================================
-// 11. PRODUCT SCHEMA (for service-area pages)
+// 11. SERVICE OFFER SCHEMA (area / brand service pages)
 // ============================================
-export function ProductSchema({ 
-  serviceName, 
-  area, 
+/** Kept export name ProductSchema for call-sites; emits Service (not Product) to avoid Merchant listings. */
+export function ProductSchema({
+  serviceName,
+  area,
   areaSlug,
   serviceSlug,
   brands,
-  priceRange 
-}: { 
-  serviceName: string; 
-  area: string;
-  areaSlug: string;
-  serviceSlug: string;
-  brands: string[];
-  priceRange: string;
+  priceRange,
+}: {
+  serviceName: string
+  area: string
+  areaSlug: string
+  serviceSlug: string
+  brands: string[]
+  priceRange: string
 }) {
+  const lowMatch = priceRange.match(/[\d,]+/)
+  const lowPrice = lowMatch ? lowMatch[0].replace(/,/g, "") : "399"
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `https://servicebooking.in/areas/${areaSlug}/${serviceSlug}/#product`,
+    "@type": "Service",
+    "@id": `https://servicebooking.in/areas/${areaSlug}/${serviceSlug}/#service`,
     name: `${serviceName} Service in ${area}, Bangalore`,
     description: `Professional ${serviceName.toLowerCase()} installation, repair, maintenance and AMC service in ${area}, Bangalore. Serving brands: ${brands.slice(0, 5).join(", ")}`,
     url: `https://servicebooking.in/areas/${areaSlug}/${serviceSlug}`,
-    image: `https://servicebooking.in/images/${serviceSlug}.jpg`,
-    brand: brands.slice(0, 5).map(brand => ({
+    serviceType: serviceName,
+    brand: brands.slice(0, 5).map((brand) => ({
       "@type": "Brand",
-      name: brand
+      name: brand,
     })),
-    category: `${serviceName} Service`,
+    provider: {
+      "@id": "https://servicebooking.in/#business",
+    },
+    areaServed: {
+      "@type": "Place",
+      name: `${area}, Bangalore`,
+    },
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "INR",
-      lowPrice: "299",
+      lowPrice,
       highPrice: "15000",
-      offerCount: "50",
+      offerCount: String(Math.max(brands.length, 1)),
       availability: "https://schema.org/InStock",
-      priceValidUntil: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      seller: {
-        "@type": "LocalBusiness",
-        name: COMPANY_NAME,
-        telephone: COMPANY_PHONE
-      },
-      areaServed: {
-        "@type": "Place",
-        name: `${area}, Bangalore`
-      }
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "850",
-      reviewCount: "620"
-    },
-    review: [
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        author: {
-          "@type": "Person",
-          name: "Verified Customer"
-        },
-        reviewBody: `Excellent ${serviceName.toLowerCase()} service in ${area}. Technician was professional and completed the work quickly.`,
-        datePublished: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-      }
-    ]
   }
 
   return (
@@ -796,41 +632,14 @@ export function ProductSchema({
 // ============================================
 // 12. AGGREGATE RATING SCHEMA (standalone)
 // ============================================
-export function AggregateRatingSchema({ 
-  itemName, 
-  ratingValue, 
-  reviewCount,
-  area 
-}: { 
-  itemName: string; 
-  ratingValue: number;
-  reviewCount: number;
-  area: string;
+/** Deprecated: do not emit invented ratings. Kept as no-op for call-site compatibility. */
+export function AggregateRatingSchema(_props: {
+  itemName: string
+  ratingValue: number
+  reviewCount: number
+  area: string
 }) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: `ServiceHub ${area}`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      itemReviewed: {
-        "@type": "Service",
-        name: itemName
-      },
-      ratingValue: ratingValue.toString(),
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: reviewCount.toString(),
-      reviewCount: Math.floor(reviewCount * 0.7).toString()
-    }
-  }
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return null
 }
 
 // ============================================
@@ -848,21 +657,46 @@ export function ServiceJsonLd({ serviceName, description }: { serviceName: strin
     name: serviceName,
     description: description,
     provider: {
-      "@type": "LocalBusiness",
       "@id": "https://servicebooking.in/#business",
-      name: COMPANY_NAME,
-      telephone: COMPANY_PHONE
     },
     areaServed: {
       "@type": "City",
-      name: "Bangalore"
+      name: "Bangalore",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      ratingCount: "50000"
-    }
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+/** SpeakableSpecification — marks answer-ready copy for voice / AEO assistants. */
+export function SpeakableJsonLd({
+  path = "/",
+  cssSelectors = ["#answer-summary-heading", "#answer-summary-text"],
+}: {
+  path?: string
+  cssSelectors?: string[]
+}) {
+  const url = path === "/" ? "https://servicebooking.in" : `https://servicebooking.in${path}`
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: COMPANY_NAME,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: cssSelectors,
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": "https://servicebooking.in/#website",
+      url: "https://servicebooking.in",
+    },
   }
 
   return (

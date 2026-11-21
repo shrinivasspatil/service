@@ -1,12 +1,16 @@
 import { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import Image from "next/image"
 import Link from "next/link"
 import { LeadForm } from "@/components/forms/lead-form"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { FaqSection } from "@/components/sections/faq-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
-import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
-import { BANGALORE_AREAS, TESTIMONIALS, BRAND_SERVICES } from "@/lib/constants"
+import { ServiceJsonLd } from "@/components/seo/json-ld"
+import { ServiceHubAnswerSummary } from "@/components/seo/service-hub-answer-summary"
+import { BANGALORE_AREAS, BRAND_SERVICES, COMPANY_INFO, COMPANY_PHONE_TEL } from "@/lib/constants"
+import { brandToSlug } from "@/lib/area-brand-pages"
+import { getTestimonialsForService } from "@/lib/testimonials"
 import { 
   Wind, 
   Wrench, 
@@ -21,19 +25,12 @@ import {
   Zap
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Faber Chimney Service Bangalore | Elica, Hindware, Kaff Cleaning & Repair",
-  description: "Unauthorized Faber chimney cleaning Bangalore. Expert Elica chimney service, Hindware chimney repair, Kaff motor replacement, Glen, Bosch, IFB & Kutchina chimney deep cleaning. Same-day service in Koramangala, HSR, Whitefield.",
-  keywords: "Faber chimney service Bangalore, Elica chimney cleaning, Hindware chimney repair, Kaff chimney service, Glen chimney cleaning, Bosch chimney repair, IFB chimney service, Kutchina chimney cleaning Bangalore",
-  openGraph: {
-    title: "Faber Chimney Service Bangalore | Elica, Hindware, Kaff Repair",
-    description: "Unauthorized service for Faber, Elica, Hindware, Kaff, Glen & Bosch chimneys in Bangalore. Deep cleaning, motor repair & filter replacement.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/services/chimney",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Chimney cleaning Bangalore",
+  description: "Faber and Elica chimney cleaning near you in Bangalore. Hindware, Kaff motor repair and deep cleaning. Call +91 99010 21555.",
+  path: "/services/chimney",
+})
+
 
 const services = [
   {
@@ -62,11 +59,6 @@ const services = [
   }
 ]
 
-const brands = [
-  "Elica", "Faber", "Kaff", "Hindware", "Glen", "Bosch", 
-  "IFB", "Prestige", "Sunflame", "Pigeon", "Kutchina", "Hafele"
-]
-
 const faqs = [
   {
     question: "How often should I clean my kitchen chimney?",
@@ -82,7 +74,7 @@ const faqs = [
   },
   {
     question: "Do you service all chimney brands?",
-    answer: "Yes, we service all brands including Elica, Faber, Kaff, Hindware, Glen, Bosch, IFB, and more. Our technicians are trained on all models."
+    answer: "Yes, we service all brands including Faber, Elica, Gilma, Sunflame, Beyond, Haier, Hafele, Hindware, Kaff, Glen, Bosch, IFB, and more. Our technicians are trained on all models."
   },
   {
     question: "My chimney is not sucking properly. Can you fix it?",
@@ -110,15 +102,14 @@ const breadcrumbItems = [
 ]
 
 export default function ChimneyPage() {
+  const testimonials = getTestimonialsForService("chimney")
+
   return (
     <>
       <ServiceJsonLd 
         serviceName="Kitchen Chimney Service Bangalore"
         description="Professional kitchen chimney cleaning, repair, and installation services in Bangalore. All brands serviced."
       />
-      <FaqJsonLd faqs={faqs} />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -132,7 +123,7 @@ export default function ChimneyPage() {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                Faber & Elica Chimney Service in Bangalore
+                Kitchen chimney cleaning in Bangalore
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
@@ -151,7 +142,7 @@ export default function ChimneyPage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:+919876543210" 
+                  href={`tel:${COMPANY_PHONE_TEL}`} 
                   className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
@@ -192,6 +183,8 @@ export default function ChimneyPage() {
           </div>
         </div>
       </section>
+
+      <ServiceHubAnswerSummary serviceSlug="chimney" />
 
       {/* Services Grid */}
       <section className="py-16 md:py-24">
@@ -236,13 +229,14 @@ export default function ChimneyPage() {
           </div>
           
           <div className="flex flex-wrap justify-center gap-4">
-            {brands.map((brand, index) => (
-              <div 
-                key={index}
-                className="bg-background px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:border-primary/50 hover:shadow-sm transition-all"
+            {BRAND_SERVICES.chimney.map((brand) => (
+              <Link
+                key={brand.brand}
+                href={`/services/chimney/${brandToSlug(brand.brand)}`}
+                className="bg-background px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:border-primary hover:text-primary hover:shadow-sm transition-all"
               >
-                {brand}
-              </div>
+                {brand.brand}
+              </Link>
             ))}
           </div>
         </div>
@@ -299,7 +293,7 @@ export default function ChimneyPage() {
             {BRAND_SERVICES["chimney"].map((brand) => (
               <Link
                 key={brand.brand}
-                href={`/services/chimney/${brand.brand.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/services/chimney/${brandToSlug(brand.brand)}`}
                 className="bg-white/10 hover:bg-white/20 px-4 py-3 rounded-lg text-center text-sm font-medium transition-colors"
               >
                 {brand.brand}
@@ -322,7 +316,7 @@ export default function ChimneyPage() {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {BANGALORE_AREAS.slice(0, 15).map((area) => (
+            {BANGALORE_AREAS.map((area) => (
               <Link
                 key={area.slug}
                 href={`/areas/${area.slug}/chimney`}
@@ -349,7 +343,7 @@ export default function ChimneyPage() {
       <TestimonialsSection 
         title="Customer Reviews"
         subtitle="See what our customers say about our chimney services"
-        testimonials={TESTIMONIALS.slice(0, 3)}
+        testimonials={testimonials}
       />
 
       {/* FAQ Section */}
@@ -375,7 +369,7 @@ export default function ChimneyPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <span className="text-lg font-medium">+91 98765 43210</span>
+                  <span className="text-lg font-medium">{COMPANY_INFO.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Timer className="w-5 h-5" />

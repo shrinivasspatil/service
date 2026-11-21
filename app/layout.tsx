@@ -1,11 +1,16 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, Poppins } from "next/font/google"
 import { Analytics } from '@vercel/analytics/next'
+import { GoogleAnalytics } from "@/components/analytics/google-analytics"
+import { clipTitle, SITE_URL } from "@/lib/seo"
+import { COMPANY_NAME } from "@/lib/constants"
+import { OrganizationSchema, WebsiteSchema } from "@/components/seo/json-ld"
 import "./globals.css"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { MobileStickyBar } from "@/components/layout/mobile-sticky-bar"
 import { WhatsAppFloat } from "@/components/layout/whatsapp-float"
+import { BookingProvider } from "@/components/forms/booking-provider"
 import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -17,50 +22,47 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "ServiceHub Bangalore - Kent RO, Daikin AC, Faber Chimney, Prestige Hob Service",
-    template: "%s | ServiceHub Bangalore"
+    default: clipTitle(`${COMPANY_NAME} | Appliance Repair Bangalore`, true),
+    template: `%s | ${COMPANY_NAME}`
   },
-  description: "Unauthorized Kent RO service, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Elica service, Prestige hob repair in Bangalore. Same-day service in Koramangala, Whitefield, HSR Layout, Electronic City & all areas.",
-  keywords: [
-    "Kent RO service Bangalore", "Aquaguard service center Bangalore", "Pureit service Bangalore",
-    "Daikin AC service Bangalore", "LG AC repair Bangalore", "Voltas AC service", "Samsung AC repair",
-    "Faber chimney cleaning Bangalore", "Elica chimney service", "Hindware chimney repair",
-    "Prestige hob repair Bangalore", "Pigeon gas stove service", "Sunflame cooktop repair",
-    "water purifier service Koramangala", "AC repair Whitefield", "chimney cleaning HSR Layout"
-  ],
-  authors: [{ name: "ServiceHub Bangalore" }],
-  creator: "ServiceHub Bangalore",
-  publisher: "ServiceHub Bangalore",
+  description: "Expert home appliance repair services in Bangalore, including Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney cleaning, and more. Same-day service available.",
+  authors: [{ name: COMPANY_NAME }],
+  creator: COMPANY_NAME,
+  publisher: COMPANY_NAME,
   formatDetection: {
     telephone: true,
     email: true,
     address: true,
   },
-  metadataBase: new URL("https://servicebooking.in"),
-  alternates: {
-    canonical: "/",
+  metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://servicebooking.in",
-    siteName: "ServiceHub Bangalore",
-    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Unauthorized Service",
-    description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. 50,000+ customers served.",
+    url: SITE_URL,
+    siteName: COMPANY_NAME,
+    title: `${COMPANY_NAME} - Trusted Home Appliance Services`,
+    description: "Expert home appliance repair services in Bangalore, including Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney cleaning, and more.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Service Center",
+        alt: `${COMPANY_NAME} - Trusted Home Appliance Services`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Service",
-    description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob in Bangalore.",
-    images: ["/og-image.jpg"],
+    title: `${COMPANY_NAME} - Trusted Home Appliance Services`,
+    description: "Expert home appliance repair services in Bangalore, including Kent RO, Aquaguard, Daikin AC, LG AC, Faber chimney cleaning, and more.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -74,7 +76,9 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : {}),
   },
 }
 
@@ -93,20 +97,27 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background" data-scroll-behavior="smooth">
       <head>
-        <link rel="icon" href="/apple-touch-icon.png" type="image/png" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="geo.region" content="IN-KA" />
         <meta name="geo.placename" content="Bangalore" />
-        <meta name="geo.position" content="12.9716;77.5946" />
-        <meta name="ICBM" content="12.9716, 77.5946" />
+        <meta name="geo.position" content="12.9116;77.6473" />
+        <meta name="ICBM" content="12.9116, 77.6473" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
+        <link rel="alternate" type="text/plain" href="/ai.txt" title="AI.txt" />
       </head>
       <body className={`${inter.variable} ${poppins.variable} font-sans antialiased`}>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <MobileStickyBar />
-        <WhatsAppFloat />
-        <Toaster position="top-right" />
+        <OrganizationSchema />
+        <WebsiteSchema />
+        <BookingProvider>
+          <Header />
+          <main className="min-h-screen pb-20 lg:pb-0">
+            {children}
+          </main>
+          <Footer />
+          <MobileStickyBar />
+          <WhatsAppFloat />
+          <Toaster position="top-right" />
+        </BookingProvider>
+        <GoogleAnalytics />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

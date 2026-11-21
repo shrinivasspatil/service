@@ -1,0 +1,9 @@
+packages:
+  - "."
+
+# Hostinger pnpm blocks native postinstall unless approved.
+allowBuilds:
+  sharp: true
+
+onlyBuiltDependencies:
+  - sharp

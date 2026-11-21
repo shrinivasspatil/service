@@ -18,13 +18,13 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-import { SERVICES, BANGALORE_AREAS, COMPANY_PHONE } from "@/lib/constants"
-import { BookingModal } from "@/components/forms/booking-modal"
+import { SERVICES, BANGALORE_AREAS, COMPANY_PHONE, COMPANY_PHONE_TEL } from "@/lib/constants"
+import { useBooking } from "@/components/forms/booking-provider"
 import { Logo } from "@/components/logo"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [bookingOpen, setBookingOpen] = useState(false)
+  const { openBooking } = useBooking()
   const popularAreas = BANGALORE_AREAS.filter(a => a.popular).slice(0, 8)
 
   return (
@@ -108,6 +108,22 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
+                    <Link href="/blogs" className="inline-flex h-10 items-center px-4 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                      Blog
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link href="/faq" className="inline-flex h-10 items-center px-4 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                      FAQs
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
                     <Link href="/about" className="inline-flex h-10 items-center px-4 text-sm font-medium text-foreground hover:text-primary transition-colors">
                       About
                     </Link>
@@ -136,8 +152,9 @@ export function Header() {
               
               <Button 
                 size="sm" 
-                className="hidden sm:flex rounded-lg"
-                onClick={() => setBookingOpen(true)}
+                className="hidden sm:flex rounded-lg touch-manipulation"
+                type="button"
+                onClick={() => openBooking({ source: "header_desktop" })}
               >
                 Book Now
               </Button>
@@ -186,6 +203,20 @@ export function Header() {
                         <span className="text-sm font-medium">Service Areas</span>
                       </Link>
                       <Link
+                        href="/blogs"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-3 rounded-lg px-2 py-2.5 hover:bg-slate-50 transition-colors text-sm font-medium"
+                      >
+                        Blog
+                      </Link>
+                      <Link
+                        href="/faq"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-3 rounded-lg px-2 py-2.5 hover:bg-slate-50 transition-colors text-sm font-medium"
+                      >
+                        FAQs
+                      </Link>
+                      <Link
                         href="/about"
                         onClick={() => setIsOpen(false)}
                         className="flex items-center gap-3 rounded-lg px-2 py-2.5 hover:bg-slate-50 transition-colors text-sm font-medium"
@@ -204,16 +235,17 @@ export function Header() {
 
                   <div className="p-4 border-t mt-auto">
                     <Button 
-                      className="w-full mb-3 rounded-lg"
+                      className="w-full mb-3 rounded-lg touch-manipulation"
+                      type="button"
                       onClick={() => {
                         setIsOpen(false)
-                        setBookingOpen(true)
+                        openBooking({ source: "header_mobile" })
                       }}
                     >
                       Book Service Now
                     </Button>
                     <a 
-                      href={`tel:${COMPANY_PHONE}`}
+                      href={`tel:${COMPANY_PHONE_TEL}`}
                       className="flex items-center justify-center gap-2 py-2 text-sm font-medium text-primary"
                     >
                       <Phone className="h-4 w-4" />
@@ -226,9 +258,6 @@ export function Header() {
           </div>
         </div>
       </header>
-
-      {/* Booking Modal */}
-      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
     </>
   )
 }

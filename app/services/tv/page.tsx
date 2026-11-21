@@ -1,12 +1,15 @@
 import { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import Image from "next/image"
 import Link from "next/link"
 import { LeadForm } from "@/components/forms/lead-form"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { FaqSection } from "@/components/sections/faq-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
-import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
-import { BANGALORE_AREAS, TESTIMONIALS, BRAND_SERVICES } from "@/lib/constants"
+import { ServiceJsonLd } from "@/components/seo/json-ld"
+import { ServiceHubAnswerSummary } from "@/components/seo/service-hub-answer-summary"
+import { BANGALORE_AREAS, BRAND_SERVICES, COMPANY_INFO, COMPANY_PHONE_TEL } from "@/lib/constants"
+import { getTestimonialsForService } from "@/lib/testimonials"
 import { 
   Tv, 
   Wrench, 
@@ -22,19 +25,12 @@ import {
   type LucideIcon
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Samsung LG Sony TV Repair & Sales Bangalore | Repair Service",
-  description: "Expert TV repair and sales in Bangalore. Samsung, LG, Sony, Panasonic TV screen repair, installation & home delivery. LED, QLED, OLED repair service.",
-  keywords: "TV repair Bangalore, Samsung TV service, LG TV repair, Sony TV service, TV screen replacement, LED TV repair, QLED repair, television repair Bangalore",
-  openGraph: {
-    title: "Samsung & LG TV Repair Bangalore | Professional Service",
-    description: "Expert TV repair and sales for Samsung, LG, Sony & all brands. Screen replacement, installation & home delivery available.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/services/tv",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "TV repair Bangalore",
+  description: "Samsung and LG TV repair near you in Bangalore. Screen, panel replacement and installation. Call +91 99010 21555.",
+  path: "/services/tv",
+})
+
 
 const services = [
   {
@@ -71,7 +67,7 @@ const services = [
     icon: Tv,
     title: "Software Update",
     description: "TV firmware update, reset and software troubleshooting",
-    price: "Starting ₹299"
+    price: "Starting ₹450"
   }
 ]
 
@@ -123,15 +119,14 @@ const breadcrumbItems = [
 ]
 
 export default function TvPage() {
+  const testimonials = getTestimonialsForService("tv")
+
   return (
     <>
       <ServiceJsonLd 
         serviceName="TV Repair & Sales Bangalore"
         description="Professional TV repair, sales, installation and home delivery services in Bangalore. All brands serviced."
       />
-      <FaqJsonLd faqs={faqs} />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-indigo-500/5 via-background to-indigo-500/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -145,7 +140,7 @@ export default function TvPage() {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                Samsung & LG TV Repair & Sales in Bangalore
+                TV repair in Bangalore
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
@@ -164,7 +159,7 @@ export default function TvPage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:+919876543210" 
+                  href={`tel:${COMPANY_PHONE_TEL}`} 
                   className="inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
@@ -203,6 +198,28 @@ export default function TvPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <ServiceHubAnswerSummary serviceSlug="tv" />
+
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-3xl space-y-4 text-muted-foreground leading-relaxed">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+            Samsung &amp; LG TV repair near you in Bangalore
+          </h2>
+          <p>
+            Panel faults, no-power boards and wall-mount installations are handled doorstep across
+            major localities. Use this hub plus the{" "}
+            <Link href="/areas" className="text-primary font-medium hover:underline">
+              service areas directory
+            </Link>{" "}
+            to reach area-specific TV pages and related appliance hubs like{" "}
+            <Link href="/services/ac" className="text-primary font-medium hover:underline">
+              AC service
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
@@ -397,7 +414,7 @@ export default function TvPage() {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {BANGALORE_AREAS.slice(0, 15).map((area) => (
+            {BANGALORE_AREAS.map((area) => (
               <Link
                 key={area.slug}
                 href={`/areas/${area.slug}/tv`}
@@ -424,7 +441,7 @@ export default function TvPage() {
       <TestimonialsSection 
         title="Customer Reviews"
         subtitle="See what our customers say about our TV services"
-        testimonials={TESTIMONIALS.slice(0, 3)}
+        testimonials={testimonials}
       />
 
       {/* FAQ Section */}
@@ -450,7 +467,7 @@ export default function TvPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <span className="text-lg font-medium">+91 98765 43210</span>
+                  <span className="text-lg font-medium">{COMPANY_INFO.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Timer className="w-5 h-5" />

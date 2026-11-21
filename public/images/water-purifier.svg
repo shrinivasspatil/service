@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Water Purifier Service">
+  <rect width="800" height="600" fill="#1e40af"/>
+  <rect x="40" y="40" width="720" height="520" rx="24" fill="#ffffff" fill-opacity="0.08"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="40" font-weight="600">Water Purifier Service</text>
+</svg>

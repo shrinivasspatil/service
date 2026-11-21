@@ -3,7 +3,14 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { SERVICES, BRAND_SERVICES, BANGALORE_AREAS, COMPANY_INFO } from "@/lib/constants"
-import { ServiceJsonLd, BreadcrumbJsonLd, FaqJsonLd, ProductSchema } from "@/components/seo/json-ld"
+import { getTestimonialsForBrand } from "@/lib/testimonials"
+import { getCityBrandHeading, getCityBrandIntro } from "@/lib/brand-content"
+import { TestimonialsSection } from "@/components/sections/testimonials-section"
+import { pageMetadata } from "@/lib/seo"
+import { getBrandAnswerSummary } from "@/lib/answer-summaries"
+import { AnswerSummary } from "@/components/seo/answer-summary"
+import { LastUpdated } from "@/components/seo/last-updated"
+import { ServiceJsonLd } from "@/components/seo/json-ld"
 import { LeadForm } from "@/components/forms/lead-form"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { Button } from "@/components/ui/button"
@@ -58,30 +65,20 @@ export async function generateMetadata({
   const brandName = brandData.brand
   const serviceName = service.name
 
-  const title = `${brandName} ${serviceName} Service Bangalore | Repair, Installation & AMC`
-  const description = `Unauthorized ${brandName} ${serviceName.toLowerCase()} service center in Bangalore. Expert ${brandName} repair, installation, maintenance & AMC. Same-day service in Koramangala, HSR Layout, Whitefield & all areas. Call ${COMPANY_INFO.phone}`
+  const title = `${brandName} ${serviceName} Bangalore`
+  const description = `${brandName} ${serviceName.toLowerCase()} repair, installation and AMC in Bangalore. Same-day doorstep service. Call ${COMPANY_INFO.phone}.`
 
-  return {
+  return pageMetadata({
     title,
     description,
+    path: `/services/${serviceSlug}/${brandSlug}`,
     keywords: [
-      `${brandName} ${serviceName} service Bangalore`,
+      `${brandName} ${serviceName} service near me Bangalore`,
       `${brandName} ${serviceName} repair Bangalore`,
       `${brandName} service center Bangalore`,
-      `${brandName} ${serviceName} installation`,
-      `${brandName} AMC Bangalore`,
       ...brandData.services.map(s => `${s} Bangalore`),
     ].join(", "),
-    openGraph: {
-      title: `${brandName} ${serviceName} Service in Bangalore`,
-      description: `Expert ${brandName} ${serviceName.toLowerCase()} repair, installation & AMC in Bangalore. Same-day service available.`,
-      type: "website",
-      url: `https://servicebooking.in/services/${serviceSlug}/${brandSlug}`,
-    },
-    alternates: {
-      canonical: `https://servicebooking.in/services/${serviceSlug}/${brandSlug}`,
-    },
-  }
+  })
 }
 
 export default async function BrandServicePage({ 
@@ -143,8 +140,17 @@ export default async function BrandServicePage({
     { name: "AMC", desc: `Annual maintenance contract for ${brandName}`, icon: Shield },
   ]
 
-  // Popular areas for this service
-  const popularAreas = BANGALORE_AREAS.slice(0, 12)
+  // Link every Bangalore area → area×brand when available, else area×service
+  const serviceAreas = BANGALORE_AREAS
+  const brandAnswer = getBrandAnswerSummary(brandName, service.name, serviceSlug)
+  const testimonials = getTestimonialsForBrand(brandName, serviceSlug, 6)
+  const brandIntro = getCityBrandIntro(
+    brandName,
+    service.name,
+    serviceSlug,
+    brandData.services,
+    service.startingPrice
+  )
 
   return (
     <>
@@ -153,17 +159,6 @@ export default async function BrandServicePage({
         serviceName={`${brandName} ${service.name} Service Bangalore`}
         description={`Professional ${brandName} ${service.name.toLowerCase()} repair, installation and maintenance in Bangalore`}
       />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-      <FaqJsonLd faqs={faqs} />
-      <ProductSchema 
-        serviceName={service.name}
-        area="Bangalore"
-        areaSlug="bangalore"
-        serviceSlug={serviceSlug}
-        brands={[brandName]}
-        priceRange={service.priceRange}
-      />
-
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
@@ -171,7 +166,10 @@ export default async function BrandServicePage({
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
           
           <div className="container mx-auto px-4 py-8 relative">
-            <Breadcrumbs items={breadcrumbItems} className="text-slate-400 mb-8" />
+            <Breadcrumbs
+              items={breadcrumbItems}
+              className="mb-8 text-slate-400 [&_ol]:text-slate-400 [&_a]:text-slate-400 [&_a:hover]:text-white [&_span]:text-white"
+            />
             
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -185,13 +183,13 @@ export default async function BrandServicePage({
                 </div>
 
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-                  {brandName} {service.name} Service in Bangalore
+                  {getCityBrandHeading(brandName, service.name, serviceSlug)}
                 </h1>
                 
-                <p className="text-lg text-slate-300 mb-8 text-pretty">
-                  Expert {brandName} {service.name.toLowerCase()} repair, installation, maintenance & AMC services 
-                  across all Bangalore areas. Certified technicians with genuine {brandName} spare parts.
+                <p className="text-lg text-slate-300 mb-4 text-pretty">
+                  {brandIntro}
                 </p>
+                <LastUpdated className="text-sm text-slate-400 mb-8" />
 
                 {/* Trust Badges */}
                 <div className="flex flex-wrap gap-4 mb-8">
@@ -216,7 +214,7 @@ export default async function BrandServicePage({
                       Call Now
                     </a>
                   </Button>
-                  <Button size="lg" variant="outline" asChild className="gap-2 border-white/20 hover:bg-white/10">
+                  <Button size="lg" variant="heroOutline" asChild className="gap-2">
                     <a href="#book-service">
                       Book Service
                       <ArrowRight className="w-5 h-5" />
@@ -249,6 +247,33 @@ export default async function BrandServicePage({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <AnswerSummary question={brandAnswer.question} answer={brandAnswer.answer} />
+
+        <section className="py-10 border-b border-border">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-2xl font-bold mb-4">
+              {brandName} {service.name} service in Bangalore
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">{brandIntro}</p>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <Link
+                href={`/services/${serviceSlug}`}
+                className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+              >
+                All {service.name} brands
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                href="/areas"
+                className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+              >
+                Browse Bangalore areas
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
         </section>
@@ -316,15 +341,17 @@ export default async function BrandServicePage({
               We provide {brandName} {service.name.toLowerCase()} service across all Bangalore locations
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
-              {popularAreas.map((area) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
+              {serviceAreas.map((area) => (
                 <Link
                   key={area.slug}
                   href={`/areas/${area.slug}/${serviceSlug}`}
                   className="flex items-center gap-2 p-3 bg-white rounded-lg hover:shadow-md hover:border-primary border border-transparent transition-all text-sm"
                 >
                   <MapPin className="w-4 h-4 text-primary shrink-0" />
-                  <span>{area.name}</span>
+                  <span>
+                    {service.name} in {area.name}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -368,6 +395,12 @@ export default async function BrandServicePage({
             </div>
           </div>
         </section>
+
+        <TestimonialsSection
+          title={`${brandName} Customer Reviews`}
+          subtitle={`What Bangalore customers say about our ${brandName} ${service.name.toLowerCase()} service`}
+          testimonials={testimonials}
+        />
 
         {/* FAQs */}
         <section className="py-16 bg-slate-50">

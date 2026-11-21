@@ -1,12 +1,16 @@
 import { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import Image from "next/image"
 import Link from "next/link"
 import { LeadForm } from "@/components/forms/lead-form"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { FaqSection } from "@/components/sections/faq-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
-import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
-import { BANGALORE_AREAS, TESTIMONIALS, BRAND_SERVICES } from "@/lib/constants"
+import { ServiceJsonLd } from "@/components/seo/json-ld"
+import { ServiceHubAnswerSummary } from "@/components/seo/service-hub-answer-summary"
+import { BANGALORE_AREAS, BRAND_SERVICES, COMPANY_INFO, COMPANY_PHONE_TEL } from "@/lib/constants"
+import { brandToSlug } from "@/lib/area-brand-pages"
+import { getTestimonialsForService } from "@/lib/testimonials"
 import { 
   Sparkles, 
   Wrench, 
@@ -23,19 +27,12 @@ import {
   type LucideIcon
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Bosch Dishwasher Service Bangalore | IFB, LG, Samsung, Siemens Repair",
-  description: "Expert Bosch dishwasher repair Bangalore. IFB dishwasher service, LG dishwasher repair, Samsung dishwasher service, Siemens installation. Same-day service in Koramangala, Whitefield, HSR Layout.",
-  keywords: "Bosch dishwasher service Bangalore, IFB dishwasher repair, LG dishwasher service, Samsung dishwasher repair, Siemens dishwasher service, Faber dishwasher repair Bangalore",
-  openGraph: {
-    title: "Bosch Dishwasher Service Bangalore | IFB, LG, Samsung Repair",
-    description: "Expert repair for Bosch, IFB, LG, Samsung & Siemens dishwashers in Bangalore. Installation, repair & maintenance.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/services/dishwasher",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Dishwasher repair Bangalore",
+  description: "Bosch, IFB, LG, Faber, Hafele, Siemens and Kelvinator dishwasher service near you in Bangalore. Installation and repair. Call +91 99010 21555.",
+  path: "/services/dishwasher",
+})
+
 
 const services = [
   {
@@ -74,11 +71,6 @@ const services = [
     description: "Complete interior cleaning, descaling and sanitization",
     price: "Starting ₹599"
   }
-]
-
-const brands = [
-  "Bosch", "IFB", "LG", "Samsung", "Siemens", "Faber", 
-  "Voltas Beko", "Elica", "Kaff", "Miele", "Whirlpool", "Electrolux"
 ]
 
 const faqs = [
@@ -124,15 +116,14 @@ const breadcrumbItems = [
 ]
 
 export default function DishwasherPage() {
+  const testimonials = getTestimonialsForService("dishwasher")
+
   return (
     <>
       <ServiceJsonLd 
         serviceName="Dishwasher Service Bangalore"
         description="Professional dishwasher installation, repair, and maintenance services in Bangalore. All brands serviced."
       />
-      <FaqJsonLd faqs={faqs} />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -146,7 +137,7 @@ export default function DishwasherPage() {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                Bosch & IFB Dishwasher Service in Bangalore
+                Dishwasher repair in Bangalore
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
@@ -165,7 +156,7 @@ export default function DishwasherPage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:+919876543210" 
+                  href={`tel:${COMPANY_PHONE_TEL}`} 
                   className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
@@ -206,6 +197,8 @@ export default function DishwasherPage() {
           </div>
         </div>
       </section>
+
+      <ServiceHubAnswerSummary serviceSlug="dishwasher" />
 
       {/* Services Grid */}
       <section className="py-16 md:py-24">
@@ -250,13 +243,14 @@ export default function DishwasherPage() {
           </div>
           
           <div className="flex flex-wrap justify-center gap-4">
-            {brands.map((brand, index) => (
-              <div 
-                key={index}
-                className="bg-background px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:border-primary/50 hover:shadow-sm transition-all"
+            {BRAND_SERVICES.dishwasher.map((brand) => (
+              <Link
+                key={brand.brand}
+                href={`/services/dishwasher/${brandToSlug(brand.brand)}`}
+                className="bg-background px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:border-primary hover:text-primary hover:shadow-sm transition-all"
               >
-                {brand}
-              </div>
+                {brand.brand}
+              </Link>
             ))}
           </div>
         </div>
@@ -375,7 +369,7 @@ export default function DishwasherPage() {
             {BRAND_SERVICES["dishwasher"].map((brand) => (
               <Link
                 key={brand.brand}
-                href={`/services/dishwasher/${brand.brand.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/services/dishwasher/${brandToSlug(brand.brand)}`}
                 className="bg-white/10 hover:bg-white/20 px-4 py-3 rounded-lg text-center text-sm font-medium transition-colors"
               >
                 {brand.brand}
@@ -398,7 +392,7 @@ export default function DishwasherPage() {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {BANGALORE_AREAS.slice(0, 15).map((area) => (
+            {BANGALORE_AREAS.map((area) => (
               <Link
                 key={area.slug}
                 href={`/areas/${area.slug}/dishwasher`}
@@ -425,7 +419,7 @@ export default function DishwasherPage() {
       <TestimonialsSection 
         title="Customer Reviews"
         subtitle="See what our customers say about our dishwasher services"
-        testimonials={TESTIMONIALS.slice(0, 3)}
+        testimonials={testimonials}
       />
 
       {/* FAQ Section */}
@@ -451,7 +445,7 @@ export default function DishwasherPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <span className="text-lg font-medium">+91 98765 43210</span>
+                  <span className="text-lg font-medium">{COMPANY_INFO.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Timer className="w-5 h-5" />

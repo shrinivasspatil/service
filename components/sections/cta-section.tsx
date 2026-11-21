@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Phone, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { COMPANY_PHONE } from "@/lib/constants"
+import { COMPANY_NAME, COMPANY_PHONE } from "@/lib/constants"
 
 interface CTASectionProps {
   title?: string
@@ -11,7 +11,7 @@ interface CTASectionProps {
 
 export function CTASection({
   title = "Ready to Get Started?",
-  subtitle = "Book your service today and experience the ServiceHub difference",
+  subtitle = `Book your service today and experience the ${COMPANY_NAME} difference`,
   features = [
     "Free consultation & quote",
     "Same-day service available",
@@ -43,7 +43,7 @@ export function CTASection({
             <Button asChild size="lg" variant="secondary" className="text-base px-8">
               <Link href="/contact">Book Service Now</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-base px-8">
+            <Button asChild size="lg" variant="primaryOutline" className="text-base px-8">
               <a href={`tel:${COMPANY_PHONE}`}>
                 <Phone className="mr-2 h-5 w-5" />
                 {COMPANY_PHONE}

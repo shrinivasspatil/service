@@ -9,18 +9,24 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[]
+  className?: string
 }
 
-export function Breadcrumbs({ items }: BreadcrumbsProps) {
-  const schemaItems = [
-    { name: "Home", url: "/" },
-    ...items.map(item => ({ name: item.label, url: item.href }))
-  ]
+export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
+  // Home icon is always shown — skip a duplicate "Home" crumb in the trail
+  const trailItems = items.filter((item) => item.href !== "/")
+  const schemaItems = items.map((item) => ({
+    name: item.label,
+    url: item.href,
+  }))
 
   return (
     <>
       <BreadcrumbSchema items={schemaItems} />
-      <nav aria-label="Breadcrumb" className="py-4">
+      <nav
+        aria-label="Breadcrumb"
+        className={className ? `py-2 ${className}` : "py-2"}
+      >
         <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <li>
             <Link
@@ -31,10 +37,10 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               <span className="sr-only">Home</span>
             </Link>
           </li>
-          {items.map((item, index) => (
+          {trailItems.map((item, index) => (
             <li key={item.href} className="flex items-center gap-2">
               <ChevronRight className="h-4 w-4" />
-              {index === items.length - 1 ? (
+              {index === trailItems.length - 1 ? (
                 <span className="font-medium text-foreground">{item.label}</span>
               ) : (
                 <Link

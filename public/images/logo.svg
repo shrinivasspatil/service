@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="120" viewBox="0 0 400 120" role="img" aria-label="Service Booking">
+  <rect width="400" height="120" fill="#1e40af"/>
+  <rect x="40" y="40" width="320" height="40" rx="24" fill="#ffffff" fill-opacity="0.08"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="600">Service Booking</text>
+</svg>

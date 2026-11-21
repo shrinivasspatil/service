@@ -1,12 +1,15 @@
 import { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import Image from "next/image"
 import Link from "next/link"
 import { LeadForm } from "@/components/forms/lead-form"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { FaqSection } from "@/components/sections/faq-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
-import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
-import { BANGALORE_AREAS, TESTIMONIALS, BRAND_SERVICES } from "@/lib/constants"
+import { ServiceJsonLd } from "@/components/seo/json-ld"
+import { ServiceHubAnswerSummary } from "@/components/seo/service-hub-answer-summary"
+import { BANGALORE_AREAS, BRAND_SERVICES, COMPANY_INFO, COMPANY_PHONE_TEL } from "@/lib/constants"
+import { getTestimonialsForService } from "@/lib/testimonials"
 import { 
   WashingMachine, 
   Wrench, 
@@ -26,19 +29,12 @@ import {
   type LucideIcon
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "LG Washing Machine Service Bangalore | Samsung, IFB, Bosch, Whirlpool Repair",
-  description: "Expert LG washing machine repair Bangalore. Samsung front load service, IFB dryer repair, Bosch washing machine service, Whirlpool motor repair. Same-day service in Koramangala, Whitefield, HSR Layout.",
-  keywords: "LG washing machine service Bangalore, Samsung washing machine repair, IFB washing machine service, Bosch washing machine repair, Whirlpool service center, Godrej washing machine repair Bangalore",
-  openGraph: {
-    title: "LG Washing Machine Service Bangalore | Samsung, IFB, Bosch Repair",
-    description: "Expert repair for LG, Samsung, IFB, Bosch, Whirlpool & Godrej washing machines in Bangalore. Motor repair, drum service & installation.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/services/washing-machine",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Washing machine repair Bangalore",
+  description: "LG and Samsung washing machine repair near you in Bangalore. IFB, Bosch drum and motor service. Call +91 99010 21555.",
+  path: "/services/washing-machine",
+})
+
 
 const services = [
   {
@@ -51,7 +47,7 @@ const services = [
     icon: Wrench,
     title: "Repair Service",
     description: "Expert diagnosis and repair of all washing machine issues",
-    price: "Starting ₹299"
+    price: "Starting ₹450"
   },
   {
     icon: Drum,
@@ -127,15 +123,14 @@ const breadcrumbItems = [
 ]
 
 export default function WashingMachinePage() {
+  const testimonials = getTestimonialsForService("washing-machine")
+
   return (
     <>
       <ServiceJsonLd 
         serviceName="Washing Machine Service Bangalore"
         description="Professional washing machine installation, repair, and maintenance services in Bangalore. All brands serviced."
       />
-      <FaqJsonLd faqs={faqs} />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -149,7 +144,7 @@ export default function WashingMachinePage() {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                LG & Samsung Washing Machine Service in Bangalore
+                Washing machine repair in Bangalore
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
@@ -168,7 +163,7 @@ export default function WashingMachinePage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:+919876543210" 
+                  href={`tel:${COMPANY_PHONE_TEL}`} 
                   className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
@@ -209,6 +204,8 @@ export default function WashingMachinePage() {
           </div>
         </div>
       </section>
+
+      <ServiceHubAnswerSummary serviceSlug="washing-machine" />
 
       {/* Services Grid */}
       <section className="py-16 md:py-24">
@@ -401,7 +398,7 @@ export default function WashingMachinePage() {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {BANGALORE_AREAS.slice(0, 15).map((area) => (
+            {BANGALORE_AREAS.map((area) => (
               <Link
                 key={area.slug}
                 href={`/areas/${area.slug}/washing-machine`}
@@ -428,7 +425,7 @@ export default function WashingMachinePage() {
       <TestimonialsSection 
         title="Customer Reviews"
         subtitle="See what our customers say about our washing machine services"
-        testimonials={TESTIMONIALS.slice(0, 3)}
+        testimonials={testimonials}
       />
 
       {/* FAQ Section */}
@@ -454,7 +451,7 @@ export default function WashingMachinePage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <span className="text-lg font-medium">+91 98765 43210</span>
+                  <span className="text-lg font-medium">{COMPANY_INFO.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Timer className="w-5 h-5" />

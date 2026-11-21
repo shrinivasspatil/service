@@ -16,7 +16,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { SERVICES } from "@/lib/constants"
+import { COMPANY_INFO, COMPANY_PHONE_TEL, SERVICES } from "@/lib/constants"
+import { submitLead } from "@/lib/submit-lead"
+import { trackGenerateLead } from "@/lib/analytics"
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -50,6 +52,7 @@ export function LeadForm({
 }: LeadFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -63,11 +66,34 @@ export function LeadForm({
 
   async function onSubmit(values: FormValues) {
     setIsSubmitting(true)
-    // Simulate brief loading then show success
-    await new Promise((resolve) => setTimeout(resolve, 800))
+    setSubmitError(null)
+
+    const result = await submitLead({
+      name: values.name,
+      phone: values.phone,
+      pincode: values.pincode,
+      service: values.serviceCategory,
+      formType: "lead",
+      area,
+      sourcePage,
+    })
+
+    setIsSubmitting(false)
+
+    if (!result.ok) {
+      setSubmitError(result.message)
+      return
+    }
+
+    trackGenerateLead({
+      formType: "lead",
+      service: values.serviceCategory,
+      area,
+      sourcePage,
+    })
+
     setIsSuccess(true)
     form.reset()
-    setIsSubmitting(false)
     setTimeout(() => setIsSuccess(false), 6000)
   }
 
@@ -123,8 +149,8 @@ export function LeadForm({
 
           <p className="text-center text-xs text-slate-500 mt-4">
             Need urgent help? Call us directly at{" "}
-            <a href="tel:+919876543210" className="font-semibold text-green-700 underline">
-              +91 98765 43210
+            <a href={`tel:${COMPANY_PHONE_TEL}`} className="font-semibold text-green-700 underline">
+              {COMPANY_INFO.phone}
             </a>
           </p>
         </div>
@@ -169,7 +195,7 @@ export function LeadForm({
                       +91
                     </span>
                     <Input 
-                      placeholder="9876543210" 
+                      placeholder="9901021555" 
                       type="tel" 
                       className="rounded-l-none"
                       maxLength={10}
@@ -190,7 +216,7 @@ export function LeadForm({
                 <FormLabel>Area Pincode *</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="560034" 
+                    placeholder="560102" 
                     type="text" 
                     maxLength={6}
                     {...field} 
@@ -215,7 +241,7 @@ export function LeadForm({
                       return (
                         <label
                           key={service.slug}
-                          className={`relative flex items-center gap-2 cursor-pointer rounded-lg border-2 p-3 transition-all ${
+                          className={`relative flex min-h-11 touch-manipulation items-center gap-2 cursor-pointer rounded-lg border-2 p-3 transition-all ${
                             isSelected 
                               ? 'border-primary bg-primary/5 ring-1 ring-primary' 
                               : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
@@ -251,7 +277,7 @@ export function LeadForm({
 
           <Button 
             type="submit" 
-            className="w-full" 
+            className="w-full touch-manipulation" 
             size="lg"
             disabled={isSubmitting}
           >
@@ -264,6 +290,10 @@ export function LeadForm({
               "Get Free Quote"
             )}
           </Button>
+
+          {submitError && (
+            <p className="text-center text-sm text-red-600">{submitError}</p>
+          )}
 
           <p className="text-center text-xs text-muted-foreground">
             We&apos;ll call you within 30 minutes

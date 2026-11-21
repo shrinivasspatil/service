@@ -1,10 +1,15 @@
 import { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import Link from "next/link"
 import Image from "next/image"
-import { LocalBusinessJsonLd, ServiceJsonLd, FaqJsonLd, OrganizationSchema, WebsiteSchema, HowToSchema, ServiceListSchema } from "@/components/seo/json-ld"
-import { SERVICES, TESTIMONIALS, COMPANY_INFO, BANGALORE_AREAS, STATS, BRAND_SERVICES } from "@/lib/constants"
+import { LocalBusinessJsonLd, ServiceListSchema } from "@/components/seo/json-ld"
+import { FOOTER_BRAND_LINKS, getCrawlSeedAreas } from "@/lib/coverage"
+import { AnswerSummary } from "@/components/seo/answer-summary"
+import { getHomeAnswerSummary } from "@/lib/answer-summaries"
+import { SERVICES, TESTIMONIALS, COMPANY_INFO, STATS, BRAND_SERVICES } from "@/lib/constants"
 import { LeadForm } from "@/components/forms/lead-form"
 import { HomepageHero } from "@/components/sections/homepage-hero"
+import { HomeNotes } from "@/components/home-notes"
 import { 
   Shield, 
   Phone, 
@@ -28,42 +33,38 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-export const metadata: Metadata = {
-  title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Service Center",
-  description: "Unauthorized service for Kent RO, Aquaguard, Daikin AC, LG AC, Faber Chimney, Elica, Prestige Hob in Bangalore. Expert repair, installation & AMC. Same-day service across Koramangala, HSR, Whitefield & all areas.",
-  keywords: "Kent RO service Bangalore, Aquaguard service center Bangalore, Daikin AC repair Bangalore, Faber chimney cleaning Bangalore, Elica chimney service, Prestige hob repair, LG AC service Bangalore, Voltas AC repair, Blue Star AC service",
-  openGraph: {
-    title: "ServiceHub Bangalore - Kent, Aquaguard, Daikin, Faber Unauthorized Service",
-    description: "Expert Kent RO service, Aquaguard repair, Daikin AC service, Faber chimney cleaning, Prestige hob repair in Bangalore. 50,000+ customers served.",
-    type: "website",
-    locale: "en_IN",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Service Booking | Appliance Repair Bangalore",
+  description:
+    "Independent appliance repair in Bangalore. Same-day Kent RO, Daikin AC, Faber chimney, LG, Samsung and 50+ brand service from our HSR Layout team.",
+  path: "/",
+  absoluteTitle: true,
+})
 
 const homeFaqs = [
   {
     question: "Do you provide Kent and Aquaguard water purifier service?",
-    answer: "Yes! We are an independent multi-brand service provider for Kent RO service, Aquaguard service, Pureit service, Livpure, Blue Star, and AO Smith water purifiers in Bangalore. Our services include filter replacement, AMC, and emergency repairs."
+    answer: "Yes! We provide independent multi-brand service for Kent RO, Aquaguard, and other water purifiers in Bangalore. Our services include filter replacements and emergency repairs, ensuring your water purifier runs efficiently."
   },
   {
     question: "Which AC brands do you service - Daikin, LG, Voltas?",
-    answer: "We service all major AC brands including Daikin AC service, LG AC repair, Samsung AC service, Voltas AC gas refill, Blue Star AC installation, Hitachi, Carrier, Godrej, Panasonic, and O General."
+    answer: "We service all major AC brands, including Daikin, LG, and Voltas. Our offerings include repairs, installations, and maintenance services, ensuring your AC operates at peak performance throughout the year."
   },
   {
     question: "Do you clean Faber and Elica chimneys?",
-    answer: "Yes! We provide professional Faber chimney cleaning, Elica chimney service, Hindware chimney repair, Kaff, Glen, Bosch, IFB, and Kutchina chimney deep cleaning and motor repair services."
+    answer: "Yes! We offer professional cleaning and repair services for Faber and Elica chimneys. Our team ensures optimal performance and cleanliness, helping you maintain a smoke-free kitchen."
   },
   {
     question: "Can you repair Prestige and Pigeon gas hobs?",
-    answer: "Absolutely! We repair Prestige hob, Pigeon gas stove, Sunflame cooktop, Gilma hob, Elica, Faber, Bosch, and Hindware hobs. Services include burner repair, ignition fix, and glass top replacement."
+    answer: "Absolutely! We repair various gas hobs, including Prestige and Pigeon. Our services cover burner repairs and ignition fixes, ensuring your cooking experience is hassle-free."
   },
   {
     question: "Which areas in Bangalore do you cover?",
-    answer: "We serve all major Bangalore areas including Koramangala, HSR Layout, Indiranagar, Whitefield, Electronic City, Jayanagar, JP Nagar, Marathahalli, Bellandur, BTM Layout, and 25+ more localities."
+    answer: "We cover all major areas in Bangalore, including Koramangala and Whitefield. Our prompt service ensures that help is always just a call away, no matter where you are in the city."
   },
   {
     question: "Do you provide AMC for Kent, Daikin and other brands?",
-    answer: "Yes, we offer Annual Maintenance Contracts (AMC) for Kent RO, Aquaguard, Daikin AC, LG AC, Voltas AC, and all major brands. AMC includes regular servicing, priority support, and discounted repairs."
+    answer: "Yes, we provide Annual Maintenance Contracts (AMC) for various brands. This ensures regular servicing and priority support, giving you peace of mind throughout the year."
   }
 ]
 
@@ -74,25 +75,21 @@ const trustBadges = [
   { icon: Shield, title: "Service Warranty", desc: "Guaranteed satisfaction" },
 ]
 
-const popularAreas = BANGALORE_AREAS.filter(area => area.popular).slice(0, 8)
+const popularAreas = getCrawlSeedAreas()
+
+const homeAnswer = getHomeAnswerSummary()
 
 export default function HomePage() {
   return (
     <>
-      {/* All SEO Schemas */}
-      <LocalBusinessJsonLd />
-      <OrganizationSchema />
-      <WebsiteSchema />
+      <LocalBusinessJsonLd includeRating />
       <ServiceListSchema />
-      <HowToSchema serviceName="Home Appliance" />
-      <ServiceJsonLd 
-        serviceName="Kent RO, Aquaguard, Daikin AC, Faber Chimney, Prestige Hob Service Bangalore"
-        description="Unauthorized service center for Kent, Aquaguard, Pureit, Daikin, LG, Samsung, Voltas, Faber, Elica, Prestige, Pigeon appliances in Bangalore. Expert repair, installation and AMC."
-      />
-      <FaqJsonLd faqs={homeFaqs} />
       
       {/* Hero Section - Clean Urban Company Style */}
       <HomepageHero />
+      <HomeNotes />
+
+      <AnswerSummary question={homeAnswer.question} answer={homeAnswer.answer} />
 
       {/* Trust Badges */}
       <section className="bg-slate-50 border-y border-slate-200">
@@ -135,7 +132,7 @@ export default function HomePage() {
               Our Services
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Expert solutions for all your home appliance needs
+              What are the expert solutions for all your home appliance needs?
             </p>
           </div>
 
@@ -207,10 +204,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Brands We Service
+              What brands do we service?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Unauthorized service for all major appliance brands in Bangalore
+              Which major appliance brands do we provide unauthorized service for?
             </p>
           </div>
 
@@ -375,10 +372,21 @@ export default function HomePage() {
           <div className="text-center">
             <Button asChild variant="outline" className="rounded-xl">
               <Link href="/areas">
-                View All {BANGALORE_AREAS.length} Areas
+                Browse all Bangalore service areas
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
+            <p className="mt-4 text-sm text-muted-foreground max-w-2xl mx-auto">
+              Brand pages:{" "}
+              {FOOTER_BRAND_LINKS.map((brand, index) => (
+                <span key={brand.href}>
+                  {index > 0 ? " · " : ""}
+                  <Link href={brand.href} className="text-primary hover:underline">
+                    {brand.name}
+                  </Link>
+                </span>
+              ))}
+            </p>
           </div>
         </div>
       </section>
@@ -466,7 +474,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <div className="text-sm text-slate-400">Working Hours</div>
-                    <span className="font-semibold">Mon - Sun, 8 AM - 8 PM</span>
+                    <span className="font-semibold">Mon - Sun, 8 AM - 9 PM</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -483,11 +491,7 @@ export default function HomePage() {
 
             <Card className="border-0 shadow-2xl">
               <CardContent className="p-6 lg:p-8">
-                <LeadForm 
-                  sourcePage="homepage"
-                  defaultService=""
-                  defaultArea=""
-                />
+                <LeadForm sourcePage="homepage" />
               </CardContent>
             </Card>
           </div>

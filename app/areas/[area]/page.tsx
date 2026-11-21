@@ -1,12 +1,25 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { BANGALORE_AREAS, SERVICES, TESTIMONIALS, COMPANY_INFO } from "@/lib/constants"
+import { BANGALORE_AREAS, SERVICES, COMPANY_INFO } from "@/lib/constants"
+import {
+  getAreaFaqs,
+  getAreaHeading,
+  getAreaIntro,
+  getAreaMetaDescription,
+  getAreaPageTitle,
+} from "@/lib/area-content"
+import { pageMetadata } from "@/lib/seo"
+import { getNearbyAreaPages } from "@/lib/coverage"
+import { getAreaAnswerSummary } from "@/lib/answer-summaries"
+import { AnswerSummary } from "@/components/seo/answer-summary"
+import { LastUpdated } from "@/components/seo/last-updated"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { LeadForm } from "@/components/forms/lead-form"
 import { ServiceCard } from "@/components/cards/service-card"
 import { FaqSection } from "@/components/sections/faq-section"
-import { LocalBusinessJsonLd, BreadcrumbJsonLd, FaqJsonLd, AreaServiceSchema, AggregateRatingSchema } from "@/components/seo/json-ld"
+import { TestimonialsSection } from "@/components/sections/testimonials-section"
+import { getTestimonialsForArea } from "@/lib/testimonials"
 import { MapPin, Phone, Clock, CheckCircle, Star, Users, Wrench, ArrowRight } from "lucide-react"
 
 interface AreaPageProps {
@@ -27,19 +40,11 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
     return { title: "Area Not Found" }
   }
 
-  return {
-    title: `Kent RO, Daikin AC, Faber Chimney Service in ${area.name}, Bangalore`,
-    description: `Kent RO service ${area.name}, Aquaguard repair, Daikin AC service, LG AC repair, Faber chimney cleaning, Prestige hob repair in ${area.name}, Bangalore. Same-day service. Call now!`,
-    keywords: `Kent RO service ${area.name}, Aquaguard service ${area.name}, Daikin AC repair ${area.name}, LG AC service ${area.name}, Faber chimney cleaning ${area.name}, Elica chimney service ${area.name}, Prestige hob repair ${area.name}, water purifier service ${area.name} Bangalore`,
-    openGraph: {
-      title: `Kent, Aquaguard, Daikin, Faber Service in ${area.name} Bangalore`,
-      description: `Unauthorized Kent RO, Aquaguard, Daikin AC, Faber chimney, Prestige hob service in ${area.name}. Same-day repair & installation.`,
-      type: "website",
-    },
-    alternates: {
-      canonical: `https://servicebooking.in/areas/${area.slug}`,
-    },
-  }
+  return pageMetadata({
+    title: getAreaPageTitle(area),
+    description: getAreaMetaDescription(area),
+    path: `/areas/${area.slug}`,
+  })
 }
 
 export default async function AreaPage({ params }: AreaPageProps) {
@@ -56,49 +61,14 @@ export default async function AreaPage({ params }: AreaPageProps) {
     { label: area.name, href: `/areas/${area.slug}` },
   ]
 
-  const faqs = [
-    {
-      question: `Do you provide Kent RO and Aquaguard service in ${area.name}?`,
-      answer: `Yes! We provide Kent RO service, Aquaguard repair, Pureit service, Livpure AMC, and Blue Star water purifier installation in ${area.name}. Same-day filter replacement available.`
-    },
-    {
-      question: `Which AC brands do you service in ${area.name} - Daikin, LG, Voltas?`,
-      answer: `We service Daikin AC, LG AC, Samsung AC, Voltas AC, Blue Star AC, Hitachi, Carrier, and O General in ${area.name}. Services include gas refill, compressor repair, and AMC.`
-    },
-    {
-      question: `Can you clean Faber and Elica chimneys in ${area.name}?`,
-      answer: `Yes! We provide Faber chimney cleaning, Elica chimney service, Hindware chimney repair, Kaff, Glen, and Bosch chimney motor repair in ${area.name}. Deep cleaning available.`
-    },
-    {
-      question: `Do you repair Prestige and Pigeon gas hobs in ${area.name}?`,
-      answer: `Absolutely! We repair Prestige hob, Pigeon gas stove, Sunflame cooktop, Gilma hob, Elica, and Faber hobs in ${area.name}. Burner repair, ignition fix, and glass top replacement.`
-    },
-    {
-      question: `How can I book Kent or Daikin service in ${area.name}?`,
-      answer: `Book by filling the form on this page, calling ${COMPANY_INFO.phone}, or WhatsApp. We confirm appointments within 30 minutes and offer same-day service in ${area.name}.`
-    }
-  ]
+  const faqs = getAreaFaqs(area, COMPANY_INFO.phone)
+  const nearbyAreas = getNearbyAreaPages(area, 10)
 
-  // Get nearby areas
-  const currentIndex = BANGALORE_AREAS.findIndex(a => a.slug === areaSlug)
-  const nearbyAreas = [
-    ...BANGALORE_AREAS.slice(Math.max(0, currentIndex - 3), currentIndex),
-    ...BANGALORE_AREAS.slice(currentIndex + 1, currentIndex + 4)
-  ].slice(0, 6)
+  const areaAnswer = getAreaAnswerSummary(area)
+  const testimonials = getTestimonialsForArea(area.name, area.slug, 6)
 
   return (
     <>
-      <LocalBusinessJsonLd />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-      <FaqJsonLd faqs={faqs} />
-      <AreaServiceSchema area={area.name} areaSlug={area.slug} />
-      <AggregateRatingSchema 
-        itemName={`Home Appliance Services in ${area.name}`}
-        ratingValue={4.8}
-        reviewCount={1200}
-        area={area.name}
-      />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -112,13 +82,13 @@ export default async function AreaPage({ params }: AreaPageProps) {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                Home Appliance Services in {area.name}
+                {getAreaHeading(area)}
               </h1>
               
-              <p className="text-lg text-muted-foreground mb-8 text-pretty">
-                Expert Water Purifier, AC, Chimney & Hob services in {area.name}, Bangalore. 
-                Same-day installation, repair & maintenance by certified technicians.
+              <p className="text-lg text-muted-foreground mb-4 text-pretty">
+                {getAreaIntro(area)}
               </p>
+              <LastUpdated className="text-sm text-muted-foreground mb-8" />
 
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
@@ -166,6 +136,8 @@ export default async function AreaPage({ params }: AreaPageProps) {
           </div>
         </div>
       </section>
+
+      <AnswerSummary question={areaAnswer.question} answer={areaAnswer.answer} />
 
       {/* Services in Area */}
       <section className="py-16 md:py-24">
@@ -219,7 +191,7 @@ export default async function AreaPage({ params }: AreaPageProps) {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Why Choose ServiceHub in {area.name}?
+              Why Choose Service Booking in {area.name}?
             </h2>
           </div>
 
@@ -284,6 +256,12 @@ export default async function AreaPage({ params }: AreaPageProps) {
           </div>
         </div>
       </section>
+
+      <TestimonialsSection
+        title={`Customer Reviews in ${area.name}`}
+        subtitle={`What locals in ${area.name} say about our water purifier, AC, and chimney service`}
+        testimonials={testimonials}
+      />
 
       {/* Nearby Areas */}
       <section className="py-16 bg-muted/50">

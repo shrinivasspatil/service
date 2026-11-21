@@ -1,9 +1,54 @@
 import { Droplets, Wind, Flame, Snowflake, WashingMachine, Refrigerator, Sparkles, Tv, LucideIcon } from "lucide-react"
 
-export const COMPANY_NAME = "ServiceHub Bangalore"
-export const COMPANY_PHONE = "+91 98765 43210"
-export const COMPANY_EMAIL = "contact@servicehub-bangalore.com"
-export const COMPANY_ADDRESS = "123, 100 Feet Road, Koramangala, Bangalore - 560034"
+export const COMPANY_NAME = "Service Booking"
+export const CONTENT_LAST_UPDATED = "18 November 2026"
+export const COMPANY_PHONE_DIGITS = "9901021555"
+export const COMPANY_PHONE = "+91 99010 21555"
+export const COMPANY_PHONE_TEL = `+91${COMPANY_PHONE_DIGITS}`
+export const COMPANY_WHATSAPP = `91${COMPANY_PHONE_DIGITS}`
+export const COMPANY_EMAIL = "support@servicebooking.in"
+export const COMPANY_STREET_ADDRESS = "1/91, 27th Main Rd, 2nd Sector, Sector 2, HSR Layout"
+export const COMPANY_CITY = "Bengaluru"
+export const COMPANY_STATE = "Karnataka"
+export const COMPANY_POSTAL_CODE = "560102"
+export const COMPANY_ADDRESS = `${COMPANY_STREET_ADDRESS}, ${COMPANY_CITY}, ${COMPANY_STATE} ${COMPANY_POSTAL_CODE}`
+
+/** HSR Layout office coordinates (matches site geo meta). */
+export const COMPANY_GEO = {
+  latitude: 12.9116,
+  longitude: 77.6473,
+} as const
+
+/** Single source of truth for on-page hours + schema (Mon–Sun 8 AM–9 PM). */
+export const COMPANY_HOURS_DISPLAY = "Mon - Sun: 8 AM - 9 PM"
+export const COMPANY_HOURS_SHORT = "Mon - Sun, 8 AM - 9 PM"
+export const COMPANY_OPENING_HOURS = [
+  {
+    "@type": "OpeningHoursSpecification" as const,
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    opens: "08:00",
+    closes: "21:00",
+  },
+]
+
+export const COMPANY_LOGO_PATH = "/service-booking-logo.png"
+
+export const COMPANY_POSTAL_ADDRESS = {
+  "@type": "PostalAddress" as const,
+  streetAddress: COMPANY_STREET_ADDRESS,
+  addressLocality: COMPANY_CITY,
+  addressRegion: COMPANY_STATE,
+  postalCode: COMPANY_POSTAL_CODE,
+  addressCountry: "IN",
+}
 
 export const COMPANY_INFO = {
   name: COMPANY_NAME,
@@ -18,11 +63,16 @@ export const BRAND_SERVICES = {
     { brand: "Kent", services: ["Kent RO Service", "Kent Water Purifier Repair", "Kent Filter Replacement", "Kent AMC", "Kent Installation"] },
     { brand: "Aquaguard", services: ["Aquaguard Service", "Aquaguard Repair", "Aquaguard Filter Change", "Aquaguard AMC", "Eureka Forbes Service"] },
     { brand: "Pureit", services: ["Pureit Service", "Pureit RO Repair", "Pureit Filter Replacement", "HUL Pureit AMC"] },
+    { brand: "Faber", services: ["Faber Water Purifier Service", "Faber RO Repair", "Faber Filter Replacement", "Faber Installation"] },
+    { brand: "Aquasure", services: ["Aquasure Service", "Aquasure RO Repair", "Aquasure Filter Change", "Aquasure AMC"] },
+    { brand: "Aqua", services: ["Aqua Water Purifier Service", "Aqua RO Repair", "Aqua Filter Replacement", "Aqua UV Service"] },
+    { brand: "Purosis", services: ["Purosis Water Purifier Service", "Purosis RO Repair", "Purosis Filter Change", "Purosis AMC"] },
+    { brand: "Aqua Pearl", services: ["Aqua Pearl Water Purifier Service", "Aqua Pearl RO Repair", "Aqua Pearl Filter Replacement"] },
     { brand: "Livpure", services: ["Livpure Service", "Livpure RO Repair", "Livpure Filter Change", "Livpure Installation"] },
     { brand: "Blue Star", services: ["Blue Star Water Purifier Service", "Blue Star RO Repair", "Blue Star Filter Replacement"] },
     { brand: "AO Smith", services: ["AO Smith Service", "AO Smith RO Repair", "AO Smith Filter Change", "AO Smith Installation"] },
     { brand: "Havells", services: ["Havells Water Purifier Service", "Havells RO Repair", "Havells Filter Replacement"] },
-    { brand: "LG", services: ["LG Water Purifier Service", "LG RO Repair", "LG Filter Change"] },
+    { brand: "LG", services: ["LG Water Purifier Service", "LG RO Repair", "LG Filter Change", "LG UV Purifier Service"] },
   ],
   "chimney": [
     { brand: "Faber", services: ["Faber Chimney Service", "Faber Chimney Repair", "Faber Chimney Cleaning", "Faber Motor Repair", "Faber Filter Cleaning"] },
@@ -33,8 +83,11 @@ export const BRAND_SERVICES = {
     { brand: "Bosch", services: ["Bosch Chimney Service", "Bosch Chimney Repair", "Bosch Chimney Cleaning"] },
     { brand: "IFB", services: ["IFB Chimney Service", "IFB Chimney Repair", "IFB Chimney Cleaning"] },
     { brand: "Kutchina", services: ["Kutchina Chimney Service", "Kutchina Chimney Repair", "Kutchina Chimney Cleaning"] },
-    { brand: "Sunflame", services: ["Sunflame Chimney Service", "Sunflame Chimney Repair", "Sunflame Chimney Cleaning", "Sunflame Filter Replacement"] },
     { brand: "Gilma", services: ["Gilma Chimney Service", "Gilma Chimney Repair", "Gilma Chimney Cleaning", "Gilma Motor Repair"] },
+    { brand: "Sunflame", services: ["Sunflame Chimney Service", "Sunflame Chimney Repair", "Sunflame Chimney Cleaning", "Sunflame Filter Replacement"] },
+    { brand: "Beyond", services: ["Beyond Chimney Service", "Beyond Chimney Repair", "Beyond Chimney Cleaning", "Beyond Motor Repair"] },
+    { brand: "Haier", services: ["Haier Chimney Service", "Haier Chimney Repair", "Haier Chimney Cleaning", "Haier Filter Replacement"] },
+    { brand: "Hafele", services: ["Hafele Chimney Service", "Hafele Chimney Repair", "Hafele Chimney Cleaning", "Hafele Installation"] },
     { brand: "Blowhot", services: ["Blowhot Chimney Service", "Blowhot Chimney Repair", "Blowhot Chimney Cleaning", "Blowhot Installation"] },
     { brand: "Prestige", services: ["Prestige Chimney Service", "Prestige Chimney Repair", "Prestige Chimney Cleaning", "Prestige Filter Service"] },
   ],
@@ -51,6 +104,8 @@ export const BRAND_SERVICES = {
     { brand: "Glen", services: ["Glen Hob Service", "Glen Gas Stove Repair", "Glen Cooktop Service", "Glen Burner Repair"] },
     { brand: "Kutchina", services: ["Kutchina Hob Service", "Kutchina Cooktop Repair", "Kutchina Gas Hob Installation"] },
     { brand: "Blowhot", services: ["Blowhot Hob Service", "Blowhot Gas Stove Repair", "Blowhot Cooktop Service", "Blowhot Burner Repair"] },
+    { brand: "Beyond", services: ["Beyond Hob Service", "Beyond Gas Stove Repair", "Beyond Cooktop Repair", "Beyond Burner Replacement"] },
+    { brand: "Hafele", services: ["Hafele Hob Service", "Hafele Cooktop Repair", "Hafele Gas Hob Installation", "Hafele Burner Repair"] },
   ],
   "ac": [
     { brand: "Daikin", services: ["Daikin AC Service", "Daikin AC Repair", "Daikin AC Gas Refill", "Daikin AC Installation", "Daikin AC AMC"] },
@@ -93,6 +148,8 @@ export const BRAND_SERVICES = {
     { brand: "Samsung", services: ["Samsung Dishwasher Service", "Samsung Dishwasher Repair", "Samsung WaterWall Service"] },
     { brand: "Siemens", services: ["Siemens Dishwasher Service", "Siemens Dishwasher Repair", "Siemens Installation"] },
     { brand: "Faber", services: ["Faber Dishwasher Service", "Faber Dishwasher Repair", "Faber Countertop Dishwasher"] },
+    { brand: "Hafele", services: ["Hafele Dishwasher Service", "Hafele Dishwasher Repair", "Hafele Built-in Dishwasher Installation"] },
+    { brand: "Kelvinator", services: ["Kelvinator Dishwasher Service", "Kelvinator Dishwasher Repair", "Kelvinator Installation"] },
     { brand: "Voltas Beko", services: ["Voltas Beko Dishwasher Service", "Voltas Beko Repair", "Voltas Beko Installation"] },
     { brand: "Elica", services: ["Elica Dishwasher Service", "Elica Dishwasher Repair", "Elica Built-in Service"] },
   ],
@@ -131,23 +188,25 @@ export const SERVICES: Service[] = [
     id: "water-purifier",
     name: "Water Purifier",
     slug: "water-purifier",
-    shortDesc: "Kent, Aquaguard, Pureit RO service & repair in Bangalore",
-    shortDescription: "Kent, Aquaguard, Pureit RO service & repair in Bangalore",
-    description: "Expert water purifier services for Kent, Aquaguard, Pureit, Livpure, Blue Star, AO Smith & all brands. RO service, UV repair, filter replacement & AMC in Bangalore.",
+    shortDesc: "Kent, Faber, Aquaguard, Aquasure, Purosis, LG RO service in Bangalore",
+    shortDescription: "Kent, Faber, Aquaguard, Aquasure, Purosis, LG RO service in Bangalore",
+    description: "Expert water purifier services for Kent, Faber, Aquaguard, Aquasure, Aqua, Purosis, Aqua Pearl, Pureit, Livpure, LG & all brands. RO service, filter replacement & AMC in Bangalore.",
     icon: Droplets,
     iconColor: "text-blue-600",
     iconBg: "bg-blue-100",
     image: "/images/water-purifier.jpg",
-    imageAlt: "Kent RO water purifier service and Aquaguard repair in Bangalore - professional installation and filter replacement",
+    imageAlt: "Kent, Faber, Aquaguard, Aquasure, Purosis, Aqua Pearl and LG water purifier service in Bangalore - RO repair and filter replacement",
     features: [
       "Kent RO Service & Repair",
+      "Faber Water Purifier Service",
       "Aquaguard Service Center",
-      "Pureit Filter Replacement",
-      "Livpure AMC Service",
-      "Blue Star RO Repair",
-      "AO Smith Installation"
+      "Aquasure RO Repair",
+      "Aqua Water Purifier Service",
+      "Purosis Filter Replacement",
+      "Aqua Pearl RO Service",
+      "LG Water Purifier Repair"
     ],
-    brands: ["Kent", "Aquaguard", "Pureit", "Livpure", "Blue Star", "AO Smith", "Havells", "LG"],
+    brands: ["Kent", "Faber", "Aquaguard", "Aquasure", "Aqua", "Purosis", "Aqua Pearl", "Pureit", "Livpure", "LG", "Blue Star", "AO Smith", "Havells"],
     priceRange: "₹499 - ₹2,999",
     startingPrice: "₹499"
   },
@@ -155,27 +214,30 @@ export const SERVICES: Service[] = [
     id: "chimney",
     name: "Kitchen Chimney",
     slug: "chimney",
-    shortDesc: "Faber, Elica, Gilma, Kaff, Glen, Sunflame chimney service in Bangalore",
-    shortDescription: "Faber, Elica, Gilma, Kaff, Glen, Sunflame chimney service in Bangalore",
-    description: "Professional chimney services for Faber, Elica, Gilma, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige & all brands. Deep cleaning, motor repair, filter replacement & installation in Bangalore.",
+    shortDesc: "Faber, Elica, Gilma, Sunflame, Beyond, Haier, Hafele chimney service in Bangalore",
+    shortDescription: "Faber, Elica, Gilma, Sunflame, Beyond, Haier, Hafele chimney service in Bangalore",
+    description: "Professional chimney services for Faber, Elica, Gilma, Sunflame, Beyond, Haier, Hafele, Kaff, Glen, Hindware, Kutchina, Blowhot, Prestige & all brands. Deep cleaning, motor repair, filter replacement & installation in Bangalore.",
     icon: Wind,
     iconColor: "text-orange-600",
     iconBg: "bg-orange-100",
     image: "/images/chimney.jpg",
-    imageAlt: "Faber chimney cleaning, Elica chimney repair, Gilma chimney service, Kaff chimney, Glen chimney, Sunflame chimney service in Bangalore - professional deep cleaning and motor repair",
+    imageAlt: "Faber, Gilma, Sunflame, Beyond, Haier, Hafele chimney cleaning and repair in Bangalore - professional deep cleaning and motor repair",
     features: [
       "Faber Chimney Cleaning",
       "Elica Motor Repair",
       "Gilma Chimney Service",
+      "Sunflame Chimney Repair",
+      "Beyond Chimney Cleaning",
+      "Haier Chimney Service",
+      "Hafele Chimney Repair",
       "Kaff Filter Replacement",
       "Glen Chimney Service",
-      "Sunflame Chimney Repair",
       "Hindware Installation",
       "Kutchina Chimney Cleaning",
       "Blowhot Chimney Service",
       "Prestige Chimney Repair"
     ],
-    brands: ["Faber", "Gilma", "Elica", "Kaff", "Glen", "Sunflame", "Hindware", "Kutchina", "Blowhot", "Prestige", "Bosch", "IFB"],
+    brands: ["Faber", "Elica", "Gilma", "Sunflame", "Beyond", "Haier", "Hafele", "Kaff", "Glen", "Hindware", "Kutchina", "Blowhot", "Prestige", "Bosch", "IFB"],
     priceRange: "₹399 - ₹1,999",
     startingPrice: "₹399"
   },
@@ -183,29 +245,28 @@ export const SERVICES: Service[] = [
     id: "hob",
     name: "Gas Hob & Cooktop",
     slug: "hob",
-    shortDesc: "Faber, Gilma, Elica, Kaff, Glen, Sunflame, Prestige hob repair in Bangalore",
-    shortDescription: "Faber, Gilma, Elica, Kaff, Glen, Sunflame, Prestige hob repair in Bangalore",
-    description: "Expert gas hob services for Faber, Gilma, Elica, Kaff, Glen, Sunflame, Hindware, Kutchina, Blowhot, Prestige, Pigeon & all brands. Burner repair, ignition fix, glass top replacement in Bangalore.",
+    shortDesc: "Faber, Gilma, Glen, Sunflame, Hafele, Beyond hob repair in Bangalore",
+    shortDescription: "Faber, Gilma, Glen, Sunflame, Hafele, Beyond hob repair in Bangalore",
+    description: "Expert gas hob services for Faber, Gilma, Glen, Sunflame, Hindware, Kaff, Hafele, Beyond, Prestige, Pigeon & all brands. Burner repair, ignition fix, glass top replacement in Bangalore.",
     icon: Flame,
     iconColor: "text-red-600",
     iconBg: "bg-red-100",
     image: "/images/hob.jpg",
-    imageAlt: "Faber hob repair, Gilma cooktop service, Elica hob, Kaff gas stove, Glen hob, Sunflame cooktop, Prestige gas hob service in Bangalore - burner repair and glass top replacement",
+    imageAlt: "Faber, Gilma, Glen, Sunflame, Hindware, Kaff, Hafele, Beyond hob repair in Bangalore - burner repair and glass top replacement",
     features: [
       "Faber Hob Repair",
       "Gilma Cooktop Cleaning",
-      "Elica Hob Installation",
-      "Kaff Gas Stove Service",
       "Glen Hob Repair",
       "Sunflame Burner Repair",
       "Hindware Cooktop Service",
-      "Kutchina Hob Installation",
-      "Blowhot Gas Stove Repair",
+      "Kaff Gas Stove Service",
+      "Hafele Hob Installation",
+      "Beyond Hob Repair",
       "Prestige Hob Repair"
     ],
-    brands: ["Faber", "Gilma", "Elica", "Kaff", "Glen", "Sunflame", "Hindware", "Kutchina", "Blowhot", "Prestige", "Pigeon", "Bosch"],
-    priceRange: "₹299 - ₹1,499",
-    startingPrice: "₹299"
+    brands: ["Faber", "Gilma", "Glen", "Sunflame", "Hindware", "Kaff", "Hafele", "Beyond", "Prestige", "Pigeon", "Elica", "Bosch"],
+    priceRange: "₹450 - ₹1,499",
+    startingPrice: "₹450"
   },
   {
     id: "ac",
@@ -283,23 +344,24 @@ export const SERVICES: Service[] = [
     id: "dishwasher",
     name: "Dishwasher",
     slug: "dishwasher",
-    shortDesc: "Bosch, IFB, LG, Samsung dishwasher service in Bangalore",
-    shortDescription: "Bosch, IFB, LG, Samsung dishwasher service in Bangalore",
-    description: "Expert dishwasher services for Bosch, IFB, LG, Samsung, Siemens, Faber & all brands. Installation, repair, maintenance & AMC in Bangalore.",
+    shortDesc: "Bosch, IFB, LG, Faber, Hafele, Siemens dishwasher service in Bangalore",
+    shortDescription: "Bosch, IFB, LG, Faber, Hafele, Siemens dishwasher service in Bangalore",
+    description: "Expert dishwasher services for Bosch, IFB, LG, Samsung, Siemens, Faber, Hafele, Kelvinator & all brands. Installation, repair, drainage fix & AMC in Bangalore.",
     icon: Sparkles,
     iconColor: "text-emerald-600",
     iconBg: "bg-emerald-100",
     image: "/images/dishwasher.jpg",
-    imageAlt: "Bosch dishwasher service and IFB dishwasher repair in Bangalore - installation and maintenance",
+    imageAlt: "Bosch, IFB, LG, Faber, Hafele, Siemens and Kelvinator dishwasher service in Bangalore - installation and repair",
     features: [
       "Bosch Dishwasher Repair",
       "IFB Neptune Service",
       "LG QuadWash Repair",
-      "Samsung WaterWall Service",
+      "Faber Dishwasher Service",
+      "Hafele Built-in Repair",
       "Siemens Installation",
-      "Faber Countertop Service"
+      "Kelvinator Dishwasher Service"
     ],
-    brands: ["Bosch", "IFB", "LG", "Samsung", "Siemens", "Faber", "Voltas Beko", "Elica"],
+    brands: ["Bosch", "IFB", "LG", "Samsung", "Siemens", "Faber", "Hafele", "Kelvinator", "Voltas Beko", "Elica"],
     priceRange: "₹599 - ₹2,499",
     startingPrice: "₹599"
   },
@@ -392,7 +454,7 @@ export const TESTIMONIALS = [
     location: "HSR Layout",
     rating: 5,
     service: "Faber Chimney Cleaning",
-    text: "My Faber kitchen chimney was barely working. ServiceHub deep cleaning service made it work perfectly. Great value for money!",
+    text: "My Faber kitchen chimney was barely working. Service Booking deep cleaning service made it work perfectly. Great value for money!",
     initials: "AR",
     color: "bg-purple-500"
   },
@@ -412,7 +474,7 @@ export const TESTIMONIALS = [
     location: "Electronic City",
     rating: 5,
     service: "Aquaguard Installation",
-    text: "Got a new Aquaguard RO installed through ServiceHub. Installation was clean and they explained everything about filter maintenance.",
+    text: "Got a new Aquaguard RO installed through Service Booking. Installation was clean and they explained everything about filter maintenance.",
     initials: "SP",
     color: "bg-orange-500"
   },
@@ -432,7 +494,7 @@ export const TESTIMONIALS = [
     location: "Bellandur",
     rating: 5,
     service: "IFB Washing Machine Repair",
-    text: "My IFB front load washer stopped spinning. ServiceHub technician diagnosed it quickly and replaced the motor. Works perfectly now!",
+    text: "My IFB front load washer stopped spinning. Service Booking technician diagnosed it quickly and replaced the motor. Works perfectly now!",
     initials: "MN",
     color: "bg-violet-500"
   },
@@ -452,7 +514,7 @@ export const TESTIMONIALS = [
     location: "Indiranagar",
     rating: 5,
     service: "Samsung TV Repair",
-    text: "My Samsung TV screen went blank. ServiceHub technician diagnosed the issue and replaced the backlight. Picture quality is perfect now!",
+    text: "My Samsung TV screen went blank. Service Booking technician diagnosed the issue and replaced the backlight. Picture quality is perfect now!",
     initials: "RK",
     color: "bg-indigo-500"
   }
@@ -461,11 +523,11 @@ export const TESTIMONIALS = [
 export const FAQS = [
   {
     question: "Which water purifier brands do you service in Bangalore?",
-    answer: "We service all major water purifier brands including Kent, Aquaguard (Eureka Forbes), Pureit (HUL), Livpure, Blue Star, AO Smith, Havells, and LG. Our technicians are trained for RO, UV, and UF purifiers of all brands."
+    answer: "We service Kent, Faber, Aquaguard, Aquasure, Aqua, Purosis, Aqua Pearl, Pureit, Livpure, LG, Blue Star, AO Smith, Havells, and all major RO/UV brands across Bangalore."
   },
   {
     question: "Do you provide Faber and Elica chimney service?",
-    answer: "Yes, we are experts in Faber chimney service, Elica chimney cleaning, Hindware chimney repair, Kaff, Glen, and Bosch chimney services. We provide deep cleaning, motor repair, and filter replacement for all chimney brands."
+    answer: "Yes, we are experts in Faber, Elica, Gilma, Sunflame, Beyond, Haier, and Hafele chimney service. We also repair Hindware, Kaff, Glen, Bosch, and all major chimney brands. Deep cleaning, motor repair, and filter replacement available."
   },
   {
     question: "Which AC brands do you repair in Bangalore?",
@@ -473,7 +535,7 @@ export const FAQS = [
   },
   {
     question: "Do you repair Prestige and Pigeon gas hobs?",
-    answer: "Yes, we provide repair services for Prestige hob, Pigeon gas stove, Sunflame cooktop, Gilma hob, Elica, Faber, and Bosch cooktops. Services include burner repair, ignition fix, and glass top replacement."
+    answer: "Yes, we repair Prestige, Pigeon, Faber, Gilma, Glen, Sunflame, Hindware, Kaff, Hafele, Beyond, Elica, and Bosch hobs. Services include burner repair, ignition fix, and glass top replacement."
   },
   {
     question: "Which washing machine brands do you service?",
@@ -485,7 +547,7 @@ export const FAQS = [
   },
   {
     question: "Do you provide Bosch and IFB dishwasher service?",
-    answer: "Yes, we service Bosch, IFB, LG, Samsung, Siemens, and Faber dishwashers. Our services include installation, repair, drainage fix, and annual maintenance."
+    answer: "Yes, we service Bosch, IFB, LG, Samsung, Siemens, Faber, Hafele, Kelvinator, and Voltas Beko dishwashers. Installation, repair, drainage fix, and annual maintenance available."
   },
   {
     question: "What are your service charges for Kent RO service?",

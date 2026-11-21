@@ -1,0 +1,16 @@
+# AI crawler policy for https://servicebooking.in
+
+User-Agent: *
+Allow: /
+Allow: /llms.txt
+
+# Preferred machine-readable summary for LLMs and answer engines:
+# https://servicebooking.in/llms.txt
+
+# Do not crawl:
+Disallow: /api/
+Disallow: /scripts/
+
+# Contact
+# Email: support@servicebooking.in
+# Phone: +91 99010 21555

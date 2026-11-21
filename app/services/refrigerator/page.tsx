@@ -1,12 +1,15 @@
 import { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import Image from "next/image"
 import Link from "next/link"
 import { LeadForm } from "@/components/forms/lead-form"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { FaqSection } from "@/components/sections/faq-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
-import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
-import { BANGALORE_AREAS, TESTIMONIALS, BRAND_SERVICES } from "@/lib/constants"
+import { ServiceJsonLd } from "@/components/seo/json-ld"
+import { ServiceHubAnswerSummary } from "@/components/seo/service-hub-answer-summary"
+import { BANGALORE_AREAS, BRAND_SERVICES, COMPANY_INFO, COMPANY_PHONE_TEL } from "@/lib/constants"
+import { getTestimonialsForService } from "@/lib/testimonials"
 import { 
   Refrigerator, 
   Wrench, 
@@ -25,19 +28,12 @@ import {
   type LucideIcon
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "LG Refrigerator Service Bangalore | Samsung, Whirlpool, Godrej Fridge Repair",
-  description: "Expert LG refrigerator repair Bangalore. Samsung fridge service, Whirlpool compressor repair, Godrej refrigerator service, Haier fridge repair. Same-day service in Koramangala, Whitefield, HSR Layout.",
-  keywords: "LG refrigerator service Bangalore, Samsung fridge repair, Whirlpool refrigerator service, Godrej fridge repair, Haier refrigerator service, Bosch fridge repair Bangalore",
-  openGraph: {
-    title: "LG Refrigerator Service Bangalore | Samsung, Whirlpool, Godrej Repair",
-    description: "Expert repair for LG, Samsung, Whirlpool, Godrej & Haier refrigerators in Bangalore. Compressor repair, gas refill & thermostat fix.",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://servicebooking.in/services/refrigerator",
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Refrigerator repair Bangalore",
+  description: "LG and Samsung refrigerator repair near you in Bangalore. Compressor, gas refill and thermostat fix. Call +91 99010 21555.",
+  path: "/services/refrigerator",
+})
+
 
 const services = [
   {
@@ -126,15 +122,14 @@ const breadcrumbItems = [
 ]
 
 export default function RefrigeratorPage() {
+  const testimonials = getTestimonialsForService("refrigerator")
+
   return (
     <>
       <ServiceJsonLd 
         serviceName="Refrigerator Service Bangalore"
         description="Professional refrigerator installation, repair, and maintenance services in Bangalore. All brands serviced."
       />
-      <FaqJsonLd faqs={faqs} />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-16">
         <div className="container mx-auto px-4">
@@ -148,7 +143,7 @@ export default function RefrigeratorPage() {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-                LG & Samsung Refrigerator Service in Bangalore
+                Refrigerator repair in Bangalore
               </h1>
               
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
@@ -167,7 +162,7 @@ export default function RefrigeratorPage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:+919876543210" 
+                  href={`tel:${COMPANY_PHONE_TEL}`} 
                   className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
@@ -208,6 +203,8 @@ export default function RefrigeratorPage() {
           </div>
         </div>
       </section>
+
+      <ServiceHubAnswerSummary serviceSlug="refrigerator" />
 
       {/* Services Grid */}
       <section className="py-16 md:py-24">
@@ -400,7 +397,7 @@ export default function RefrigeratorPage() {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {BANGALORE_AREAS.slice(0, 15).map((area) => (
+            {BANGALORE_AREAS.map((area) => (
               <Link
                 key={area.slug}
                 href={`/areas/${area.slug}/refrigerator`}
@@ -427,7 +424,7 @@ export default function RefrigeratorPage() {
       <TestimonialsSection 
         title="Customer Reviews"
         subtitle="See what our customers say about our refrigerator services"
-        testimonials={TESTIMONIALS.slice(0, 3)}
+        testimonials={testimonials}
       />
 
       {/* FAQ Section */}
@@ -453,7 +450,7 @@ export default function RefrigeratorPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <span className="text-lg font-medium">+91 98765 43210</span>
+                  <span className="text-lg font-medium">{COMPANY_INFO.phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Timer className="w-5 h-5" />
